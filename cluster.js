@@ -2,6 +2,7 @@ const cluster = require('cluster');
 const CPUs = require('os').cpus();
 
 if (cluster.isMaster) {
+  // create an instance for each CPU core
   CPUs.forEach(() => cluster.fork());
 
   cluster.on('listening', worker =>
@@ -15,4 +16,4 @@ if (cluster.isMaster) {
   cluster.on('exit', worker =>
     console.log('Cluster %d exited.', worker.process.pid),
   );
-} else require('./index');
+} else require('./index'); // start serve on each instance
