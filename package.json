@@ -1,0 +1,26 @@
+{
+  "name": "wtc-backend",
+  "version": "1.0.0",
+  "description": "Find where to code nearby",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/where-to-code/wtc-backend.git"
+  },
+  "keywords": [
+    "places",
+    "code",
+    "map",
+    "find",
+    "where-to-code"
+  ],
+  "author": "where-to-code team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/where-to-code/wtc-backend/issues"
+  },
+  "homepage": "https://github.com/where-to-code/wtc-backend#readme"
+}
