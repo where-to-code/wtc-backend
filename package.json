@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node cluster.js",
     "server": "nodemon index.js",
-    "test": "jest --verbose --coverage",
+    "test": "jest --verbose --coverage --forceExit",
     "watch": "jest --verbose --watch"
   },
   "repository": {
