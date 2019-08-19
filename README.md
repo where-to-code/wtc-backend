@@ -19,7 +19,8 @@ To get the server running locally:
 - Clone this repo
 - **npm install** to install all required dependencies
 - **npm run server** to start the local server
-- **yarn test** to start server using testing environment
+- **npm test** to start server using testing environment
+- **npm run watch** to start the test in watch mode
 
 ### Backend framework
 
