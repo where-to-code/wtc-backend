@@ -9,6 +9,7 @@
     "test": "cross-env DB_ENV=testing jest --verbose --coverage --forceExit",
     "watch": "cross-env DB_ENV=testing jest --verbose --watch",
     "migrate": "knex migrate:latest",
+    "seed": "knex seed:run",
     "rollback": "knex migrate:rollback --all"
   },
   "repository": {
