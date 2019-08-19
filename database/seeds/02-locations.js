@@ -26,5 +26,21 @@ exports.seed = knex =>
         latitude: '6.5400607',
         longitude: '3.3647819',
       },
+      {
+        name: 'Chicken Republic',
+        description: 'A fast food for work.',
+        image_url: 'https://image.flaticon.com/icons/svg/201/201559.svg',
+        address: '10 Ikorodu Rd, Yaba, Lagos',
+        latitude: '6.517845',
+        longitude: '3.3667155',
+      },
+      {
+        name: 'Vintage Suites',
+        description: 'Work away from this place',
+        image_url: 'https://image.flaticon.com/icons/svg/201/201559.svg',
+        address: '15c Akinhanmi St, Surulere, Lagos',
+        latitude: '6.5152371',
+        longitude: '3.3629375',
+      },
     ]),
   );
