@@ -14,8 +14,7 @@ before_script:
   - psql -c 'create database backend_test;' -U postgres
   - npm install -g nyc
 script:
-  - nyc --reporter=lcov npm test
-  - sudo /etc/init.d/postgresql stop 
+ npm test 
 after_success:
   npm run coverage
 notifications:
