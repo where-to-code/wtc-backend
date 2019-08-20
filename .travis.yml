@@ -12,15 +12,13 @@ env:
    
 before_script:
   - psql -c 'create database backend_test;' -U postgres
-  - npm install -g nyc
+  - npm install coveralls
 
 
 script:
-  - nyc --reporter=lcov npm test
-  - sudo /etc/init.d/redis-server stop
+  - npm test
   - sudo /etc/init.d/postgresql stop 
 after_script:
-  -  nyc report --reporter=text-lcov | coveralls
-
+  - jest --coverage --coverageReporters=text-lcov | coveralls
 notifications:
   email: false
