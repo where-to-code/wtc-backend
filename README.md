@@ -21,6 +21,10 @@ To get the server running locally:
 - **npm run server** to start the local server
 - **npm test** to start server using testing environment
 - **npm run watch** to start the test in watch mode
+- **npm run migrate** to migrate the tables
+- **npm run seed** to seed the tables
+- **npm run rollback** to rollback all tables
+- **npm run reset-db** to rollback, migrate and seed the tables at a go
 
 ### Backend framework
 
