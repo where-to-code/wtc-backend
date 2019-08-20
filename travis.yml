@@ -11,7 +11,7 @@ env:
   global:
     - DB_ENV=testing
 before_script:
-  - psql -c 'create backend_test;' -U postgres
+  - psql -c 'create database backend_test;' -U postgres
   - npm install -g nyc
 script:
   - nyc --reporter=lcov npm test
