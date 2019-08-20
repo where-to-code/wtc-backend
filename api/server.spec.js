@@ -6,8 +6,10 @@ describe('/ [GET]', () => {
     request(server)
       .get('/')
       .expect('Content-Type', /json/)
-      .expect(200);
-      done
+      .then(res =>{
+        expect(res.status).toEqual(200)
+        done()
+      })
   });
 
   it('returns a message', (done) =>
