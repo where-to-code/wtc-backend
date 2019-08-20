@@ -1,0 +1,22 @@
+
+language: node_js
+node_js:
+  - "stable"
+services:
+  - postgresql
+cache:
+  directories:
+    - "node_modules"
+env:
+  global:
+    - DB_ENV=testing
+before_script:
+  - psql -c 'create backend_test;' -U postgres
+  - npm install -g nyc
+script:
+  - nyc --reporter=lcov npm test
+  - sudo /etc/init.d/postgresql stop 
+after_success:
+  npm run coverage
+notifications:
+  email:false
