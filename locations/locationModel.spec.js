@@ -3,12 +3,16 @@ const db = require('../database/dbConfig');
 const Location = require('./locationModel');
 
 describe('Model for locations', () => {
-  beforeEach(() => db.migrate.rollback()
-    .then(() => db.migrate.latest())
-    .then(() => db.seed.run()));
+  beforeEach(async () => {
+    await db.migrate.rollback();
+    await db.migrate.latest();
+    await db.seed.run();
+  },
+  );
 
   afterEach(() => db.migrate.rollback());
 });
+
 
 describe('location /GET location by query parameters testing', () => {
   const place = {
