@@ -16,8 +16,8 @@ describe('/ [GET]', () => {
     request(server)
       .get('/')
       .expect('Content-Type', /json/)
-      .expect(200)
       .then(res => {
+        expect(res.status).toEqual(200);
         expect(res.body.message).toEqual('The Where-to-Code Server is up!');
         done();
       }));
@@ -26,8 +26,8 @@ describe('/ [GET]', () => {
     request(server)
       .get('/very-inappropriate-url')
       .expect('Content-Type', /json/)
-      .expect(404)
       .then(res => {
+        expect(res.status).toEqual(404);
         expect(res.body.message).toEqual('No endpoint matches that URL.');
         done();
       }));

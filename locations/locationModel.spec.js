@@ -10,7 +10,7 @@ describe('Model for locations', () => {
   },
   );
 
-  afterEach(() => db.migrate.rollback());
+  afterEach(async() => await db.migrate.rollback());
 });
 
 
