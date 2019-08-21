@@ -9,8 +9,7 @@ describe('Model for locations', () => {
     await db.seed.run();
   },
   );
-
-  afterEach(async() => await db.migrate.rollback());
+  afterEach(() => db.migrate.rollback());
 });
 
 
