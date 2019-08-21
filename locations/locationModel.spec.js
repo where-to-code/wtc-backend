@@ -71,28 +71,4 @@ describe('location /GET location by query parameters testing', () => {
       expect(locations[0]).toBeInstanceOf(Object);
     }
   });
-  // it('should match object type for each of the object in the table', async () => {
-  //   const lat = '6.5663896';
-  //   const long = '3.3662124';
-  //   const item = {
-  //     id: 1,
-  //     name: 'SPAR Ilupeju',
-  //     description: 'A spar to code in.',
-  //     image_url: 'https://image.flaticon.com/icons/svg/201/201559.svg',
-  //     address: '31, Ilupeju Mall, 33 Town Planning Way, Ilupeju 100252, Lagos',
-  //     longitude: '3.3663045',
-  //     latitude: '6.553909',
-  //     created_at: '2019-08-21T08:23:52.486Z',
-  //   };
-  //   const locations = await Location.getLocationByQuery(lat, long);
-  //   if (locations.length !== 0) {
-  //     expect(locations[0]).toContain(item);
-  //   }
-  // });
 });
-
-
-// expect(value)
-//   .toContain(item)
-//   .toContainEqual(item)
-//   .toHaveLength(number
