@@ -1,5 +1,6 @@
-# wtc-backend
 [![Coverage Status](https://coveralls.io/repos/github/where-to-code/wtc-backend/badge.svg?branch=chore/set-up-C.I)](https://coveralls.io/github/where-to-code/wtc-backend?branch=chore/set-up-C.I)
+
+# wtc-backend
 
 🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your portfolio. This is intended to be a guideline. Feel free to add your own flare to it.
 
