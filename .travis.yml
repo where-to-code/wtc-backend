@@ -13,8 +13,6 @@ env:
 before_script:
   - psql -c 'create database backend_test;' -U postgres
   - npm install coveralls
-
-
 script:
   - npm test
   - sudo /etc/init.d/postgresql stop 
