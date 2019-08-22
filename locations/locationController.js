@@ -1,11 +1,12 @@
-const model = require('./locationModel');
+const getLocations = require('./locationModel');
 const statusHandler = require('../helpers/statusHandler');
 
 // eslint-disable-next-line consistent-return
 const getAllLocationsCloseToUser = async (req, res) => {
   const { lat, long } = req.query;
   try {
-    const data = await model.getLocationByQuery(lat, long);
+    const data = await getLocations(lat, long);
+
     if (data.length === 0) {
       return statusHandler(
         res,
