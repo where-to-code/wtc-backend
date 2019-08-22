@@ -9,9 +9,6 @@ describe('Model for locations', () => {
   });
 
   afterEach(() => db.migrate.rollback());
-  afterAll(() => {
-    db.destroy();
-  });
 });
 
 describe('location /GET location by query parameters testing', () => {
