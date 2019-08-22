@@ -6,7 +6,6 @@ const lat = joi
   .required()
   .error(errors => {
     errors.forEach(err => {
-      console.log(err.type)
       // eslint-disable-next-line default-case
       switch (err.type) {
         case 'any.required':
@@ -26,9 +25,9 @@ const lat = joi
 const long = joi
   .number()
   .invalid('')
-  .required().error(errors => {
+  .required()
+  .error(errors => {
     errors.forEach(err => {
-      console.log(err.type)
       // eslint-disable-next-line default-case
       switch (err.type) {
         case 'any.required':
@@ -50,7 +49,6 @@ const querySchema = joi.object().keys({
   lat,
   long,
 });
-
 
 module.exports = {
   querySchema,

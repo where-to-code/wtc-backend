@@ -24,6 +24,35 @@ describe('/locations [GET]', () => {
       .expect('Content-Type', /json/);
     expect(res.status).toEqual(400);
   });
+  it('should fail if latitude or longitude is empty', async () => {
+    const res = await request(server)
+      .get('/api/locations')
+      .query({ lat: '', long: '' })
+      .expect('Content-Type', /json/);
+    expect(res.status).toEqual(400);
+    expect(res.body.error).toEqual([
+      'Latitude cannot be empty',
+      'Latitude must be a number',
+      'Longitude cannot be empty',
+      'Longitude must be a number',
+    ]);
+  });
+  it('should fail if latitude is not a number', async () => {
+    const res = await request(server)
+      .get('/api/locations')
+      .query({ lat: 'abc', long: -34.56 })
+      .expect('Content-Type', /json/);
+    expect(res.status).toEqual(400);
+    expect(res.body.error).toEqual(['Latitude must be a number']);
+  });
+  it('should fail if longitude is not a number', async () => {
+    const res = await request(server)
+      .get('/api/locations')
+      .query({ lat: '12.4', long: 'abs' })
+      .expect('Content-Type', /json/);
+    expect(res.status).toEqual(400);
+    expect(res.body.error).toEqual(['Longitude must be a number']);
+  });
   it('should fail if no location around user', async () => {
     const res = await request(server)
       .get('/api/locations')
@@ -37,12 +66,5 @@ describe('/locations [GET]', () => {
       .query(queryParameter2)
       .expect('Content-Type', /json/);
     expect(res.status).toEqual(200);
-  });
-  it('should fail if network error', async () => {
-    try {
-      await request(server).get('/api/locations');
-    } catch (error) {
-      expect(error).toMatch('Something went wrong');
-    }
   });
 });
