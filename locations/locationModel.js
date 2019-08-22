@@ -1,6 +1,6 @@
 const db = require('../database/dbConfig');
 
-module.exports = async (lat, long) => {
+const getLocations = async (lat, long) => {
   const dbResults = await db('locations');
 
   return dbResults.filter(
@@ -10,4 +10,14 @@ module.exports = async (lat, long) => {
       (Number(location.longitude) >= Number(long) - 0.135 &&
         Number(location.longitude) <= Number(long) + 0.135),
   );
+};
+
+const getSingleLocation = id =>
+  db('locations')
+    .where({ id })
+    .first();
+
+module.exports = {
+  getLocations,
+  getSingleLocation,
 };
