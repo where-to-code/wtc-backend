@@ -1,7 +1,14 @@
-const statusHandler = (res, status, data) =>
+module.exports = (res, status, data) => {
+  const statusCodes = {
+    200: 'data',
+    201: 'data',
+    400: 'message',
+    404: 'message',
+    500: 'error',
+  };
+
   res.status(status).json({
     status,
-    info: data,
+    [statusCodes[status]]: data,
   });
-
-module.exports = statusHandler;
+};
