@@ -63,7 +63,7 @@ describe('/locations/:id [GET]', () => {
       .get('/api/locations/1')
       .expect('Content-Type', /json/)
       .then(res => {
-        expect(res.body.info.id).toEqual(1);
+        expect(res.body.data.id).toEqual(1);
       }));
 
   it('Returns a 404 if no location matches the id', () =>
