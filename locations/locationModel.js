@@ -1,19 +1,16 @@
 const db = require('../database/dbConfig');
 
 function getLocationByQuery(lat, long) {
-  return db('locations')
-    .where(function () {
-      this
-        .where('latitude', '<=', lat + 0.1350)
-        .orWhere('latitude', '>=', lat - 0.1350);
-    })
-    .andWhere(function () {
-      this
-        .where('longitude', '<=', long + 0.1350)
-        .orWhere('longitude', '>=', long - 0.1350);
-    });
-}
+  const latitude = Math.abs(lat);
+  const longitude = Math.abs(long);
 
+  return db('locations')
+    .where('latitude', '>', `${(latitude - 0.135).toString()}`)
+    .andWhere('latitude', '<', `${(latitude + 0.135).toString()}`)
+    .andWhere('longitude', '>', `${(longitude - 0.135).toString()}`)
+    .andWhere('longitude', '<', `${(longitude + 0.135).toString()}`)
+    .limit(30);
+}
 
 module.exports = {
   getLocationByQuery,

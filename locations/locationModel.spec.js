@@ -1,4 +1,3 @@
-process.env.NODE_ENV = 'testing';
 const db = require('../database/dbConfig');
 const Location = require('./locationModel');
 
@@ -7,71 +6,59 @@ describe('Model for locations', () => {
     await db.migrate.rollback();
     await db.migrate.latest();
     await db.seed.run();
-  },
-  );
+  });
+
   afterEach(() => db.migrate.rollback());
 });
 
-
 describe('location /GET location by query parameters testing', () => {
-  const place = {
-    id: 1,
-    name: 'SPAR Ilupeju',
-    description: 'A spar to code in.',
-    image_url: 'https://image.flaticon.com/icons/svg/201/201559.svg',
-    address: '31, Ilupeju Mall, 33 Town Planning Way, Ilupeju 100252, Lagos',
-    longitude: '3.3663045',
-    latitude: '6.553909',
-  };
-  it('is able to be an array object', async () => {
-    const lat = '6.5663896';
-    const long = '3.3662124';
+  it('should return an array of objects ', async () => {
+    const lat = '-34.58';
+    const long = '-58.44';
     const locations = await Location.getLocationByQuery(lat, long);
     expect(locations).toBeInstanceOf(Array);
-  });
-  it('is should not be null', async () => {
-    const lat = '6.5663896';
-    const long = '3.3662124';
-    const locations = await Location.getLocationByQuery(lat, long);
+    expect(locations).not.toBeUndefined();
     expect(locations).not.toBeNull();
-    expect(locations).not.toBeUndefined();
+    expect(locations[0]).toBeInstanceOf(Object);
   });
-  it('should not be undefined', async () => {
-    const lat = '6.5663896';
-    const long = '3.3662124';
+
+  it('array should not be empty when location exists', async () => {
+    const lat = '-34.58';
+    const long = '-58.44';
     const locations = await Location.getLocationByQuery(lat, long);
-    expect(locations).not.toBeUndefined();
+    expect(locations.length).toBeGreaterThanOrEqual(1);
   });
-  it('should return undefined when the array length is zero', async () => {
-    const lat = '6.5663896';
-    const long = '3.3662124';
+  it('array should be less than or equal to 30', async () => {
+    const lat = '-34.58';
+    const long = '-58.44';
     const locations = await Location.getLocationByQuery(lat, long);
-    if (locations.length === 0) {
-      expect(locations).toBeUndefined();
-    }
+    expect(locations.length).toBeLessThanOrEqual(30);
   });
-  it('should be equal to or greater than 1, when the array is not empty', async () => {
-    const lat = '6.5663896';
-    const long = '3.3662124';
+  it('should return empty array if no location exists', async () => {
+    const lat = '6.35552';
+    const long = '-58.44';
     const locations = await Location.getLocationByQuery(lat, long);
-    if (locations.length !== 0) {
-      expect(Number(locations.length)).toBeGreaterThanOrEqual(1);
-    }
+    expect(locations).toBeInstanceOf(Array);
+    expect(locations.length).toEqual(0);
   });
-  it('should match object type for each of the object in the table', async () => {
-    const lat = '6.5663896';
-    const long = '3.3662124';
+  it('all latitudes in array must be within 15km range of location', async () => {
+    const lat = '-34.58';
+    const long = '-58.44';
     const locations = await Location.getLocationByQuery(lat, long);
-    if (locations.length !== 0) {
-      expect(locations[0]).toMatchObject(place);
-    }
+    const latitudes = locations.map(location => location.latitude);
+    latitudes.forEach(latitude => {
+      expect(Number(latitude)).toBeGreaterThan(Number(lat) - 0.135);
+      expect(Number(latitude)).toBeLessThan(Number(lat) + 0.135);
+    });
   });
-  it('should be an instance of object', async () => {
-    const lat = '6.5663896';
-    const long = '3.3662124';
+  it('all longitudes in array must be within 15km range of location', async () => {
+    const lat = '-34.58';
+    const long = '-58.44';
     const locations = await Location.getLocationByQuery(lat, long);
-    if (locations.length !== 0) {
-      expect(locations[0]).toBeInstanceOf(Object);
-    }
+    const longitudes = locations.map(location => location.longitude);
+    longitudes.forEach(longitude => {
+      expect(Number(longitude)).toBeGreaterThan(Number(long) - 0.135);
+      expect(Number(longitude)).toBeLessThan(Number(long) + 0.135);
+    });
   });
 });

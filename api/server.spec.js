@@ -8,7 +8,7 @@ describe('/ [GET]', () => {
       .expect('Content-Type', /json/)
       .then(res => {
         expect(res.status).toEqual(200);
-      }); 
+      });
   });
 
   it('returns a message', () => {
