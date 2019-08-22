@@ -4,6 +4,8 @@ const helmet = require('helmet');
 const compression = require('compression');
 const logger = require('morgan');
 
+const locationRouter = require('../locations/index');
+
 const server = express();
 
 server.use(express.json());
@@ -18,6 +20,8 @@ server.get('/', (req, res) =>
     message: 'The Where-to-Code Server is up!',
   }),
 );
+
+server.use('/api', locationRouter);
 
 server.use('*', (req, res) =>
   res.status(404).json({
