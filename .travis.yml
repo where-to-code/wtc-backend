@@ -1,6 +1,5 @@
 language: node_js
-node_js:
-  - "stable"
+node_js: lts/*
 services:
   - postgresql
 cache:
@@ -17,6 +16,6 @@ script:
   - npm test
   - sudo /etc/init.d/postgresql stop 
 after_script:
-  - jest --coverage --coverageReporters=text-lcov | coveralls
+  - jest --forceExit --coverage --coverageReporters=text-lcov | coveralls 
 notifications:
   email: false

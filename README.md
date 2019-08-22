@@ -10,7 +10,7 @@
 
 # API Documentation
 
-#### 1️⃣ Backend delpoyed at [🚫name service here](🚫add URL here) <br>
+#### 1️⃣ Backend delpoyed at [Heroku](https://where2code.herokuapp.com/) <br>
 
 ## 1️⃣ Getting started
 
@@ -63,41 +63,54 @@ The **Express.js** backend framework was used to build the server.
 | DELETE | `/users/:userId`        | owners, supervisors |                                                    |
 
 # Data Model
+![Where To Code Database Illustration](database/DBIllustration.png)
 
-🚫This is just an example. Replace this with your data model
-
-#### 2️⃣ ORGANIZATIONS
+#### 2️⃣ USERS
 
 ---
 
 ```
 {
-  id: UUID
-  name: STRING
-  industry: STRING
-  paid: BOOLEAN
-  customer_id: STRING
-  subscription_id: STRING
+  id int [primary key]
+  firstname varchar
+  lastname varchar
+  email varchar [unique]
+  password text
+  created_at datetime [default: `now()`]
 }
 ```
 
-#### USERS
+#### LOCATIONS
 
 ---
 
 ```
 {
-  id: UUID
-  organization_id: UUID foreign key in ORGANIZATIONS table
-  first_name: STRING
-  last_name: STRING
-  role: STRING [ 'owner', 'supervisor', 'employee' ]
-  email: STRING
-  phone: STRING
-  cal_visit: BOOLEAN
-  emp_visit: BOOLEAN
-  emailpref: BOOLEAN
-  phonepref: BOOLEAN
+  id int [primary key]
+  description text
+  name varchar
+  img_url text
+  longitude decimal
+  latitude decimal
+}
+```
+
+#### REVIEWS
+
+---
+
+```
+{
+  id int [pk]
+  quietness integer
+  wifi_speed integer
+  close_late integer
+  community integer
+  accessibility integer
+  review text
+  user_id int [ref: > users.id]
+  location_id int [ref: > locations.id]
+  created_at datetime [default: `now()`]
 }
 ```
 
