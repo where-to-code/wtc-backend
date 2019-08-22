@@ -1,0 +1,57 @@
+const joi = require('joi');
+
+const lat = joi
+  .number()
+  .invalid('')
+  .required()
+  .error(errors => {
+    errors.forEach(err => {
+      console.log(err.type)
+      // eslint-disable-next-line default-case
+      switch (err.type) {
+        case 'any.required':
+          err.message = 'Lat field is required';
+          break;
+        case 'any.empty':
+          err.message = 'Latitude cannot be empty';
+          break;
+        case 'number.base':
+          err.message = 'Latitude must be a number';
+        default:
+          break;
+      }
+    });
+    return errors;
+  });
+const long = joi
+  .number()
+  .invalid('')
+  .required().error(errors => {
+    errors.forEach(err => {
+      console.log(err.type)
+      // eslint-disable-next-line default-case
+      switch (err.type) {
+        case 'any.required':
+          err.message = 'Long field is required';
+          break;
+        case 'any.empty':
+          err.message = 'Longitude cannot be empty';
+          break;
+        case 'number.base':
+          err.message = 'Longitude must be a number';
+        default:
+          break;
+      }
+    });
+    return errors;
+  });
+
+const querySchema = joi.object().keys({
+  lat,
+  long,
+});
+
+
+module.exports = {
+  querySchema,
+};
