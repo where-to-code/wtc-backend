@@ -171,7 +171,9 @@ The API endpoints for the server is on Heroku and can be found [here.](https://w
         "address": "3931 S Gilbert Rd, Gilbert, AZ, US",
         "longitude": "-111.79",
         "latitude": "33.28",
-        "created_at": "2019-08-21T11:29:28.714Z"
+        "created_at": "2019-08-21T11:29:28.714Z",
+        "averageRating": null,
+        "reviews": []
     }
 }
 ```
