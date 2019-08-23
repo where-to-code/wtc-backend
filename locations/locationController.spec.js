@@ -58,23 +58,26 @@ describe('/locations [GET]', () => {
 });
 
 describe('/locations/:id [GET]', () => {
-  it('Return the object that matches the id provided', () =>
-    request(server)
+  it('Return the object that matches the id provided', () => {
+    return request(server)
       .get('/api/locations/1')
       .expect('Content-Type', /json/)
       .then(res => {
         expect(res.body.data.id).toEqual(1);
-      }));
+      });
+  });
 
-  it('Returns a 404 if no location matches the id', () =>
-    request(server)
+  it('Returns a 404 if no location matches the id', () => {
+    return request(server)
       .get('/api/locations/0')
       .expect('Content-Type', /json/)
-      .expect(404));
+      .expect(404);
+  });
 
-  it('Returns a 404 if 400 if a string is entered as query param', () =>
-    request(server)
+  it('Returns a 404 if 400 if a string is entered as query param', () => {
+    return request(server)
       .get('/api/locations/happy')
       .expect('Content-Type', /json/)
-      .expect(400));
+      .expect(400);
+  });
 });
