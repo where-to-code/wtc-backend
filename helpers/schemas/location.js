@@ -6,7 +6,6 @@ const lat = joi
   .required()
   .error(errors => {
     errors.forEach(err => {
-      console.log(err.type)
       // eslint-disable-next-line default-case
       switch (err.type) {
         case 'any.required':
@@ -28,7 +27,6 @@ const long = joi
   .invalid('')
   .required().error(errors => {
     errors.forEach(err => {
-      console.log(err.type)
       // eslint-disable-next-line default-case
       switch (err.type) {
         case 'any.required':
