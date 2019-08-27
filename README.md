@@ -156,24 +156,75 @@ The API endpoints for the server is on Heroku and can be found [here.](https://w
 
 ### Get a single location [GET]
 
-**URL**: _https://where2code.herokuapp.com/api/locations/2445_
+**URL**: _https://where2code.herokuapp.com/api/locations/234_
 
 **Returns**: A an array of locations close to the user.
 
 ```javascript
-{
+{{
     "status": 200,
     "data": {
-        "id": 2445,
-        "name": "Super Target Gilbert ST-1960",
+        "id": 234,
+        "name": "Safeway - Thompson #623",
         "description": "A Starbucks shop to work out from",
         "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbifgcp_29eEnE5BozbdrZweuFHtvN-sJRsooOtmBrDAQqHSDW",
-        "address": "3931 S Gilbert Rd, Gilbert, AZ, US",
-        "longitude": "-111.79",
-        "latitude": "33.28",
+        "address": "300 Mystery Lake Rd, Thompson, MB, CA",
+        "longitude": "-97.85",
+        "latitude": "55.74",
         "created_at": "2019-08-21T11:29:28.714Z",
-        "averageRating": null,
-        "reviews": []
+        "averageRating": 3,
+        "reviews": [
+            {
+                "id": 1,
+                "quietness": 3,
+                "wifi_speed": 3,
+                "close_late": 3,
+                "community": 1,
+                "accessibility": 2,
+                "description": "This space is beautiful--uniquely designed, great lighting, very spacious, comfy seating & it’s always clean. They have the best selection of coffee & have kombucha on tap! 24/7 access amazing so I can get work done whenever but staff is there during the weekdays & are very friendly & helpful! They organize a bunch of cool events like happy hours with beer/wine tastings & a monthly women’s breakfast which are fun perks but also help you meet the other co-workers & feel like you’re in a community. They even offer monthly massages at the office! All in all, awesome space & I love working out of here!",
+                "user_id": 1
+            },
+            {
+                "id": 1,
+                "quietness": 3,
+                "wifi_speed": 1,
+                "close_late": 2,
+                "community": 4,
+                "accessibility": 5,
+                "description": "Such a cool and lovely place. Ambience, wifi, culture and easily accessible",
+                "user_id": 5
+            },
+            {
+                "id": 1,
+                "quietness": 4,
+                "wifi_speed": 5,
+                "close_late": 3,
+                "community": 5,
+                "accessibility": 1,
+                "description": "This is such a wonderful place to work out of. The environment is quite serene and I enjoyed every minute I spent there. I will be back for sure.",
+                "user_id": 1
+            },
+            {
+                "id": 1,
+                "quietness": 4,
+                "wifi_speed": 1,
+                "close_late": 2,
+                "community": 5,
+                "accessibility": 1,
+                "description": "This is such a wonderful place to work out of. The environment is quite serene and I enjoyed every minute I spent there. I will be back for sure.",
+                "user_id": 4
+            },
+            {
+                "id": 1,
+                "quietness": 5,
+                "wifi_speed": 3,
+                "close_late": 2,
+                "community": 5,
+                "accessibility": 4,
+                "description": "We had a rough time at the Yard Flatiron North. While we were there the air conditioning was broken multiple times, as was the elevator. In addition, they allow companies to run public facing businesses out their space, so anyone can just be wandering around the space unattended. Lastly, all of the doors are unlocked during business hours so anyone from the street can just come up to each floor and use the bathroom or kitchen. Women at front desk were nice, but lack of investment and systems meant the overall experience was pretty bad.",
+                "user_id": 3
+            }
+        ]
     }
 }
 ```
