@@ -1,5 +1,6 @@
 const Model = require('./locationModel');
 const statusHandler = require('../helpers/statusHandler');
+const getReview = require('../helpers/generateReviewsAndAverageRating');
 
 // eslint-disable-next-line consistent-return
 const getAllLocationsCloseToUser = async (req, res) => {
@@ -33,8 +34,11 @@ const getSingleLocation = async (req, res) => {
     }
 
     // this averageRating and reviews properties and keys are placeholders
-    location.averageRating = null;
-    location.reviews = [];
+    const reviewDetail = getReview();
+    // eslint-disable-next-line
+    location.averageRating = reviewDetail[1];
+    // eslint-disable-next-line
+    location.reviews = reviewDetail[0];
 
     return statusHandler(res, 200, location);
   } catch (error) {
