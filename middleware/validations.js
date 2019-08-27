@@ -27,8 +27,12 @@ const validateQuery = (req, res, next) => {
 const validateId = (req, res, next) => {
   return validate(req.params, schema.queryId, res, next);
 };
+const validateLogin = (req, res, next) => {
+  return validate(req.params, schema.queryLogin, res, next);
+};
 
 module.exports = {
   validateQuery,
   validateId,
+  validateLogin,
 };
