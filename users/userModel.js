@@ -5,10 +5,10 @@ const getAUser = id => db('users')
   .first();
 
 const registerUser = user => db('users')
-  .registerUser(user)
+  .insert(user)
   .then(ids => getAUser(ids[0]));
 
-exports.module = {
+module.exports = {
   getAUser,
   registerUser,
 };
