@@ -16,7 +16,7 @@ const verifyToken = async (req, res, next) => {
     const decrypt = await jwt.verify(token, process.env.JWT_SECRET);
     const user = await getAUser(decrypt.id);
     if (!user) {
-      return statusHandler(res, 400, 'Token not accessible');
+      return statusHandler(res, 403, 'Token Expired');
     }
     req.user = {
       id: decrypt.id,
@@ -28,4 +28,4 @@ const verifyToken = async (req, res, next) => {
   }
 };
 
-module.exports = { generateToken, verifyToken };
+module.exports = verifyToken;

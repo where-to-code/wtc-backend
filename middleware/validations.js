@@ -29,11 +29,15 @@ const validateId = (req, res, next) => {
   return validate(req.params, locationSchema.queryId, res, next);
 };
 const validateLogin = (req, res, next) => {
-  return validate(req.params, userSchema.queryLogin, res, next);
+  return validate(req.params, userSchema.loginSchema, res, next);
+};
+const validateRegister = (req, res, next) => {
+  return validate(req.params, userSchema.registerSchema, res, next);
 };
 
 module.exports = {
   validateQuery,
   validateId,
   validateLogin,
+  validateRegister,
 };
