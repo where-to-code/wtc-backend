@@ -62,7 +62,7 @@ describe('POST /api/auth/register', () => {
     expect(response.body).toMatchObject({
       status: 400,
       message: [
-        'incorrect email format. e.g eaxmple@mymail.com',
+        'Incorrect email format. e.g eaxmple@mymail.com',
         'Password must be beween 6 and 15 ' +
           'characters and contain letters and ' +
           'numbers ',
