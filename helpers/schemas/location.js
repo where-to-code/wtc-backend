@@ -1,3 +1,5 @@
+/* eslint-disable no-fallthrough */
+/* eslint-disable no-param-reassign */
 const joi = require('joi');
 
 const lat = joi
@@ -25,7 +27,8 @@ const lat = joi
 const long = joi
   .number()
   .invalid('')
-  .required().error(errors => {
+  .required()
+  .error(errors => {
     errors.forEach(err => {
       // eslint-disable-next-line default-case
       switch (err.type) {
@@ -44,12 +47,16 @@ const long = joi
     return errors;
   });
 
+const queryId = joi
+  .number()
+  .error(() => 'Id must be a number');
+
 const querySchema = joi.object().keys({
   lat,
   long,
 });
 
-
 module.exports = {
   querySchema,
+  queryId,
 };

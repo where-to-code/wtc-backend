@@ -8,8 +8,8 @@ const locationRouter = require('../locations/index');
 const userRouter = require('../users/index');
 
 const server = express();
-
 server.use(express.json());
+server.use(express.urlencoded({ extended: true }));
 server.use(cors());
 server.use(helmet());
 server.use(compression());

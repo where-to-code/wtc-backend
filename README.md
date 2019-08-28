@@ -1,4 +1,4 @@
-[![Coverage Status](https://coveralls.io/repos/github/where-to-code/wtc-backend/badge.svg?branch=chore/set-up-C.I)](https://coveralls.io/github/where-to-code/wtc-backend?branch=chore/set-up-C.I)
+[![Build Status](https://travis-ci.org/where-to-code/wtc-backend.svg?branch=master)](https://travis-ci.org/where-to-code/wtc-backend) [![Coverage Status](https://coveralls.io/repos/github/where-to-code/wtc-backend/badge.svg?branch=chore/set-up-C.I)](https://coveralls.io/github/where-to-code/wtc-backend?branch=chore/set-up-C.I)
 
 # wtc-backend
 

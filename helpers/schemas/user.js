@@ -1,12 +1,14 @@
+/* eslint-disable no-fallthrough */
+/* eslint-disable no-param-reassign */
 const joi = require('joi');
 
 const firstname = joi
   .string()
+  .trim()
   .invalid('')
   .required()
   .error(errors => {
     errors.forEach(err => {
-      // eslint-disable-next-line default-case
       switch (err.type) {
         case 'any.required':
           err.message = 'firstname field is required';
@@ -16,6 +18,7 @@ const firstname = joi
           break;
         case 'string.base':
           err.message = 'firstname must be a string';
+          break;
         default:
           break;
       }
@@ -24,8 +27,9 @@ const firstname = joi
   });
 
 const lastname = joi
-  .string()       
+  .string()
   .invalid('')
+  .trim()
   .required()
   .error(errors => {
     errors.forEach(err => {
@@ -45,23 +49,24 @@ const lastname = joi
     });
     return errors;
   });
-const  email= joi
+const email = joi
   .string()
+  .trim()
   .email()
-  .number()
   .invalid('')
-  .required().error(errors => {
+  .required()
+  .error(errors => {
     errors.forEach(err => {
-      // eslint-disable-next-line default-case
       switch (err.type) {
         case 'any.required':
-          err.message = 'email field is required';
+          err.message = 'Email field is required';
           break;
         case 'any.empty':
-          err.message = 'email cannot be empty';
+          err.message = 'Email cannot be empty';
           break;
-        case 'number.base':
-          err.message = 'email must be a number';
+        case 'string.email':
+          err.message = 'Incorrect email format. e.g eaxmple@mymail.com';
+          break;
         default:
           break;
       }
@@ -69,14 +74,14 @@ const  email= joi
     return errors;
   });
 
-
-const  password= joi
+const password = joi
   .string()
-  .number()
+  .trim()
   .invalid('')
-  .required().error(errors => {
+  .regex(/(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{6,15})$/)
+  .required()
+  .error(errors => {
     errors.forEach(err => {
-      // eslint-disable-next-line default-case
       switch (err.type) {
         case 'any.required':
           err.message = 'password field is required';
@@ -84,8 +89,10 @@ const  password= joi
         case 'any.empty':
           err.message = 'password cannot be empty';
           break;
-        case 'string.base':
-          err.message = 'password must be a number';
+        case 'string.regex.base':
+          err.message =
+            'Password must be beween 6 and 15 characters and contain letters and numbers ';
+          break;
         default:
           break;
       }
@@ -93,14 +100,18 @@ const  password= joi
     return errors;
   });
 
-const querySchema = joi.object().keys({
+const registerSchema = joi.object().keys({
   firstname,
   lastname,
   email,
   password,
 });
-
+const loginSchema = joi.object().keys({
+  email,
+  password,
+});
 
 module.exports = {
-  querySchema,
+  registerSchema,
+  loginSchema,
 };
