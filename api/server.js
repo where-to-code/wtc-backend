@@ -5,6 +5,7 @@ const compression = require('compression');
 const logger = require('morgan');
 
 const locationRouter = require('../locations/index');
+const userRouter = require('../users/index');
 
 const server = express();
 
@@ -22,6 +23,7 @@ server.get('/', (req, res) =>
 );
 
 server.use('/api', locationRouter);
+server.use('/api', userRouter);
 
 server.use('*', (req, res) =>
   res.status(404).json({
