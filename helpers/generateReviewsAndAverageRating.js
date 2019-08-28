@@ -17,9 +17,10 @@ module.exports = () => {
   const generateRating = (max = 5, min = 1) =>
     Math.floor(Math.random() * (max - min + 1) + min);
 
+  let id = 1;
+
   for (let i = 1; i <= 5; i += 1) {
     const descNumber = Math.floor(Math.random() * 10);
-    let id = 1;
 
     reviews.push({
       id,
