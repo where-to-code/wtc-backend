@@ -41,7 +41,6 @@ describe('POST /api/auth/register', () => {
       });
 
     expect(response.statusCode).toEqual(400);
-    console.log(response.body);
     expect(response.body).toMatchObject({
       message: [
         'Email cannot be empty',
@@ -52,21 +51,6 @@ describe('POST /api/auth/register', () => {
           'numbers ',
       ],
       status: 400,
-    });
-  });
-  it('should fail if email format is wrong or password format is wrong', async () => {
-    const response = await supertest(app)
-      .post('/api/auth/register')
-      .send(user3);
-    expect(response.statusCode).toEqual(400);
-    expect(response.body).toMatchObject({
-      status: 400,
-      message: [
-        'Incorrect email format. e.g eaxmple@mymail.com',
-        'Password must be beween 6 and 15 ' +
-          'characters and contain letters and ' +
-          'numbers ',
-      ],
     });
   });
 });
