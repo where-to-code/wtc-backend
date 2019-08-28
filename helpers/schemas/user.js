@@ -62,10 +62,10 @@ const email = joi
           err.message = 'Email field is required';
           break;
         case 'any.empty':
-          err.message = 'email cannot be empty';
+          err.message = 'Email cannot be empty';
           break;
         case 'string.email':
-          err.message = 'incorrect email format. e.g eaxmple@mymail.com';
+          err.message = 'Incorrect email format. e.g eaxmple@mymail.com';
           break;
         default:
           break;

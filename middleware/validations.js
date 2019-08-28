@@ -26,7 +26,7 @@ const validateQuery = (req, res, next) => {
   return validate(req.query, locationSchema.querySchema, res, next);
 };
 const validateId = (req, res, next) => {
-  return validate(req.body, locationSchema.queryId, res, next);
+  return validate(Number(req.params.id), locationSchema.queryId, res, next);
 };
 const validateLogin = (req, res, next) => {
   return validate(req.body, userSchema.loginSchema, res, next);

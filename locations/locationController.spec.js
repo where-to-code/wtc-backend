@@ -21,7 +21,7 @@ describe('/locations [GET]', () => {
     expect(res.status).toEqual(400);
   });
 
-  it('should fail if either latitude or longitude is not given', async () => {
+  it('should fail if either longitude is not given', async () => {
     const res = await request(server)
       .get('/api/locations')
       .query({ lat: '-34.58', long: '' })
@@ -29,6 +29,15 @@ describe('/locations [GET]', () => {
 
     expect(res.status).toEqual(400);
   });
+  it('should fail if either latitude is not given', async () => {
+    const res = await request(server)
+      .get('/api/locations')
+      .query({ lat: '', long: '58.9' })
+      .expect('Content-Type', /json/);
+
+    expect(res.status).toEqual(400);
+  });
+
 
   it('should fail if no location around user', async () => {
     const res = await request(server)
