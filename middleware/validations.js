@@ -1,7 +1,8 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-plusplus */
 const joi = require('joi');
-const schema = require('../helpers/schemas/location');
+const locationSchema = require('../helpers/schemas/location');
+const userSchema = require('../helpers/schemas/user');
 const statusHandler = require('../helpers/statusHandler');
 
 const validate = (value, scheme, res, next) => {
@@ -22,13 +23,13 @@ const validate = (value, scheme, res, next) => {
   );
 };
 const validateQuery = (req, res, next) => {
-  return validate(req.query, schema.querySchema, res, next);
+  return validate(req.query, locationSchema.querySchema, res, next);
 };
 const validateId = (req, res, next) => {
-  return validate(req.params, schema.queryId, res, next);
+  return validate(req.params, locationSchema.queryId, res, next);
 };
 const validateLogin = (req, res, next) => {
-  return validate(req.params, schema.queryLogin, res, next);
+  return validate(req.params, userSchema.queryLogin, res, next);
 };
 
 module.exports = {

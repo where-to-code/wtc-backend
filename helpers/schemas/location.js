@@ -48,71 +48,9 @@ const long = joi
   });
 
 const queryId = joi
-  .string()
-  .required()
-  .error(errors => {
-    errors.forEach(err => {
-      switch (err.type) {
-        case 'any.required':
-          err.message = 'id is required';
-          break;
-        case 'any.empty':
-          err.message = 'id cannot be empty';
-          break;
-        default:
-          break;
-      }
-    });
-  });
-const email = joi.string().trim().email().invalid('')
-  .required()
-  .error(
-    (errors) => {
-      errors.forEach((err) => {
-        switch (err.type) {
-          case 'any.required':
-            err.message = 'Email field is required';
-            break;
-          case 'any.empty':
-            err.message = 'email cannot be empty';
-            break;
-          case 'string.email':
-            err.message = 'incorrect email format. e.g example@mymail.com';
-            break;
-          default:
-            break;
-        }
-      });
-      return errors;
-    },
-  );
+  .number()
+  .error(() => 'Id must be a number');
 
-const password = joi.string().trim().invalid('').regex(/(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{6,15})$/)
-  .required()
-  .error(
-    (errors) => {
-      errors.forEach((err) => {
-        switch (err.type) {
-          case 'any.required':
-            err.message = 'password field is required';
-            break;
-          case 'any.empty':
-            err.message = 'password cannot be empty';
-            break;
-          case 'string.regex.base':
-            err.message = 'Password must be beween 6 and 15 characters and contain letters and numbers ';
-            break;
-          default:
-            break;
-        }
-      });
-      return errors;
-    },
-  );
-const queryLogin = joi.object().keys({
-  password,
-  email,
-});
 const querySchema = joi.object().keys({
   lat,
   long,
@@ -121,5 +59,4 @@ const querySchema = joi.object().keys({
 module.exports = {
   querySchema,
   queryId,
-  queryLogin,
 };
