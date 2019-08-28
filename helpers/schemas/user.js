@@ -1,3 +1,4 @@
+/* eslint-disable no-fallthrough */
 /* eslint-disable no-param-reassign */
 const joi = require('joi');
 
@@ -42,7 +43,6 @@ const lastname = joi
           break;
         case 'string.base':
           err.message = 'lastname must be a string';
-          break;
         default:
           break;
       }
@@ -51,21 +51,21 @@ const lastname = joi
   });
 const email = joi
   .string()
+  .trim()
   .email()
   .invalid('')
   .required()
   .error(errors => {
     errors.forEach(err => {
-      // eslint-disable-next-line default-case
       switch (err.type) {
         case 'any.required':
-          err.message = 'email field is required';
+          err.message = 'Email field is required';
           break;
         case 'any.empty':
           err.message = 'email cannot be empty';
           break;
-        case 'number.base':
-          err.message = 'email must be a number';
+        case 'string.email':
+          err.message = 'incorrect email format. e.g eaxmple@mymail.com';
           break;
         default:
           break;
@@ -88,9 +88,6 @@ const password = joi
           break;
         case 'any.empty':
           err.message = 'password cannot be empty';
-          break;
-        case 'string.base':
-          err.message = 'password must be a number';
           break;
         case 'string.regex.base':
           err.message =

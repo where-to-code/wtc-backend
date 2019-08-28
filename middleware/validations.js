@@ -26,13 +26,13 @@ const validateQuery = (req, res, next) => {
   return validate(req.query, locationSchema.querySchema, res, next);
 };
 const validateId = (req, res, next) => {
-  return validate(req.params, locationSchema.queryId, res, next);
+  return validate(req.body, locationSchema.queryId, res, next);
 };
 const validateLogin = (req, res, next) => {
-  return validate(req.params, userSchema.loginSchema, res, next);
+  return validate(req.body, userSchema.loginSchema, res, next);
 };
 const validateRegister = (req, res, next) => {
-  return validate(req.params, userSchema.registerSchema, res, next);
+  return validate(req.body, userSchema.registerSchema, res, next);
 };
 
 module.exports = {
