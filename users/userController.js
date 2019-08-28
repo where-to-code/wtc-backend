@@ -9,10 +9,12 @@ const register = async (req, res) => {
     const user = {
       firstname, lastname, email, password,
     };
-    await Model.registerUser(user);
-    return statusHandler(res, 200, user);
+    const newUser = await Model.registerUser(user);
+    if (newUser.rowCount === 1) {
+      return statusHandler(res, 201, user);
+    }
+    return statusHandler(res, 201, { message: 'user could not created' });
   } catch (err) {
-    console.log(err);
     return statusHandler(res, 500, err.toString());
   }
 };
