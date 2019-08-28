@@ -7,7 +7,10 @@ const register = async (req, res) => {
   try {
     const password = await hashPassword(req.body.password);
     const user = {
-      firstname, lastname, email, password,
+      firstname,
+      lastname,
+      email,
+      password,
     };
     const newUser = await Model.registerUser(user);
     if (newUser.rowCount === 1) {
@@ -18,5 +21,13 @@ const register = async (req, res) => {
     return statusHandler(res, 500, err.toString());
   }
 };
+const login = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    
+  } catch (err) {
+    return statusHandler(res, 500, err.toString());
+  }
+};
 
-module.exports = { register };
+module.exports = { register, login };

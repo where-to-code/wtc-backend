@@ -52,7 +52,6 @@ const lastname = joi
 const email = joi
   .string()
   .email()
-  .number()
   .invalid('')
   .required()
   .error(errors => {
