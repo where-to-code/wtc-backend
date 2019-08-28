@@ -1,9 +1,28 @@
 /* eslint-disable consistent-return */
+const dotenv = require('dotenv');
+const cookie = require('cookie');
+const jwt = require('jsonwebtoken');
 const Model = require('./userModel');
 const statusHandler = require('../helpers/statusHandler');
 const { hashPassword, comparePassword } = require('../helpers/bcryptHelper');
-const emailExists = require('../helpers/emailHelper')
+
+dotenv.config();
+
+const generateToken = (res, id, firstname) => {
+  const token = jwt.sign({ id, firstname }, process.env.JWT_SECRET);
+  return res.setHeader('Set-Cookie', cookie.serialize('access-token', token), {
+    httpOnly: true,
+    maxAge: 60 * 60 * 24 * 7,
+    secure: false,
+  });
 };
+
+const emailExists = async email => {
+  const result = await Model.getUserByEmail(email);
+  return result;
+};
+module.exports = emailExists;
+
 const register = async (req, res) => {
   const { firstname, lastname, email } = req.body;
   try {
@@ -19,6 +38,7 @@ const register = async (req, res) => {
     };
     const newUser = await Model.registerUser(user);
     if (newUser.rowCount === 1) {
+      await generateToken(newUser.id, newUser.firstname);
       return statusHandler(res, 201, user);
     }
   } catch (err) {
@@ -36,7 +56,8 @@ const login = async (req, res) => {
     if (!checkPassword) {
       return statusHandler(res, 400, 'Password Mismatch');
     }
-
+    await generateToken(result.id, result.firstname);
+    return statusHandler(res, 200, result);
   } catch (err) {
     return statusHandler(res, 500, err.toString());
   }

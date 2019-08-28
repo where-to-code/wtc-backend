@@ -1,10 +1,31 @@
+/* eslint-disable consistent-return */
 const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
-const emailExists = require('../helpers/emailHelper');
+const cookie = require('cookie');
+const { getAUser } = require('../users/userModel');
+const statusHandler = require('../helpers/statusHandler');
+
 dotenv.config();
-const generateToken = (id, firstname) => {
-  const token = jwt.sign({ id, firstname }, process.env.JWT_SECRET);
-  return token;
+const verifyToken = async (req, res, next) => {
+  const Authorization = cookie.parse(req.headers.cookies);
+  const token = Authorization.name;
+  try {
+    if (!token) {
+      return statusHandler(res, 401, 'You need to Login');
+    }
+    const decrypt = await jwt.verify(token, process.env.JWT_SECRET);
+    const user = await getAUser(decrypt.id);
+    if (!user) {
+      return statusHandler(res, 400, 'Token not accessible');
+    }
+    req.user = {
+      id: decrypt.id,
+      firstname: decrypt.firstname,
+    };
+    next();
+  } catch (err) {
+    return statusHandler(res, 500, 'Something Went Wrong');
+  }
 };
 
-module.exports = { generateToken };
+module.exports = { generateToken, verifyToken };
