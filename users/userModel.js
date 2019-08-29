@@ -9,9 +9,15 @@ const getUserByEmail = email =>
     .where({ email })
     .first();
 const registerUser = user => db('users').insert(user);
+const updateVerifiedStatus = (id, value) =>
+  db('users')
+    .update('isVerified', value)
+    .where({ id })
+    .returning('id', 'isVerified');
 
 module.exports = {
   getAUser,
   registerUser,
   getUserByEmail,
+  updateVerifiedStatus,
 };
