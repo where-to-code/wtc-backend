@@ -10,7 +10,7 @@ const getUserByEmail = email =>
   db('users')
     .where({ email })
     .first();
-const registerUser = user => db('users').insert(user);
+const registerUser = user => db('users').insert(user).returning('*');
 const updateVerifiedStatus = (id, value) =>
   db('users')
     .update('isVerified', value)
