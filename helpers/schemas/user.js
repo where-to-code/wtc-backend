@@ -114,4 +114,5 @@ const loginSchema = joi.object().keys({
 module.exports = {
   registerSchema,
   loginSchema,
+  email,
 };
