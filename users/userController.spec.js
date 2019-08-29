@@ -1,9 +1,6 @@
 const request = require('supertest');
 const server = require('../api/server');
 
-afterAll(async () => {
-  await new Promise(resolve => setTimeout(() => resolve(), 500)); 
-});
 describe('/auth/register [POST]', () => {
   it('should fail if required fields are not given', async () => {
     const res = await request(server)
