@@ -1,11 +1,13 @@
 const nodemailer = require('nodemailer');
 const statusHandler = require('../helpers/statusHandler');
 
-const user = process.env.USERNAME;
+const user = process.env.EMAIL;
 const pass = process.env.PASSWORD;
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'mail.privateemail.com',
+  port: 587,
+  secure: false,
   auth: {
     user,
     pass,
