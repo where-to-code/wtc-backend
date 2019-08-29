@@ -13,9 +13,9 @@ before_script:
   - psql -c 'create database backend_test;' -U postgres
   - npm install coveralls
 script:
-  - npm test
+  - npm test --detectOpenHandles 
   - sudo /etc/init.d/postgresql stop 
 after_script:
-  - jest --forceExit --coverage --coverageReporters=text-lcov | coveralls 
+  - jest --forceExit --coverage  --coverageReporters=text-lcov | coveralls 
 notifications:
   email: false
