@@ -1,22 +1,10 @@
 /* eslint-disable no-undef */
-const db = require('../database/dbConfig');
 const User = require('./userModel');
-
-describe('Model for users', () => {
-  beforeEach(async () => {
-    await db.migrate.rollback();
-    await db.migrate.latest();
-    await db.seed.run();
-  });
-
-  afterEach(() => db.migrate.rollback());
-});
-
 describe('Model for user', () => {
   const user = {
     firstname: 'Ken',
     lastname: 'Doe',
-    email: 'kenny@me.com',
+    email: 'kenny@m.com',
     password: '12345678j',
   };
   it('should return an object if user exists', async () => {
@@ -39,5 +27,10 @@ describe('Model for user', () => {
   it('should fail if user email does not exist', async () => {
     const value = await User.getUserByEmail('johndoe@m.com');
     expect(value).toBeUndefined();
+  });
+  it('should register a user', async () => {
+    await User.registerUser(user);
+    const newValue = await User.getUsers;
+    expect(newValue).toBeDefined();
   });
 });
