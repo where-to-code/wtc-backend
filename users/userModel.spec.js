@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-const db = require('../database/dbConfig');
 const User = require('./userModel');
 describe('Model for user', () => {
   const user = {
@@ -30,9 +29,8 @@ describe('Model for user', () => {
     expect(value).toBeUndefined();
   });
   it('should register a user', async () => {
-    const initialValue = await User.getUsers;
     await User.registerUser(user);
     const newValue = await User.getUsers;
-    expect(newValue).toBeDefined()
+    expect(newValue).toBeDefined();
   });
 });
