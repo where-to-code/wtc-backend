@@ -113,7 +113,7 @@ describe('/auth/register [POST]', () => {
       .send({
         firstname: 'jjj',
         lastname: 'jbd',
-        email: 'jnb@john.com',
+        email: 'jnb@j.com',
         password: '123abc',
       });
     expect(res.status).toEqual(201);
@@ -151,7 +151,7 @@ describe('/auth/login [POST]', () => {
     const res = await request(server)
       .post('/api/auth/login')
       .send({
-        email: 'jn@john.com',
+        email: 'jn@j.com',
         password: '12345abcj',
       });
     expect(res.status).toEqual(400);
