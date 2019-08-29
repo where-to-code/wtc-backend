@@ -95,7 +95,7 @@ const verifyMail = async (req, res) => {
                   <div style = "width:100% , height:70%",margin:0 20%>
                       <h1 style= "color:seagreen, font-size:30px"> Hi ${name} </h1>
                       <p style ="line-height:14px">Thanks for get started on whereToCode! We need a little more information to provide you better support,including the confirmation of your email address</p>
-                      <button style="border-radius:5px, background:orange, width:30% ,height:20% ,margin:5% 30%" ><a style="width:100%, color:white " href="${process.env.PORT}/api/auth/confirm/${token}"> Confirm Email</a></button>
+                      <button style="border-radius:5px, background:orange, width:30% ,height:20% ,margin:5% 30%" ><a style="width:100%, color:white " href="${process.env.URL}/api/auth/confirm/${token}"> Confirm Email</a></button>
                   </div>
                 </div>
               <div style="width:60%, height:30%, background:inherit">
