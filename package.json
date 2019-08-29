@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node cluster.js",
     "server": "nodemon index.js",
-    "test": "cross-env DB_ENV=testing jest --detectOpenHandles --verbose --coverage --forceExit",
+    "test": "cross-env DB_ENV=testing jest  --verbose --forceExit --coverage --detectOpenHandles --coverageReporters=text-lcov | coveralls ",
     "watch": "cross-env DB_ENV=testing jest --verbose --watch",
     "migrate": "knex migrate:latest",
     "seed": "knex seed:run",
