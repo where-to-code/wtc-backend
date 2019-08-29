@@ -64,10 +64,7 @@ const confirmMail = async (req, res) => {
       return statusHandler(res, 403, 'Invalid Token');
     }
     const result = await Model.updateVerifiedStatus(id, true);
-    return statusHandler(res, 200, {
-      id: result.id,
-      isVerified: result.isVerified,
-    });
+    return statusHandler(res, 200, result);
   } catch (err) {
     return statusHandler(res, 500, err.toString());
   }
