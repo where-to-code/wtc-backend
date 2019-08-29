@@ -3,11 +3,6 @@ const db = require('../database/dbConfig');
 const User = require('./userModel');
 
 describe('Model for user', () => {
-  beforeAll(async () => {
-    await db.migrate.rollback();
-    await db.migrate.latest();
-    await db.seed.run();
-  });
   const user = {
     firstname: 'Ken',
     lastname: 'Doe',
