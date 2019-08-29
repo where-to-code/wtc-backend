@@ -82,17 +82,17 @@ const verifyMail = async (req, res) => {
         expiresIn: '1d',
       },
     );
+    console.log(token)
     const message = {
       from: process.env.EMAIL,
       to: email,
       subject: 'Welcome to Where-To-Code',
       html: `<b> Welcome to Where-To-Code </b>
            <p> For better support kindly verify your email address by clicking on verify link below</p>
-              <p><b><a href="./auth/confirm/${token}"> Comfirm Email</a></b>
+              <p><b><a href="./api/auth/confirm/${token}"> Comfirm Email</a></b>
               <p>This link expires in 24 hrs </p>`,
     };
-    mailer(message);
-    return statusHandler(res, 200, 'Email Sent Successfully');
+    mailer(message, res);
   } catch (err) {
     return statusHandler(res, 500, err.toString());
   }
