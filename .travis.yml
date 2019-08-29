@@ -9,7 +9,6 @@ cache:
 env:
   global:
     - DB_ENV=testing
-   
 before_script:
   - psql -c 'create database backend_test;' -U postgres
   - psql -c "CREATE USER root WITH PASSWORD 'password';" -U postgres
@@ -20,7 +19,6 @@ before_script:
   - npm install coveralls
 script:
   - npm test
-  - sudo /etc/init.d/postgresql stop 
 after_script:
   - jest --forceExit --coverage  --coverageReporters=text-lcov | coveralls 
 notifications:
