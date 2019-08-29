@@ -20,7 +20,5 @@ before_script:
   - npm install coveralls
 script:
   - npm test
-after_script:
-  - jest --forceExit --coverage  --coverageReporters=text-lcov | coveralls 
 notifications:
   email: false
