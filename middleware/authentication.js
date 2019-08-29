@@ -7,8 +7,8 @@ const statusHandler = require('../helpers/statusHandler');
 
 dotenv.config();
 const verifyToken = async (req, res, next) => {
-  const Authorization = cookie.parse(req.headers.cookies);
-  const token = Authorization.name;
+  const Authorization = cookie.parse(req.headers.cookie || '');
+  const {token} = Authorization;
   try {
     if (!token) {
       return statusHandler(res, 401, 'You need to Login');
