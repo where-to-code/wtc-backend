@@ -8,6 +8,7 @@ exports.up = knex =>
       .notNullable()
       .unique();
     table.string('password', 250).notNullable();
+    table.boolean('isVerified').defaultTo(false);
     table.datetime('created_at', { precision: 6 }).defaultTo(knex.fn.now(6));
   });
 
