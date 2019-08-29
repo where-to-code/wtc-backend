@@ -8,5 +8,6 @@ const router = express.Router();
 
 router.post('/auth/login', validate.validateLogin, user.login);
 router.post('/auth/register', validate.validateRegister, user.register);
+router.get('/auth/gitAuth', user.gitHubAuth);
 
 module.exports = router;
