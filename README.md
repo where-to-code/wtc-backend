@@ -156,7 +156,7 @@ The API endpoints for the server is on Heroku and can be found [here.](https://w
 
 ### Get a single location [GET]
 
-**URL**: _https://where2code.herokuapp.com/api/locations/2445_
+**URL**: _https://where2code.herokuapp.com/api/locations/234_
 
 **Returns**: A an array of locations close to the user.
 
@@ -164,16 +164,67 @@ The API endpoints for the server is on Heroku and can be found [here.](https://w
 {
     "status": 200,
     "data": {
-        "id": 2445,
-        "name": "Super Target Gilbert ST-1960",
+        "id": 234,
+        "name": "Safeway - Thompson #623",
         "description": "A Starbucks shop to work out from",
         "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbifgcp_29eEnE5BozbdrZweuFHtvN-sJRsooOtmBrDAQqHSDW",
-        "address": "3931 S Gilbert Rd, Gilbert, AZ, US",
-        "longitude": "-111.79",
-        "latitude": "33.28",
+        "address": "300 Mystery Lake Rd, Thompson, MB, CA",
+        "longitude": "-97.85",
+        "latitude": "55.74",
         "created_at": "2019-08-21T11:29:28.714Z",
-        "averageRating": null,
-        "reviews": []
+        "averageRating": 3,
+        "reviews": [
+            {
+                "id": 1,
+                "quietness": 4,
+                "wifi_speed": 5,
+                "close_late": 3,
+                "community": 5,
+                "accessibility": 3,
+                "description": "I have the best experience with this place and everything is very perfect, corporative and also the main thing is the environment that is very interesting. I have worked for the best assignment writing services in this place so this is my personal experience.",
+                "user_id": 4
+            },
+            {
+                "id": 2,
+                "quietness": 3,
+                "wifi_speed": 3,
+                "close_late": 2,
+                "community": 4,
+                "accessibility": 2,
+                "description": "We as a professional thesis writer always need that kind of environment to work and spend some quality time with the other fellows, So thank you for providing us a great place to sit on and the way they facilitate it is one of the best place for freelancers who need space for their work.",
+                "user_id": 3
+            },
+            {
+                "id": 3,
+                "quietness": 3,
+                "wifi_speed": 2,
+                "close_late": 1,
+                "community": 1,
+                "accessibility": 4,
+                "description": "This hotel is awesome! It was superb and clean! Incredible staff and Can You Do My Homework - DoMyAssignmentForMe accommodating to us. We will visit and remain at this inn many occasions over. So cheerful to have discovered this gem in the ideal area!",
+                "user_id": 3
+            },
+            {
+                "id": 4,
+                "quietness": 1,
+                "wifi_speed": 2,
+                "close_late": 3,
+                "community": 5,
+                "accessibility": 2,
+                "description": "We had a rough time at the Yard Flatiron North. While we were there the air conditioning was broken multiple times, as was the elevator. In addition, they allow companies to run public facing businesses out their space, so anyone can just be wandering around the space unattended. Lastly, all of the doors are unlocked during business hours so anyone from the street can just come up to each floor and use the bathroom or kitchen. Women at front desk were nice, but lack of investment and systems meant the overall experience was pretty bad.",
+                "user_id": 4
+            },
+            {
+                "id": 5,
+                "quietness": 2,
+                "wifi_speed": 1,
+                "close_late": 2,
+                "community": 2,
+                "accessibility": 3,
+                "description": "We as a professional thesis writer always need that kind of environment to work and spend some quality time with the other fellows, So thank you for providing us a great place to sit on and the way they facilitate it is one of the best place for freelancers who need space for their work.",
+                "user_id": 3
+            }
+        ]
     }
 }
 ```
