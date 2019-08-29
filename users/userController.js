@@ -6,6 +6,7 @@ const Model = require('./userModel');
 const statusHandler = require('../helpers/statusHandler');
 const { hashPassword, comparePassword } = require('../helpers/bcryptHelper');
 const emailExists = require('../helpers/emailChecker');
+const mailer = require('../helpers/mailer');
 
 const generateToken = (res, id, firstname) => {
   const token = jwt.sign({ id, firstname }, process.env.JWT_SECRET);
@@ -33,6 +34,7 @@ const register = async (req, res) => {
     const newUser = await Model.registerUser(user);
     if (newUser.rowCount === 1) {
       await generateToken(res, newUser.id, newUser.firstname);
+      await verifyMail(newUser.id ,email)
       return statusHandler(res, 201, user);
     }
   } catch (err) {
@@ -55,6 +57,19 @@ const login = async (req, res) => {
   } catch (err) {
     return statusHandler(res, 500, err.toString());
   }
+};
+const verifyMail = (id, email) => {
+  const token = jwt.sign({id} ,process.env.EMAIL_SECRET,  { expiresIn: '1d' },)
+  const message = {
+    from: process.env.EMAIL,
+    to: email,
+    subject: 'Welcome to Where-To-Code',
+    html: `<b> Welcome to Where-To-Code </b>
+           <p> For better support kindly verify your email address by clicking on verify link below</p>
+              <p><b><a href="/verify/${token}"> Comfirm Email</a></b>
+              <p>This link expires in 24 hrs </p>`
+  };
+  mailer(message)
 };
 
 module.exports = { register, login };
