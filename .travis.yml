@@ -20,5 +20,11 @@ before_script:
   - npm install coveralls
 script:
   - npm test
+after_script:
+  - npx knex migrate:down --env=testing
+  - npx knex migrate:rollback --env=testing
+  - npx knex migrate:latest --env=testing
+  - npx knex seed:run --env=testing
+  - jest --forceExit --coverage  --coverageReporters=text-lcov | coveralls 
 notifications:
   email: false
