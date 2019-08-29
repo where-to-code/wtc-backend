@@ -113,7 +113,6 @@ describe('/auth/register [POST]', () => {
         email: 'jnb@j.com',
         password: '123abc',
       });
-    console.log(res.body);
     expect(res.status).toEqual(201);
     expect(res.body.data).toHaveProperty('firstname', 'jjj');
     expect(res.body.data).toHaveProperty('lastname', 'jbd');
@@ -166,7 +165,6 @@ describe('/auth/login [POST]', () => {
         email: 'aabjane@g.com',
         password: '123456abc',
       });
-    console.log(res.body);
     expect(res.status).toEqual(200);
   });
 });
