@@ -116,6 +116,7 @@ describe('/auth/register [POST]', () => {
         email: 'jnb@j.com',
         password: '123abc',
       });
+      console.log(res.body)
     expect(res.status).toEqual(201);
     expect(res.body.data).toHaveProperty('firstname', 'jjj');
     expect(res.body.data).toHaveProperty('lastname', 'jbd');
@@ -151,9 +152,10 @@ describe('/auth/login [POST]', () => {
     const res = await request(server)
       .post('/api/auth/login')
       .send({
-        email: 'jn@j.com',
+        email: 'aabjane@g.com',
         password: '12345abcj',
       });
+      console.log(res.body)
     expect(res.status).toEqual(400);
     expect(res.body).toEqual({
       status: 400,
@@ -167,6 +169,7 @@ describe('/auth/login [POST]', () => {
         email: 'aabjane@g.com',
         password: '123456abc',
       });
+      console.log(res.body)
     expect(res.status).toEqual(200);
   });
 });
