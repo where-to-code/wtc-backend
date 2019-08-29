@@ -12,6 +12,8 @@ env:
    
 before_script:
   - psql -c 'create database backend_test;' -U postgres
+  - npx knex migrate:down --env=testing
+  - npx knex migrate:latest --env=testing
   - npm install coveralls
 script:
   - npm test
