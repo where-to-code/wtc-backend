@@ -38,7 +38,6 @@ describe('/locations [GET]', () => {
     expect(res.status).toEqual(400);
   });
 
-
   it('should fail if no location around user', async () => {
     const res = await request(server)
       .get('/api/locations')
@@ -67,26 +66,24 @@ describe('/locations [GET]', () => {
 });
 
 describe('/locations/:id [GET]', () => {
-  it('Return the object that matches the id provided', () => {
-    return request(server)
+  it('Return the object that matches the id provided', async () => {
+    const res = await request(server)
       .get('/api/locations/1')
-      .expect('Content-Type', /json/)
-      .then(res => {
-        expect(res.body.data.id).toEqual(1);
-      });
+      .expect('Content-Type', /json/);
+    expect(res.body.data.id).toEqual(1);
   });
 
-  it('Returns a 404 if no location matches the id', () => {
-    return request(server)
+  it('Returns a 404 if no location matches the id', async () => {
+    const res = await request(server)
       .get('/api/locations/0')
-      .expect('Content-Type', /json/)
-      .expect(404);
+      .expect('Content-Type', /json/);
+    expect(res.status).toEqual(404);
   });
 
-  it('Returns a 404 if 400 if a string is entered as query param', () => {
-    return request(server)
+  it('Returns a 404 if 400 if a string is entered as query param', async () => {
+    const res = await request(server)
       .get('/api/locations/happy')
-      .expect('Content-Type', /json/)
-      .expect(400);
+      .expect('Content-Type', /json/);
+    expect(res.status).toEqual(400);
   });
 });

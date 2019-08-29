@@ -50,8 +50,8 @@ The API endpoints for the server is on Heroku and can be found [here.](https://w
 
 | Method | Endpoint                | Access Control      | Description                                        |
 | ------ | ----------------------- | ------------------- | -------------------------------------------------- |
-| GET    | `/users/current`        | all users           | Returns info for the logged in user.               |
-| GET    | `/users/org/:userId`    | owners, supervisors | Returns all users for an organization.             |
+| POST    | `/auth/login`        | all users          | Returns info for the logged in user.               |
+| POST    | `/auth/register`    | all users | Adds a user to the database.             |
 | GET    | `/users/:userId`        | owners, supervisors | Returns info for a single user.                    |
 | POST   | `/users/register/`      | none                | Creates a new user                                 |
 | PUT    | `/users/:userId`        | owners, supervisors |                                                    |

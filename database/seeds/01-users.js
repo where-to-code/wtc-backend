@@ -13,7 +13,7 @@ exports.seed = knex =>
         firstname: 'Jane',
         lastname: 'Doe',
         email: 'jn@john.com',
-        password: hashPassword('12345'),
+        password: hashPassword('12345abc'),
       },
       {
         firstname: 'Will',

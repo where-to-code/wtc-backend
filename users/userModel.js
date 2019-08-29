@@ -1,5 +1,7 @@
 const db = require('../database/dbConfig');
 
+const getUsers = db('users');
+
 const getAUser = id =>
   db('users')
     .where({ id })
@@ -14,4 +16,5 @@ module.exports = {
   getAUser,
   registerUser,
   getUserByEmail,
+  getUsers,
 };
