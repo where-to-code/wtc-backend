@@ -18,7 +18,6 @@ const firstname = joi
           break;
         case 'string.base':
           err.message = 'firstname must be a string';
-          break;
         default:
           break;
       }
@@ -66,7 +65,6 @@ const email = joi
           break;
         case 'string.email':
           err.message = 'Incorrect email format. e.g eaxmple@mymail.com';
-          break;
         default:
           break;
       }
@@ -92,7 +90,6 @@ const password = joi
         case 'string.regex.base':
           err.message =
             'Password must be beween 6 and 15 characters and contain letters and numbers ';
-          break;
         default:
           break;
       }
