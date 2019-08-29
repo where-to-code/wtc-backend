@@ -2,12 +2,6 @@ const db = require('../database/dbConfig');
 const Location = require('./locationModel');
 
 describe('location /GET location by query parameters testing', () => {
-  beforeAll(async () => {
-    await db.migrate.rollback();
-    await db.migrate.latest();
-    await db.seed.run();
-  });
-
   it('should return an array of objects ', async () => {
     const lat = -34.58;
     const long = -58.44;
