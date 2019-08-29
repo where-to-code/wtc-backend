@@ -1,9 +1,13 @@
 /* eslint-disable consistent-return */
+const axios = require('axios');
 const Model = require('./userModel');
 const statusHandler = require('../helpers/statusHandler');
 const { hashPassword, comparePassword } = require('../helpers/bcryptHelper');
 const emailExists = require('../helpers/emailChecker');
 const generateToken = require('../helpers/generateToken');
+
+const clientID = process.env.CLIENT_ID;
+const clientSecret = process.env.CLIENT_SECRET;
 
 const register = async (req, res) => {
   const { firstname, lastname, email, password } = req.body;
@@ -73,4 +77,63 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { register, login };
+const gitHubAuth = async (req, res) => {
+  const { code } = req.query;
+
+  try {
+    const response = await axios({
+      method: 'post',
+      url: `https://github.com/login/oauth/access_token?client_id=${clientID}&client_secret=${clientSecret}&code=${code}`,
+      headers: {
+        accept: 'application/json',
+      },
+    });
+
+    const accessToken = response.data.access_token;
+
+    const userDetails = await axios({
+      url: 'https://api.github.com/user',
+      headers: {
+        Authorization: `token ${accessToken}`,
+      },
+    });
+
+    const { id, name, email } = userDetails.data;
+
+    const user = await emailExists(email);
+
+    if (user) {
+      if (comparePassword('GitHub', user.password)) {
+        await generateToken(res, id, name);
+        return statusHandler(res, 200, {
+          id: user.id,
+          firstname: user.firstname,
+          lastname: user.lastname,
+          email: user.email,
+          isVerified: user.isVerified,
+        });
+      }
+    }
+
+    const newUser = await Model.registerUser({
+      firstname: name.split(' ')[0],
+      lastname: name.split(' ')[1],
+      email,
+      password: hashPassword('GitHub'),
+      isVerified: true,
+    });
+
+    await generateToken(res, id, name);
+    return statusHandler(res, 201, {
+      id: newUser[0].id,
+      firstname: name.split(' ')[0],
+      lastname: name.split(' ')[1],
+      email,
+      isVerified: newUser[0].isVerified,
+    });
+  } catch (err) {
+    return statusHandler(res, 500, err.toString());
+  }
+};
+
+module.exports = { register, login, gitHubAuth };
