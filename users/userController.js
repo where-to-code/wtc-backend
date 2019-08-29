@@ -25,10 +25,17 @@ const register = async (req, res) => {
     };
 
     const newUser = await Model.registerUser(user);
+    const { id, isVerified } = newUser[0];
 
-    if (newUser.rowCount === 1) {
+    if (newUser.length === 1) {
       await generateToken(res, newUser.id, firstname);
-      return statusHandler(res, 201, { firstname, lastname });
+      return statusHandler(res, 201, {
+        id,
+        firstname,
+        lastname,
+        email,
+        isVerified,
+      });
     }
   } catch (err) {
     return statusHandler(res, 500, err.toString());
@@ -51,8 +58,16 @@ const login = async (req, res) => {
       return statusHandler(res, 400, 'Password Mismatch');
     }
 
-    await generateToken(res, result.id, result.firstname);
-    return statusHandler(res, 200, result);
+    const { id, firstname, lastname, isVerified } = result;
+
+    await generateToken(res, result.id, firstname);
+    return statusHandler(res, 200, {
+      id,
+      firstname,
+      lastname,
+      email,
+      isVerified,
+    });
   } catch (err) {
     return statusHandler(res, 500, err.toString());
   }
