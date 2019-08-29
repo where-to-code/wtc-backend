@@ -48,14 +48,14 @@ The API endpoints for the server is on Heroku and can be found [here.](https://w
 
 #### User Routes
 
-| Method | Endpoint                | Access Control      | Description                                        |
-| ------ | ----------------------- | ------------------- | -------------------------------------------------- |
-| GET    | `/users/current`        | all users           | Returns info for the logged in user.               |
-| GET    | `/users/org/:userId`    | owners, supervisors | Returns all users for an organization.             |
-| GET    | `/users/:userId`        | owners, supervisors | Returns info for a single user.                    |
-| POST   | `/users/register/`      | none                | Creates a new user                                 |
-| PUT    | `/users/:userId`        | owners, supervisors |                                                    |
-| DELETE | `/users/:userId`        | owners, supervisors |                                                    |
+| Method | Endpoint             | Access Control      | Description                            |
+| ------ | -------------------- | ------------------- | -------------------------------------- |
+| GET    | `/users/current`     | all users           | Returns info for the logged in user.   |
+| GET    | `/users/org/:userId` | owners, supervisors | Returns all users for an organization. |
+| GET    | `/users/:userId`     | owners, supervisors | Returns info for a single user.        |
+| POST   | `/users/register/`   | none                | Creates a new user                     |
+| PUT    | `/users/:userId`     | owners, supervisors |                                        |
+| DELETE | `/users/:userId`     | owners, supervisors |                                        |
 
 ### Data Model
 
@@ -161,7 +161,7 @@ The API endpoints for the server is on Heroku and can be found [here.](https://w
 **Returns**: A an array of locations close to the user.
 
 ```javascript
-{{
+{
     "status": 200,
     "data": {
         "id": 234,
@@ -176,52 +176,52 @@ The API endpoints for the server is on Heroku and can be found [here.](https://w
         "reviews": [
             {
                 "id": 1,
-                "quietness": 3,
-                "wifi_speed": 3,
-                "close_late": 3,
-                "community": 1,
-                "accessibility": 2,
-                "description": "This space is beautiful--uniquely designed, great lighting, very spacious, comfy seating & it’s always clean. They have the best selection of coffee & have kombucha on tap! 24/7 access amazing so I can get work done whenever but staff is there during the weekdays & are very friendly & helpful! They organize a bunch of cool events like happy hours with beer/wine tastings & a monthly women’s breakfast which are fun perks but also help you meet the other co-workers & feel like you’re in a community. They even offer monthly massages at the office! All in all, awesome space & I love working out of here!",
-                "user_id": 1
-            },
-            {
-                "id": 1,
-                "quietness": 3,
-                "wifi_speed": 1,
-                "close_late": 2,
-                "community": 4,
-                "accessibility": 5,
-                "description": "Such a cool and lovely place. Ambience, wifi, culture and easily accessible",
-                "user_id": 5
-            },
-            {
-                "id": 1,
                 "quietness": 4,
                 "wifi_speed": 5,
                 "close_late": 3,
                 "community": 5,
-                "accessibility": 1,
-                "description": "This is such a wonderful place to work out of. The environment is quite serene and I enjoyed every minute I spent there. I will be back for sure.",
-                "user_id": 1
-            },
-            {
-                "id": 1,
-                "quietness": 4,
-                "wifi_speed": 1,
-                "close_late": 2,
-                "community": 5,
-                "accessibility": 1,
-                "description": "This is such a wonderful place to work out of. The environment is quite serene and I enjoyed every minute I spent there. I will be back for sure.",
+                "accessibility": 3,
+                "description": "I have the best experience with this place and everything is very perfect, corporative and also the main thing is the environment that is very interesting. I have worked for the best assignment writing services in this place so this is my personal experience.",
                 "user_id": 4
             },
             {
-                "id": 1,
-                "quietness": 5,
+                "id": 2,
+                "quietness": 3,
                 "wifi_speed": 3,
                 "close_late": 2,
-                "community": 5,
+                "community": 4,
+                "accessibility": 2,
+                "description": "We as a professional thesis writer always need that kind of environment to work and spend some quality time with the other fellows, So thank you for providing us a great place to sit on and the way they facilitate it is one of the best place for freelancers who need space for their work.",
+                "user_id": 3
+            },
+            {
+                "id": 3,
+                "quietness": 3,
+                "wifi_speed": 2,
+                "close_late": 1,
+                "community": 1,
                 "accessibility": 4,
+                "description": "This hotel is awesome! It was superb and clean! Incredible staff and Can You Do My Homework - DoMyAssignmentForMe accommodating to us. We will visit and remain at this inn many occasions over. So cheerful to have discovered this gem in the ideal area!",
+                "user_id": 3
+            },
+            {
+                "id": 4,
+                "quietness": 1,
+                "wifi_speed": 2,
+                "close_late": 3,
+                "community": 5,
+                "accessibility": 2,
                 "description": "We had a rough time at the Yard Flatiron North. While we were there the air conditioning was broken multiple times, as was the elevator. In addition, they allow companies to run public facing businesses out their space, so anyone can just be wandering around the space unattended. Lastly, all of the doors are unlocked during business hours so anyone from the street can just come up to each floor and use the bathroom or kitchen. Women at front desk were nice, but lack of investment and systems meant the overall experience was pretty bad.",
+                "user_id": 4
+            },
+            {
+                "id": 5,
+                "quietness": 2,
+                "wifi_speed": 1,
+                "close_late": 2,
+                "community": 2,
+                "accessibility": 3,
+                "description": "We as a professional thesis writer always need that kind of environment to work and spend some quality time with the other fellows, So thank you for providing us a great place to sit on and the way they facilitate it is one of the best place for freelancers who need space for their work.",
                 "user_id": 3
             }
         ]
