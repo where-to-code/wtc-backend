@@ -15,7 +15,7 @@ const updateVerifiedStatus = (id, value) =>
   db('users')
     .update('isVerified', value)
     .where({ id })
-    .returning('id', 'isVerified');
+    .returning('*');
 
 module.exports = {
   getAUser,
