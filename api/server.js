@@ -10,10 +10,11 @@ const userRouter = require('../users/index');
 
 const server = express();
 server.use(express.json());
+server.use(cookieParser());
 server.use(cors({ credentials: true }));
 server.use(helmet());
 server.use(express.urlencoded({ extended: true }));
-server.use(cookieParser());
+
 server.use(compression());
 server.use(logger('dev'));
 
