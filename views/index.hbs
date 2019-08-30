@@ -41,38 +41,45 @@
         p {
             line-height: 14px
         }
-        button{
-            border-radius:5px;
-             background:orange;
-              width:30% ;
-              height:20% ;
-              margin:5% 30%
+
+        button {
+            border-radius: 5px;
+            background: orange;
+            width: 30%;
+            height: 20%;
+            margin: 5% 30%
         }
-        a{
-            width:100%;
-             color:white 
+
+        a {
+            width: 100%;
+            color: white
         }
-        .secondDiv{
-            width:60%;
-             height:30%;
-             background:inherit;
+
+        .secondDiv {
+            width: 60%;
+            height: 30%;
+            background: inherit;
         }
-        #socialDiv{
-            width:60%; 
-            height:70%;
-            background:inherit
+
+        #socialDiv {
+            width: 60%;
+            height: 70%;
+            background: inherit
         }
-        h3{
-            text-align:center, font-family:Arial ,color:orange 
+
+        h3 {
+            text-align: center, font-family:Arial, color:orange
         }
-        .socialImage{
-            width:50px;
-            height:50px
+
+        .socialImage {
+            width: 50px;
+            height: 50px
         }
-        #footer{
-            width:60%; 
-            height:30%;
-            color:orange;
+
+        #footer {
+            width: 60%;
+            height: 30%;
+            color: orange;
         }
     </style>
 </head>
@@ -82,10 +89,10 @@
         <div class='imageDiv'><img id='image' src='' alt='' />
         </div>
         <div class='messageDiv'>
-            <h1> Hi {{name}} </h1>
+            <h1> Hi {{{name}}} </h1>
             <p>Thanks for get started on whereToCode! We need a little more information to
                 provide you better support,including the confirmation of your email address</p>
-            <button><a href={{url}} > Confirm Email</a></button>
+            <button><a href={{{url}}}> Confirm Email</a></button>
         </div>
     </div>
     <div class='secondDiv'>
@@ -101,4 +108,5 @@
             <p> Copyright &copy 2019 WhereToCode Team, Lambda Schools. All Rights Reserved </p>
         </div>
 </body>
+
 </html>
