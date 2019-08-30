@@ -8,7 +8,9 @@ const emailExists = require('../helpers/emailChecker');
 const mailer = require('../helpers/mailer');
 
 const generateToken = (res, id, firstname) => {
-  const token = jwt.sign({ id, firstname }, process.env.JWT_SECRET);
+  const token = jwt.sign({ id, firstname }, process.env.JWT_SECRET, {
+    expiresIn: '7d',
+  });
   return res.cookie('token', token, {
     maxAge: 60 * 60 * 24 * 7,
     secure: false,
