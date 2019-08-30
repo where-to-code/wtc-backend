@@ -1,6 +1,5 @@
 /* eslint-disable consistent-return */
 
-const cookie = require('cookie');
 const jwt = require('jsonwebtoken');
 const Model = require('./userModel');
 const statusHandler = require('../helpers/statusHandler');
@@ -10,10 +9,10 @@ const mailer = require('../helpers/mailer');
 
 const generateToken = (res, id, firstname) => {
   const token = jwt.sign({ id, firstname }, process.env.JWT_SECRET);
-  return res.setHeader('Set-Cookie', cookie.serialize('token', `${token}`), {
-    httpOnly: true,
+  return res.cookie('token', token, {
     maxAge: 60 * 60 * 24 * 7,
     secure: false,
+    httpOnly: true,
   });
 };
 
@@ -88,10 +87,11 @@ const verifyMail = async (req, res) => {
       from: process.env.EMAIL,
       to: email,
       subject: 'Where-To-Code',
-      template:'index',
-      html: `
-              
-          `,
+      template: 'index',
+      context: {
+        name: `${name}`,
+        url: `${process.env.URL}/api/auth/confirm/${token}`,
+      },
     };
     mailer(message, res);
   } catch (err) {
