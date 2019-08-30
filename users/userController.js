@@ -89,6 +89,7 @@ const gitHubAuth = async (req, res) => {
       },
     });
 
+    // the github access token to get user details
     const accessToken = response.data.access_token;
 
     const userDetails = await axios({
@@ -98,9 +99,23 @@ const gitHubAuth = async (req, res) => {
       },
     });
 
-    const { id, name, email } = userDetails.data;
+    // eslint-disable-next-line
+    const { id, name, email, login } = userDetails.data;
 
-    const user = await emailExists(email);
+    let firstname;
+    let lastname;
+
+    if (name.split(' ').length === 1) {
+      firstname = name;
+      lastname = name;
+    } else {
+      // eslint-disable-next-line
+      firstname = name.split(' ')[0];
+      // eslint-disable-next-line
+      lastname = name.split(' ')[1];
+    }
+
+    const user = await emailExists(email || login);
 
     if (user) {
       if (comparePassword('GitHub', user.password)) {
@@ -109,16 +124,16 @@ const gitHubAuth = async (req, res) => {
           id: user.id,
           firstname: user.firstname,
           lastname: user.lastname,
-          email: user.email,
+          email: user.email || login,
           isVerified: user.isVerified,
         });
       }
     }
 
     const newUser = await Model.registerUser({
-      firstname: name.split(' ')[0],
-      lastname: name.split(' ')[1],
-      email,
+      firstname,
+      lastname,
+      email: email || login,
       password: hashPassword('GitHub'),
       isVerified: true,
     });
@@ -126,9 +141,9 @@ const gitHubAuth = async (req, res) => {
     await generateToken(res, id, name);
     return statusHandler(res, 201, {
       id: newUser[0].id,
-      firstname: name.split(' ')[0],
-      lastname: name.split(' ')[1],
-      email,
+      firstname,
+      lastname,
+      email: email || login,
       isVerified: newUser[0].isVerified,
     });
   } catch (err) {
