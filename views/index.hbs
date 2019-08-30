@@ -7,107 +7,138 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Email- Where To Code</title>
     <style>
-        .firstDiv {
+        .mainPage {
+            height: 100%;
             width: 60%;
+            margin-left:10%;
+        
+            @media (max-width:500px){
+                  width: 100%;
+            }
+
+        }
+
+        .firstDiv {
+            width: 100%;
             height: 70%;
-            margin: 5% 20%;
-            border-radius: 10px;
+            background-color:#666A7C;
+            border-radius: 10%;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
         }
 
         .imageDiv {
             width: 100%;
             height: 30%;
-            background:;
+            background-color:inherit;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
         }
 
         #image {
-            width: 30%;
-            height: 80%;
-            float: center;
+            width: 100px;
+            height: 100px;
+            margin-left:40%
         }
 
         .messageDiv {
             width: 100%;
             height: 70%;
-            margin: 0 20%
+            background-color: #DBDBDB;
         }
 
         h1 {
-            color: seagreen;
+            color: #56C1CB;
+            text-align: center;
             font-size: 30px;
         }
 
         p {
-            line-height: 14px;
+            line-height: 20px;
+            color: black;
+            font-size: 16px;
+            padding:2% 10%
         }
 
         button {
             border-radius: 5px;
-            background: orange;
+            background-color: orange;
             width: 30%;
-            height: 20%;
-            margin: 5% 30%;
+            color: white;
+            height: 60px;
+            margin: 2% 35%;
         }
 
         a {
             width: 100%;
             color: white;
+            font-size: 16px;
+            text-decoration: none;
         }
 
         .secondDiv {
-            width: 60%;
-            height: 30%;
-            background: inherit;
+            width: 100%;
+            height: 40%;
+            background-color: inherit;
         }
 
         #socialDiv {
-            width: 60%;
+            width: 100%;
             height: 70%;
             background: inherit;
         }
 
-        h3 {
-            text-align: center; 
-            font-family:Arial;
-            color:orange;
+        h2 {
+            text-align: center;
+            font-style: italic;
+            font-family: Arial;
+            color: orange;
+            margin-left:10%;
         }
 
         .socialImage {
             width: 50px;
             height: 50px;
+            margin-left:45%;
         }
 
         #footer {
             width: 60%;
             height: 30%;
+            margin-left:30%;
             color: orange;
         }
     </style>
 </head>
 
 <body>
-    <div class='firstDiv'>
-        <div class='imageDiv'><img id='image' src='' alt='' />
+    <div class='mainPage'>
+        <div class='firstDiv'>
+            <div class='imageDiv'>
+                <img id='image' src='https://res.cloudinary.com/basilcea/image/upload/v1567181758/LOGO_1.png'
+                    alt='logo' />
+            </div>
+            <div class='messageDiv'>
+                <h1> Hi {{{name}}} , </h1>
+                <p>Thanks for get started on whereToCode! We need a little more information to
+                    provide you better support,including the confirmation of your email address</p>
+                <button><a href={{{url}}}> Confirm Email</a></button>
+            </div>
         </div>
-        <div class='messageDiv'>
-            <h1> Hi {{{name}}} </h1>
-            <p>Thanks for get started on whereToCode! We need a little more information to
-                provide you better support,including the confirmation of your email address</p>
-            <button><a href={{{url}}}> Confirm Email</a></button>
-        </div>
-    </div>
-    <div class='secondDiv'>
-        <div id='socialDiv'>
-            <h3>Stay in touch </h3>
-            <a href='mailto:admin@wheretocode.com'>
-                <img class='socialImage'
-                    src='https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/256x256/mail.png'
-                    alt="" /></a>
-        </div>
-        <div id='footer'>
-            <p>Thanks, WhereToCode Team </p>
-            <p> Copyright &copy 2019 WhereToCode Team, Lambda Schools. All Rights Reserved </p>
+        <div class='secondDiv'>
+            <div id='socialDiv'>
+                <h2>Stay in touch    </h2>
+                <a style="width:20%" href='mailto:admin@wheretocode.com'>
+                    <img class='socialImage'
+                        src='https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/256x256/mail.png'
+                        alt="" /></a>
+             
+            </div>
+            <div id='footer'>
+                <p>Thanks, WhereToCode Team </p>
+            </div>
         </div>
 </body>
 
