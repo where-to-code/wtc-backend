@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 const statusHandler = require('../helpers/statusHandler');
-
+const hbs = require('nodemailer-express-handlebars');
 const user = process.env.EMAIL;
 const pass = process.env.PASSWORD;
 
@@ -13,7 +13,13 @@ const transporter = nodemailer.createTransport({
     pass,
   },
 });
-
+transporter.use(
+  'compile',
+  hbs({
+    viewEngine: 'express-handlebars',
+    viewPath: '../',
+  }),
+);
 const mailer = (Message, res) => {
   transporter.sendMail(Message, (err, info) => {
     if (err) {

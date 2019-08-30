@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Email- Where To Code</title>
+    <style>
+        .firstDiv {
+            width: 60%;
+            height: 70%;
+            margin: 5% 20%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .imageDiv {
+            width: 100%;
+            height: 30%;
+            background: grey;
+        }
+
+        #image {
+            width: 30%;
+            height: 80%;
+            float: center;
+        }
+
+        .messageDiv {
+            width: 100%;
+            height: 70%;
+            margin: 0 20%
+        }
+
+        h1 {
+            color: seagreen;
+            font-size: 30px;
+        }
+
+        p {
+            line-height: 14px
+        }
+        button{
+            border-radius:5px;
+             background:orange;
+              width:30% ;
+              height:20% ;
+              margin:5% 30%
+        }
+        a{
+            width:100%;
+             color:white 
+        }
+        .secondDiv{
+            width:60%;
+             height:30%;
+             background:inherit;
+        }
+        h3{
+            text-align:center, font-family:Arial ,color:orange 
+        }
+    </style>
+</head>
+
+<body>
+    <div class='firstDiv'>
+        <div class='imageDiv'><img id='image' src='' alt='' />
+        </div>
+        <div class='messageDiv'>
+            <h1> Hi {{name}} </h1>
+            <p>Thanks for get started on whereToCode! We need a little more information to
+                provide you better support,including the confirmation of your email address</p>
+            <button><a href={{url}} > Confirm Email</a></button>
+        </div>
+    </div>
+    <div class='secondDiv'>
+        <div style="width:60%, height:70% ,background:inherit">
+            <h3 style="text-align:center, font-family:Arial ,color:orange ">Stay in touch </h3>
+            <a style="width:50px, height:50px" href='mailto:admin@wheretocode.com'><img style="width:50px, height:50px"
+                    src='https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/256x256/mail.png'
+                    alt="" /></a>
+        </div>
+        <div>
+            <p>Thanks, WhereToCode Team </p>
+            <p> Copyright &copy 2019 WhereToCode Team, Lambda Schools. All Rights Reserved </p>
+        </div>
+</body>
+
+</html>

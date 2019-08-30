@@ -88,29 +88,9 @@ const verifyMail = async (req, res) => {
       from: process.env.EMAIL,
       to: email,
       subject: 'Where-To-Code',
+      template:'index',
       html: `
-              <div style="width:100%, height:100%">
-                <div style="width:60%, height:70%, margin:5% 20% ,border-radius:10px , box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2)">
-                  <div style="width:100%, height:30%, background:grey "><img style="width:30%, height:80%, float:center" src='' alt='' />
-                  </div>
-                  <div style = "width:100% , height:70%",margin:0 20%>
-                      <h1 style= "color:seagreen, font-size:30px"> Hi ${name} </h1>
-                      <p style ="line-height:14px">Thanks for get started on whereToCode! We need a little more information to provide you better support,including the confirmation of your email address</p>
-                      <button style="border-radius:5px, background:orange, width:30% ,height:20% ,margin:5% 30%" ><a style="width:100%, color:white " href="${
-                        process.env.URL
-                      }/api/auth/confirm/${token}"> Confirm Email</a></button>
-                  </div>
-                </div>
-              <div style="width:60%, height:30%, background:inherit">
-              <div style="width:60%, height:70% ,background:inherit">
-              <h3 style="text-align:center, font-family:Arial ,color:orange ">Stay in touch </h3>
-              <a style="width:50px, height:50px" href='mailto:admin@wheretocode.com'><img style="width:50px, height:50px" src='https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/256x256/mail.png' alt=""/></a>
-              </div>
-              <div>
-              <p>Thanks, WhereToCode Team </p>
-              <p> Copyright &copy 2019 WhereToCode Team, Lambda Schools. All Rights Reserved </p>
-              </div>
-              </div>
+              
           `,
     };
     mailer(message, res);
