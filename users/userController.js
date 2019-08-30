@@ -12,7 +12,7 @@ const generateToken = (res, id, firstname) => {
     expiresIn: '7d',
   });
   return res.cookie('token', token, {
-    maxAge: 60 * 60 * 24 * 7,
+    expires: new Date(Date.now() + 900000),
     secure: false,
     httpOnly: true,
   });
