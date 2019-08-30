@@ -32,10 +32,9 @@ const register = async (req, res) => {
     };
 
     const newUser = await Model.registerUser(user);
-
-    if (newUser.rowCount === 1) {
+    if (newUser.length === 1) {
       await generateToken(res, newUser[0].id, newUser[0].firstname);
-      return statusHandler(res, 201, newUser);
+      return statusHandler(res, 201, newUser[0]);
     }
   } catch (err) {
     return statusHandler(res, 500, err.toString());
@@ -89,7 +88,7 @@ const verifyMail = async (req, res) => {
       subject: 'Where-To-Code',
       template: 'index',
       context: {
-        name: `${name}`,
+        name,
         url: `${process.env.URL}/api/auth/confirm/${token}`,
       },
     };
