@@ -57,8 +57,22 @@
              height:30%;
              background:inherit;
         }
+        #socialDiv{
+            width:60%; 
+            height:70%;
+            background:inherit
+        }
         h3{
             text-align:center, font-family:Arial ,color:orange 
+        }
+        .socialImage{
+            width:50px;
+            height:50px
+        }
+        #footer{
+            width:60%; 
+            height:30%;
+            color:orange;
         }
     </style>
 </head>
@@ -75,16 +89,16 @@
         </div>
     </div>
     <div class='secondDiv'>
-        <div style="width:60%, height:70% ,background:inherit">
-            <h3 style="text-align:center, font-family:Arial ,color:orange ">Stay in touch </h3>
-            <a style="width:50px, height:50px" href='mailto:admin@wheretocode.com'><img style="width:50px, height:50px"
+        <div id='socialDiv'>
+            <h3>Stay in touch </h3>
+            <a href='mailto:admin@wheretocode.com'>
+                <img class='socialImage'
                     src='https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/256x256/mail.png'
                     alt="" /></a>
         </div>
-        <div>
+        <div id='footer'>
             <p>Thanks, WhereToCode Team </p>
             <p> Copyright &copy 2019 WhereToCode Team, Lambda Schools. All Rights Reserved </p>
         </div>
 </body>
-
 </html>
