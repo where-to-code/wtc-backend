@@ -37,11 +37,14 @@ const validateRegister = (req, res, next) => {
 const validateEmail = (req, res, next) => {
   return validate(req.body.email, userSchema.email, res, next);
 };
-
+const validatePassword = (req, res, next) => {
+  return validate(req.body.email, userSchema.password, res, next);
+};
 module.exports = {
   validateQuery,
   validateId,
   validateLogin,
   validateRegister,
   validateEmail,
+  validatePassword,
 };
