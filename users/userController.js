@@ -60,27 +60,35 @@ const login = async (req, res) => {
   }
 };
 
-const confirm = async (req, res, url) => {
+const confirmMail = async (req, res) => {
   try {
     const { id } = await jwt.verify(req.params.token, process.env.EMAIL_SECRET);
     if (!id) {
       return statusHandler(res, 403, 'Invalid Token');
     }
     const result = await Model.updateVerifiedStatus(id, true);
-    res.redirect(url);
+    res.redirect(`${process.env.FRONT_URL}/verified`);
     return statusHandler(res, 200, result);
   } catch (err) {
     return statusHandler(res, 500, err.toString());
   }
 };
-const confirmMail = async (req, res) => {
-  await confirm(req, res, `${process.env.FRONT_URL}/verified`);
+const resetPassword = async (req, res) => {
+  const { password } = req.body;
+  try {
+    const { id } = await jwt.verify(req.params.token, process.env.EMAIL_SECRET);
+    if (!id) {
+      return statusHandler(res, 403, 'Invalid Token');
+    }
+    res.redirect(`${process.env.FRONT_URL}/change`);
+    await Model.updatePassword(id, password);
+    res.redirect(`${process.env.FRONT_URL}`);
+  } catch (err) {
+    return statusHandler(res, 500, err.toString());
+  }
 };
-const changePassword = async (req, res) => {
-  await confirm(req, res, `${process.env.FRONT_URL}/change`);
-  
-};
-const verifyMail = async (req, res) => {
+
+const verify = async (req, res, usermessage, button) => {
   const { email } = req.body;
   try {
     const result = await emailExists(email);
@@ -105,6 +113,8 @@ const verifyMail = async (req, res) => {
       context: {
         name,
         url: `${process.env.URL}/api/auth/confirm/${token}`,
+        message: usermessage,
+        urlMessage: button,
       },
     };
     mailer(message, res);
@@ -112,10 +122,21 @@ const verifyMail = async (req, res) => {
     return statusHandler(res, 500, err.toString());
   }
 };
+const message1 =
+  'Thanks for getting started on WhereToCode! We need a little more information to provide you better support,including the confirmation of your email address.';
+const message2 = 'We got a request to reset your password on WhereToCode! If you ignore this message your password wont be changed.';
+const verifyMail = async (req, res) => {
+  await verify(req, res, message1, 'Confirm Email');
+};
+const forgotPassword = async (req, res) => {
+  await verify(req, res, message2, 'Reset Password');
+};
 
 module.exports = {
   register,
   login,
   verifyMail,
   confirmMail,
+  resetPassword,
+  forgotPassword,
 };
