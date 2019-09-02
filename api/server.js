@@ -3,15 +3,18 @@ const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
 const logger = require('morgan');
+const cookieParser = require('cookie-parser');
 
 const locationRouter = require('../locations/index');
 const userRouter = require('../users/index');
 
 const server = express();
 server.use(express.json());
-server.use(express.urlencoded({ extended: true }));
-server.use(cors());
+server.use(cors({ origin: `${process.env.FRONT_URL}`, credentials: true }));
+server.use(cookieParser());
 server.use(helmet());
+server.use(express.urlencoded({ extended: true }));
+
 server.use(compression());
 server.use(logger('dev'));
 

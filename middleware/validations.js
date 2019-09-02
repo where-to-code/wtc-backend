@@ -34,10 +34,14 @@ const validateLogin = (req, res, next) => {
 const validateRegister = (req, res, next) => {
   return validate(req.body, userSchema.registerSchema, res, next);
 };
+const validateEmail = (req, res, next) => {
+  return validate(req.body.email, userSchema.email, res, next);
+};
 
 module.exports = {
   validateQuery,
   validateId,
   validateLogin,
   validateRegister,
+  validateEmail,
 };

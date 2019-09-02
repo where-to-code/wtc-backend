@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/where-to-code/wtc-backend.svg?branch=master)](https://travis-ci.org/where-to-code/wtc-backend) [![Coverage Status](https://coveralls.io/repos/github/where-to-code/wtc-backend/badge.svg?branch=chore/set-up-C.I)](https://coveralls.io/github/where-to-code/wtc-backend?branch=chore/set-up-C.I)
+[![Build Status](https://travis-ci.org/where-to-code/wtc-backend.svg?branch=master)](https://travis-ci.org/where-to-code/wtc-backend) [![Coverage Status](https://coveralls.io/repos/github/where-to-code/wtc-backend/badge.svg?branch=master)](https://coveralls.io/github/where-to-code/wtc-backend?branch=master)
 
 # wtc-backend
 
@@ -56,6 +56,7 @@ The API endpoints for the server is on Heroku and can be found [here.](https://w
 | POST   | `/users/register/`      | none                | Creates a new user                                 |
 | PUT    | `/users/:userId`        | owners, supervisors |                                                    |
 | DELETE | `/users/:userId`        | owners, supervisors |                                                    |
+
 
 ### Data Model
 

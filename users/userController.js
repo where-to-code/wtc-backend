@@ -1,4 +1,5 @@
 /* eslint-disable consistent-return */
+const jwt = require('jsonwebtoken');
 const axios = require('axios');
 const Model = require('./userModel');
 const statusHandler = require('../helpers/statusHandler');
@@ -151,4 +152,56 @@ const gitHubAuth = async (req, res) => {
   }
 };
 
-module.exports = { register, login, gitHubAuth };
+const confirmMail = async (req, res) => {
+  try {
+    const { id } = await jwt.verify(req.params.token, process.env.EMAIL_SECRET);
+    if (!id) {
+      return statusHandler(res, 403, 'Invalid Token');
+    }
+    const result = await Model.updateVerifiedStatus(id, true);
+    res.redirect(`${process.env.FRONT_URL}/verified`);
+    return statusHandler(res, 200, result);
+  } catch (err) {
+    return statusHandler(res, 500, err.toString());
+  }
+};
+const verifyMail = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const result = await emailExists(email);
+    if (result.isVerified) {
+      res.redirect(`${process.env.FRONT_URL}`);
+      return statusHandler(res, 201, 'This account is already verified');
+    }
+    const token = await jwt.sign(
+      { id: req.user.id },
+      process.env.EMAIL_SECRET,
+      {
+        expiresIn: '1d',
+      },
+    );
+    const name =
+      req.user.firstname.charAt(0).toUpperCase() + req.user.firstname.slice(1);
+    const message = {
+      from: process.env.EMAIL,
+      to: email,
+      subject: 'Where-To-Code',
+      template: 'index',
+      context: {
+        name,
+        url: `${process.env.URL}/api/auth/confirm/${token}`,
+      },
+    };
+    mailer(message, res);
+  } catch (err) {
+    return statusHandler(res, 500, err.toString());
+  }
+};
+module.exports = {
+  register,
+  login,
+  verifyMail,
+  confirmMail,
+  gitHubAuth ,
+};
+

@@ -1,14 +1,12 @@
 /* eslint-disable consistent-return */
 const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
-const cookie = require('cookie');
 const { getAUser } = require('../users/userModel');
 const statusHandler = require('../helpers/statusHandler');
 
 dotenv.config();
 const verifyToken = async (req, res, next) => {
-  const Authorization = cookie.parse(req.headers.cookies);
-  const token = Authorization.name;
+  const token = req.cookies.token || '';
   try {
     if (!token) {
       return statusHandler(res, 401, 'You need to Login');
