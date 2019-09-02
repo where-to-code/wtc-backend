@@ -73,38 +73,37 @@ const confirmMail = async (req, res) => {
     return statusHandler(res, 500, err.toString());
   }
 };
-const resetPassword = async (req, res) => {
-  const { password } = req.body;
+const verifyPasswordResetToken = async (req, res) => {
   try {
     const { id } = await jwt.verify(req.params.token, process.env.EMAIL_SECRET);
     if (!id) {
       return statusHandler(res, 403, 'Invalid Token');
     }
-    res.redirect(`${process.env.FRONT_URL}/change`);
+    return res.redirect(`${process.env.FRONT_URL}/change/${id}`);
+  } catch (err) {
+    return statusHandler(res, 500, err.toString());
+  }
+};
+const resetPassword = async (req, res) => {
+  const { id } = req.params;
+  const { password } = req.body;
+  try {
     await Model.updatePassword(id, password);
-    res.redirect(`${process.env.FRONT_URL}`);
+    return res.redirect(`${process.env.FRONT_URL}`);
   } catch (err) {
     return statusHandler(res, 500, err.toString());
   }
 };
 
-const verify = async (req, res, usermessage, button) => {
+const verify = async (req, res, usermessage, button, url) => {
   const { email } = req.body;
   try {
     const result = await emailExists(email);
-    if (result.isVerified) {
-      res.redirect(`${process.env.FRONT_URL}`);
-      return statusHandler(res, 201, 'This account is already verified');
-    }
-    const token = await jwt.sign(
-      { id: req.user.id },
-      process.env.EMAIL_SECRET,
-      {
-        expiresIn: '1d',
-      },
-    );
+    const token = await jwt.sign({ id: result.id }, process.env.EMAIL_SECRET, {
+      expiresIn: '1d',
+    });
     const name =
-      req.user.firstname.charAt(0).toUpperCase() + req.user.firstname.slice(1);
+      result.firstname.charAt(0).toUpperCase() + result.firstname.slice(1);
     const message = {
       from: process.env.EMAIL,
       to: email,
@@ -112,7 +111,7 @@ const verify = async (req, res, usermessage, button) => {
       template: 'index',
       context: {
         name,
-        url: `${process.env.URL}/api/auth/confirm/${token}`,
+        url: `${url}/${token}`,
         message: usermessage,
         urlMessage: button,
       },
@@ -124,18 +123,39 @@ const verify = async (req, res, usermessage, button) => {
 };
 const message1 =
   'Thanks for getting started on WhereToCode! We need a little more information to provide you better support,including the confirmation of your email address.';
-const message2 = 'We got a request to reset your password on WhereToCode! If you ignore this message your password wont be changed.';
+const message2 =
+  'We got a request to reset your password on WhereToCode. If you ignore this message your password wont be changed.';
 const verifyMail = async (req, res) => {
-  await verify(req, res, message1, 'Confirm Email');
+  const { email } = req.body;
+  const result = await emailExists(email);
+  if (result.isVerified) {
+    res.redirect(`${process.env.FRONT_URL}`);
+    return statusHandler(res, 201, 'This account is already verified');
+  }
+  await verify(
+    req,
+    res,
+    message1,
+    'Confirm Email',
+    `${process.env.URL}/api/auth/confirm`,
+  );
 };
+
 const forgotPassword = async (req, res) => {
-  await verify(req, res, message2, 'Reset Password');
+  await verify(
+    req,
+    res,
+    message2,
+    'Reset Password',
+    `${process.env.URL}/api/auth/reset`,
+  );
 };
 
 module.exports = {
   register,
   login,
   verifyMail,
+  verifyPasswordResetToken,
   confirmMail,
   resetPassword,
   forgotPassword,
