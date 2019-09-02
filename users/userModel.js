@@ -28,6 +28,4 @@ module.exports = {
   getUsers,
   updateVerifiedStatus,
   updatePassword,
-  updateVerifiedStatus,
-  getUsers,
 };

@@ -165,7 +165,6 @@ const confirmMail = async (req, res) => {
     return statusHandler(res, 500, err.toString());
   }
 };
-
 const verifyPasswordResetToken = async (req, res) => {
   try {
     const { id } = await jwt.verify(req.params.token, process.env.EMAIL_SECRET);
