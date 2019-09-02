@@ -168,3 +168,12 @@ describe('/auth/login [POST]', () => {
     expect(res.status).toEqual(200);
   });
 });
+
+describe('test suite for reset password', () => {
+  it('should accept password and user Id and redirect', async () => {
+    const res = await request(server)
+      .post('/api/auth/change/1')
+      .send({ password: 'qwerty' });
+    expect(res.status).toEqual(302);
+  });
+});
