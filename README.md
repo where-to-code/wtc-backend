@@ -57,6 +57,7 @@ The API endpoints for the server is on Heroku and can be found [here.](https://w
 | PUT    | `/users/:userId`        | owners, supervisors |                                                    |
 | DELETE | `/users/:userId`        | owners, supervisors |                                                    |
 
+
 ### Data Model
 
 ![Where To Code Database Illustration](database/DBIllustration.png)
