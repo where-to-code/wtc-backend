@@ -59,18 +59,26 @@ const login = async (req, res) => {
     return statusHandler(res, 500, err.toString());
   }
 };
-const confirmMail = async (req, res) => {
+
+const confirm = async (req, res, url) => {
   try {
     const { id } = await jwt.verify(req.params.token, process.env.EMAIL_SECRET);
     if (!id) {
       return statusHandler(res, 403, 'Invalid Token');
     }
     const result = await Model.updateVerifiedStatus(id, true);
-    res.redirect(`${process.env.FRONT_URL}/verified`);
+    res.redirect(url);
     return statusHandler(res, 200, result);
   } catch (err) {
     return statusHandler(res, 500, err.toString());
   }
+};
+const confirmMail = async (req, res) => {
+  await confirm(req, res, `${process.env.FRONT_URL}/verified`);
+};
+const changePassword = async (req, res) => {
+  await confirm(req, res, `${process.env.FRONT_URL}/change`);
+  
 };
 const verifyMail = async (req, res) => {
   const { email } = req.body;
