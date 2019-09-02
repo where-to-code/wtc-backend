@@ -75,6 +75,11 @@ const confirmMail = async (req, res) => {
 const verifyMail = async (req, res) => {
   const { email } = req.body;
   try {
+    const result = await emailExists(email);
+    if (result.isVerified) {
+      res.redirect(`${process.env.FRONT_URL}`);
+      return statusHandler(res, 201, 'This account is already verified');
+    }
     const token = await jwt.sign(
       { id: req.user.id },
       process.env.EMAIL_SECRET,
