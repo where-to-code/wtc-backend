@@ -6,11 +6,12 @@ const getAUser = id =>
   db('users')
     .where({ id })
     .first();
+
 const getUserByEmail = email =>
   db('users')
     .where({ email })
     .first();
-const registerUser = user => db('users').insert(user).returning('*');
+const registerUser = user => db('users').insert(user, ['id', 'isVerified']);
 const updateVerifiedStatus = (id, value) =>
   db('users')
     .update('isVerified', value)
