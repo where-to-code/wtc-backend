@@ -112,5 +112,4 @@ module.exports = {
   registerSchema,
   loginSchema,
   email,
-  password,
 };
