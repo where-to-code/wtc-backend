@@ -204,7 +204,7 @@ describe('/auth/verify [POST]', () => {
       ],
     });
   });
-  it('should fail if email does not exist', async() => {
+  it('should fail if email does not exist', async () => {
     const res = await request(server)
       .post('/api/auth/verify')
       .send({ email: 'jac@gmail.com' })
@@ -212,22 +212,17 @@ describe('/auth/verify [POST]', () => {
     expect(res.status).toEqual(404);
     expect(res.body).toEqual({
       status: 404,
-      message: 'Email does not exist'
+      message: 'Email does not exist',
     });
   });
-  it('should send mail', async() => {
+  it('should send mail', async () => {
     const res = await request(server)
-    .post('/api/auth/verify')
-    .send({ email: 'jn@john.com' })
-    .set('Cookie', cookie);
-  expect(res.status).toEqual(201);
-  expect(res.body).toEqual({
-    status: 404,
-    message: 'Email does not exist'
-  });
-  });
-  it('should fail if token is expired', async () => {
-  });
+      .post('/api/auth/verify')
+      .send({ email: 'jn@john.com' })
+      .set('Cookie', cookie);
+    expect(res.status).toEqual(200);
+  }, 10000);
+  it('should fail if token is expired',  () => {
 });
 
 describe('/auth/confirm:token [GET]', () => {
