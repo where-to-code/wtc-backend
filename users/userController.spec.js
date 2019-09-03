@@ -218,7 +218,7 @@ describe('/auth/verify [POST]', () => {
     });
   });
   it('should send mail', async () => {
-    jest.spyOn(user, 'verifyEmail').mockResolvedValue({ success: true });
+    jest.spyOn(user, 'verifyMail').mockResolvedValue({ success: true });
     const res = await request(server)
       .post('/api/auth/verify')
       .send({ email: 'jn@john.com' })
