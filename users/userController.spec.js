@@ -240,6 +240,7 @@ describe('/auth/verify [POST]', () => {
 
 describe('/auth/confirm:token [GET]', () => {
   it('should change isVerified status to true and redirect', async () => {
+    jest.spyOn(user, 'confirmMail').mockResolvedValue({ success: true });
     const urlPath = url.parse(`${urlAddress}`).path;
     const res = await request(server).get(`${urlPath}`);
     expect(res.header.location).toEqual(
@@ -267,6 +268,7 @@ describe('/auth/forgot [POST]', () => {
 
 describe('/auth/reset/:token [GET]', () => {
   it('should redirect to homepage', async () => {
+    jest.spyOn(user, 'verifyPasswordResetToken').mockResolvedValue({ success: true });
     const urlPath = url.parse(`${urlAddress}`).path;
     const res = await request(server).get(`${urlPath}`);
     expect(res.header.location).toEqual(
