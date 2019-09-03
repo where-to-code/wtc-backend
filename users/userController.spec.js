@@ -220,7 +220,6 @@ describe('/auth/verify [POST]', () => {
     .post('/api/auth/verify')
     .send({ email: 'jn@john.com' })
     .set('Cookie', cookie);
-    console.log(res.body)
   expect(res.status).toEqual(201);
   expect(res.body).toEqual({
     status: 404,

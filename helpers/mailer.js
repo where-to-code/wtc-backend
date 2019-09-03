@@ -4,16 +4,28 @@ const statusHandler = require('../helpers/statusHandler');
 
 const user = process.env.EMAIL;
 const pass = process.env.PASSWORD;
-
-const transporter = nodemailer.createTransport({
-  host: 'mail.privateemail.com',
-  port: 587,
-  secure: false,
-  auth: {
-    user,
-    pass,
-  },
-});
+let mailConfig;
+if (process.env.DB_ENV === 'testing') {
+  mailConfig = {
+    host: 'smtp.ethereal.email',
+    port: 587,
+    auth: {
+      user: 'kelton.macejkovic63@ethereal.email',
+      pass: 'FqYaRa2nsCPChnkjFm',
+    },
+  };
+} else {
+  mailConfig = {
+    host: 'mail.privateemail.com',
+    port: 587,
+    secure: false,
+    auth: {
+      user,
+      pass,
+    },
+  };
+}
+const transporter = nodemailer.createTransport(mailConfig);
 transporter.use(
   'compile',
   hbs({
