@@ -12,9 +12,9 @@ const getUserByEmail = email =>
     .where({ email })
     .first();
 const registerUser = user => db('users').insert(user, ['id', 'isVerified']);
-const updateVerifiedStatus = (id, value) =>
+const updateVerifiedStatus = (id) =>
   db('users')
-    .update('isVerified', value)
+    .update('isVerified', true)
     .where({ id });
 const updatePassword = (id, newPassword) =>
   db('users')

@@ -38,7 +38,7 @@ const validateEmail = (req, res, next) => {
   return validate(req.body.email, userSchema.email, res, next);
 };
 const validatePassword = (req, res, next) => {
-  return validate(req.body.email, userSchema.password, res, next);
+  return validate(req.body.password, userSchema.password, res, next);
 };
 module.exports = {
   validateQuery,

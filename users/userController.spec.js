@@ -218,6 +218,7 @@ describe('/auth/verify [POST]', () => {
     });
   });
   it('should send mail', async () => {
+    jest.spyOn(user, 'verifyEmail').mockResolvedValue({ success: true });
     const res = await request(server)
       .post('/api/auth/verify')
       .send({ email: 'jn@john.com' })
@@ -255,6 +256,7 @@ describe('/auth/confirm:token [GET]', () => {
 
 describe('/auth/forgot [POST]', () => {
   it('should send mail', async () => {
+    jest.spyOn(user, 'forgotPassword').mockResolvedValue({ success: true });
     const res = await request(server)
       .post('/api/auth/forgot')
       .send({ email: 'jn@john.com' });
@@ -285,14 +287,12 @@ describe('/auth/change/:id [POST]', () => {
     const res = await request(server)
       .post('/api/auth/change/2')
       .send({ password });
-      console.log(res.body);
     expect(res.status).toEqual(400);
   });
   it('should pass', async () => {
     const res = await request(server)
       .post('/api/auth/change/2')
       .send({ password: '123abcd' });
-    console.log(res.body);
     expect(res.header.location).toEqual(
       'https://wheretocode-frontend.herokuapp.com',
     );

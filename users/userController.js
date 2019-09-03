@@ -200,7 +200,7 @@ const verifyMail = async (req, res) => {
 const confirmMail = async (req, res) => {
   try {
     const { id } = await jwt.verify(req.params.token, process.env.EMAIL_SECRET);
-    await Model.updateVerifiedStatus(id, true);
+    await Model.updateVerifiedStatus(id);
     return res.redirect(`${process.env.FRONT_URL}/verified`);
   } catch (err) {
     return statusHandler(res, 500, err.toString());
