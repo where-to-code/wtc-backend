@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 const User = require('./userModel');
+
 describe('Model for user', () => {
   const user = {
     firstname: 'Ken',
