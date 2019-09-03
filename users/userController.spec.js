@@ -220,26 +220,37 @@ describe('/auth/verify [POST]', () => {
       .post('/api/auth/verify')
       .send({ email: 'jn@john.com' })
       .set('Cookie', cookie);
+      console.log(cookie)
     expect(res.status).toEqual(200);
-  }, 10000);
-  it('should fail if token is expired',  () => {
+  }, 100000);
+  it('should fail is token is expired', async ()=> {
+    const res = await request(server)
+      .post('/api/auth/verify')
+      .send({ email: 'jn@john.com' })
+      .set('Cookie',   [
+        'token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZmlyc3RuYW1lIjoiSmFuZSIsImlhdCI6MTU2NzQ5NzMwMH0.pstEIIi4P36vPx57PWkFP4vrfSEtcgnAKHcthjldspQ; ' +
+          'Path=/; Expires=Tue, 03 Sep 2019 07:55:00 GMT; HttpOnly'
+      ]);
+      console.log(res.body)
+  }, 100000);
 });
 
-describe('/auth/confirm:token [GET]', () => {
-  it('should change isVerified status to true and redirect', () => {});
-  it('should fail if token is expired', () => {});
-});
 
-describe('/auth/forgot [POST]', () => {
-  it('should send mail', () => {});
-});
+// describe('/auth/confirm:token [GET]', () => {
+//   it('should change isVerified status to true and redirect', () => {});
+//   it('should fail if token is expired', () => {});
+// });
 
-describe('/auth/reset/:token [GET]', () => {
-  it('should redirect user', () => {});
-  it('should fail if token is expired', () => {});
-});
+// describe('/auth/forgot [POST]', () => {
+//   it('should send mail', () => {});
+// });
 
-describe('/auth/change/:id [POST]', () => {
-  it('should fail if password is empty or has wrong format', () => {});
-  it('should pass', () => {});
-});
+// describe('/auth/reset/:token [GET]', () => {
+//   it('should redirect user', () => {});
+//   it('should fail if token is expired', () => {});
+// });
+
+// describe('/auth/change/:id [POST]', () => {
+//   it('should fail if password is empty or has wrong format', () => {});
+//   it('should pass', () => {});
+// });
