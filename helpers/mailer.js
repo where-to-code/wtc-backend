@@ -30,9 +30,9 @@ transporter.use(
 const mailer = (Message, res) => {
   transporter.sendMail(Message, (err, info) => {
     if (err) {
-      return statusHandler(res, 400, err.toString);
+      return statusHandler(res, 400, err.toString());
     }
-    return statusHandler(res, 200, { message: 'Mail  Sent Succesfully', info });
+    return statusHandler(res, 200, { message: 'Mail  Sent Succesfully', info , Message });
   });
 };
 module.exports = mailer;

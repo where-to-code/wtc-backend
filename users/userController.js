@@ -32,7 +32,6 @@ const register = async (req, res) => {
 
     const newUser = await Model.registerUser(user);
     const { id, isVerified } = newUser[0];
-
     if (newUser.length === 1) {
       await generateToken(res, newUser.id, firstname);
       return statusHandler(res, 201, {
@@ -190,10 +189,6 @@ const verifyMail = async (req, res) => {
   if (!result) {
     return statusHandler(res, 404, 'Email does not exist');
   }
-  if (result.isVerified) {
-    res.redirect(`${process.env.FRONT_URL}`);
-    return statusHandler(res, 201, 'This account is already verified');
-  }
   await verify(
     req,
     res,
@@ -205,12 +200,8 @@ const verifyMail = async (req, res) => {
 const confirmMail = async (req, res) => {
   try {
     const { id } = await jwt.verify(req.params.token, process.env.EMAIL_SECRET);
-    if (!id) {
-      return statusHandler(res, 403, 'Invalid Token');
-    }
-    const result = await Model.updateVerifiedStatus(id, true);
-    res.redirect(`${process.env.FRONT_URL}/verified`);
-    return statusHandler(res, 200, result);
+    await Model.updateVerifiedStatus(id, true);
+    return res.redirect(`${process.env.FRONT_URL}/verified`);
   } catch (err) {
     return statusHandler(res, 500, err.toString());
   }
@@ -229,9 +220,6 @@ const forgotPassword = async (req, res) => {
 const verifyPasswordResetToken = async (req, res) => {
   try {
     const { id } = await jwt.verify(req.params.token, process.env.EMAIL_SECRET);
-    if (!id) {
-      return statusHandler(res, 403, 'Invalid Token');
-    }
     return res.redirect(`${process.env.FRONT_URL}/change/${id}`);
   } catch (err) {
     return statusHandler(res, 500, err.toString());

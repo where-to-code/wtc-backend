@@ -1,6 +1,8 @@
 const request = require('supertest');
 const server = require('../api/server');
-
+const url = require('url');
+const user = require('./userController');
+let urlAddress;
 describe('/auth/register [POST]', () => {
   it('should fail if required fields are not given', async () => {
     const res = await request(server)
@@ -220,37 +222,79 @@ describe('/auth/verify [POST]', () => {
       .post('/api/auth/verify')
       .send({ email: 'jn@john.com' })
       .set('Cookie', cookie);
-      console.log(cookie)
     expect(res.status).toEqual(200);
-  }, 100000);
-  it('should fail is token is expired', async ()=> {
+    urlAddress = res.body.data.Message.context.url;
+  }, 10000);
+  it('should fail is token is expired', async () => {
     const res = await request(server)
       .post('/api/auth/verify')
       .send({ email: 'jn@john.com' })
-      .set('Cookie',   [
-        'token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZmlyc3RuYW1lIjoiSmFuZSIsImlhdCI6MTU2NzQ5NzMwMH0.pstEIIi4P36vPx57PWkFP4vrfSEtcgnAKHcthjldspQ; ' +
-          'Path=/; Expires=Tue, 03 Sep 2019 07:55:00 GMT; HttpOnly'
+      .set('Cookie', [
+        'token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZmlyc3RuYW1lIjoiSmFuZSIsImlhdCI6MTU2NzUwMzU3MiwiZXhwIjoxNTY3NTAzNTczfQ.6EQeXVSUK7xastJZB93oULhhGOwXX2aCHCRDWqol_3E; ' +
+          'Path=/; Expires=Tue, 03 Sep 2019 09:39:32 GMT; HttpOnly',
       ]);
-      console.log(res.body)
-  }, 100000);
+    expect(res.status).toEqual(500);
+  });
 });
 
+describe('/auth/confirm:token [GET]', () => {
+  it('should change isVerified status to true and redirect', async () => {
+    const urlPath = url.parse(`${urlAddress}`).path;
+    const res = await request(server).get(`${urlPath}`);
+    expect(res.header.location).toEqual(
+      'https://wheretocode-frontend.herokuapp.com/verified',
+    );
+  });
+  it('should fail if token is expired', async () => {
+    const res = await request(server).get(
+      '/api/auth/confirm/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTY3NTA5NjM3LCJleHAiOjE1Njc1MDk2NDJ9.2Z6H7ZqpIHQ_Hfh1TBXv5eV6ShvTHn7YL-aIaZykKyQ',
+    );
+    expect(res.status).toEqual(500);
+  });
+});
 
-// describe('/auth/confirm:token [GET]', () => {
-//   it('should change isVerified status to true and redirect', () => {});
-//   it('should fail if token is expired', () => {});
-// });
+describe('/auth/forgot [POST]', () => {
+  it('should send mail', async () => {
+    const res = await request(server)
+      .post('/api/auth/forgot')
+      .send({ email: 'jn@john.com' });
+    expect(res.status).toEqual(200);
+    urlAddress = res.body.data.Message.context.url;
+  }, 10000);
+});
 
-// describe('/auth/forgot [POST]', () => {
-//   it('should send mail', () => {});
-// });
+describe('/auth/reset/:token [GET]', () => {
+  it('should redirect to homepage', async () => {
+    const urlPath = url.parse(`${urlAddress}`).path;
+    const res = await request(server).get(`${urlPath}`);
+    expect(res.header.location).toEqual(
+      'https://wheretocode-frontend.herokuapp.com/change/2',
+    );
+  });
+  it('should fail if token is expired', async () => {
+    const res = await request(server).get(
+      '/api/auth/reset/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTY3NTA5NjM3LCJleHAiOjE1Njc1MDk2NDJ9.2Z6H7ZqpIHQ_Hfh1TBXv5eV6ShvTHn7YL-aIaZykKyQ',
+    );
+    expect(res.status).toEqual(500);
+  });
+});
 
-// describe('/auth/reset/:token [GET]', () => {
-//   it('should redirect user', () => {});
-//   it('should fail if token is expired', () => {});
-// });
-
-// describe('/auth/change/:id [POST]', () => {
-//   it('should fail if password is empty or has wrong format', () => {});
-//   it('should pass', () => {});
-// });
+describe('/auth/change/:id [POST]', () => {
+  it('should fail if password is empty or has wrong format', async () => {
+    const password = '123ab';
+    const res = await request(server)
+      .post('/api/auth/change/2')
+      .send({ password });
+      console.log(res.body);
+    expect(res.status).toEqual(400);
+  });
+  it('should pass', async () => {
+    const res = await request(server)
+      .post('/api/auth/change/2')
+      .send({ password: '123abcd' });
+    console.log(res.body);
+    expect(res.header.location).toEqual(
+      'https://wheretocode-frontend.herokuapp.com',
+    );
+  });
+});
