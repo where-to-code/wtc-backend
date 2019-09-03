@@ -168,3 +168,83 @@ describe('/auth/login [POST]', () => {
     expect(res.status).toEqual(200);
   });
 });
+describe('/auth/verify [POST]', () => {
+  let cookie;
+  beforeAll(async () => {
+    const res = await request(server)
+      .post('/api/auth/login')
+      .send({
+        email: 'jn@john.com',
+        password: '12345abc',
+      });
+    cookie = res.headers['set-cookie'];
+  });
+  it('should fail if there is no cookie', async () => {
+    const res = await request(server)
+      .post('/api/auth/verify')
+      .send({ email: 'jn@john.com' })
+      .set('Cookie', '');
+    expect(res.status).toEqual(401);
+    expect(res.body).toEqual({
+      status: 401,
+      message: 'You need to Login',
+    });
+  });
+  it('should fail if email format is wrong', async () => {
+    const res = await request(server)
+      .post('/api/auth/verify')
+      .send({ email: '' })
+      .set('Cookie', cookie);
+    expect(res.status).toEqual(400);
+    expect(res.body).toEqual({
+      status: 400,
+      message: [
+        'Email cannot be empty',
+        'Incorrect email format. e.g eaxmple@mymail.com',
+      ],
+    });
+  });
+  it('should fail if email does not exist', async() => {
+    const res = await request(server)
+      .post('/api/auth/verify')
+      .send({ email: 'jac@gmail.com' })
+      .set('Cookie', cookie);
+    expect(res.status).toEqual(404);
+    expect(res.body).toEqual({
+      status: 404,
+      message: 'Email does not exist'
+    });
+  });
+  it('should send mail', async() => {
+    const res = await request(server)
+    .post('/api/auth/verify')
+    .send({ email: 'jn@john.com' })
+    .set('Cookie', cookie);
+  expect(res.status).toEqual(201);
+  expect(res.body).toEqual({
+    status: 404,
+    message: 'Email does not exist'
+  });
+  });
+  it('should fail if token is expired', async () => {
+  });
+});
+
+describe('/auth/confirm:token [GET]', () => {
+  it('should change isVerified status to true and redirect', () => {});
+  it('should fail if token is expired', () => {});
+});
+
+describe('/auth/forgot [POST]', () => {
+  it('should send mail', () => {});
+});
+
+describe('/auth/reset/:token [GET]', () => {
+  it('should redirect user', () => {});
+  it('should fail if token is expired', () => {});
+});
+
+describe('/auth/change/:id [POST]', () => {
+  it('should fail if password is empty or has wrong format', () => {});
+  it('should pass', () => {});
+});

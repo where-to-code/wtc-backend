@@ -1,11 +1,12 @@
-const cookie = require('cookie');
+
 const jwt = require('jsonwebtoken');
 
 module.exports = (res, id, firstname) => {
+  const expiration = process.env.DB_ENV=='testing'? 1: 604800000
   const token = jwt.sign({ id, firstname }, process.env.JWT_SECRET);
-  return res.setHeader('Set-Cookie', cookie.serialize('token', token), {
-    httpOnly: true,
-    maxAge: 60 * 60 * 24 * 7,
+  return res.cookie('token', token, {
+    expires: new Date(Date.now() + expiration),
     secure: false,
+    httpOnly: true,
   });
 };

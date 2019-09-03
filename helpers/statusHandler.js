@@ -3,6 +3,7 @@ module.exports = (res, status, data) => {
     200: 'data',
     201: 'data',
     400: 'message',
+    401: 'message',
     404: 'message',
     403: 'message',
     500: 'error',
