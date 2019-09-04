@@ -1,14 +1,14 @@
 const db = require('../database/dbConfig');
 
-const getLocations = async (lat, long) => {
+const getLocations = async (lat, long , range) => {
   const dbResults = await db('locations');
 
   return dbResults.filter(
     location =>
-      Number(location.latitude) >= Number(lat) - 0.135 &&
-      Number(location.latitude) <= Number(lat) + 0.135 &&
-      (Number(location.longitude) >= Number(long) - 0.135 &&
-        Number(location.longitude) <= Number(long) + 0.135),
+      Number(location.latitude) >= Number(lat) - range &&
+      Number(location.latitude) <= Number(lat) + range &&
+      (Number(location.longitude) >= Number(long) - range &&
+        Number(location.longitude) <= Number(long) + range),
   );
 };
 
