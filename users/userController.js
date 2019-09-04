@@ -156,6 +156,9 @@ const verify = async (req, res, usermessage, button, url) => {
   const { email } = req.body;
   try {
     const result = await emailExists(email);
+    if (!result) {
+      return statusHandler(res, 404, 'Email does not exist');
+    }
     const token = await jwt.sign({ id: result.id }, process.env.EMAIL_SECRET, {
       expiresIn: '1d',
     });
@@ -230,7 +233,7 @@ const resetPassword = async (req, res) => {
   const { password } = req.body;
   try {
     await Model.updatePassword(id, hashPassword(password));
-    return res.redirect(`${process.env.FRONT_URL}`);
+    return res.redirect(`${process.env.REDIRECT_URL}`);
   } catch (err) {
     return statusHandler(res, 500, err.toString());
   }

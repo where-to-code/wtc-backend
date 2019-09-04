@@ -287,13 +287,13 @@ describe('/auth/change/:id [POST]', () => {
   it('should fail if password is empty or has wrong format', async () => {
     const password = '123ab';
     const res = await request(server)
-      .post('/api/auth/change/2')
+      .put('/api/auth/change/2')
       .send({ password });
     expect(res.status).toEqual(400);
   });
   it('should pass', async () => {
     const res = await request(server)
-      .post('/api/auth/change/2')
+      .put('/api/auth/change/2')
       .send({ password: '123abcd' });
     expect(res.header.location).toEqual(
       'https://wheretocode-frontend.herokuapp.com',
