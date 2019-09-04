@@ -5,11 +5,13 @@ describe('/locations [GET]', () => {
   const queryParameter = {
     lat: '7.5663896',
     long: '3.3662124',
+    range: '0.135',
   };
 
   const queryParameter2 = {
     lat: '-34.58',
     long: '-58.44',
+    range: '0.135',
   };
 
   it('should fail if no latitude and longitude is not given', async () => {
@@ -24,7 +26,7 @@ describe('/locations [GET]', () => {
   it('should fail if either longitude is not given', async () => {
     const res = await request(server)
       .get('/api/locations')
-      .query({ lat: '-34.58', long: '' })
+      .query({ lat: '-34.58', long: '', range: '0.135' })
       .expect('Content-Type', /json/);
 
     expect(res.status).toEqual(400);
@@ -32,7 +34,7 @@ describe('/locations [GET]', () => {
   it('should fail if either latitude is not given', async () => {
     const res = await request(server)
       .get('/api/locations')
-      .query({ lat: '', long: '58.9' })
+      .query({ lat: '', long: '58.9', range: '0.135' })
       .expect('Content-Type', /json/);
 
     expect(res.status).toEqual(400);

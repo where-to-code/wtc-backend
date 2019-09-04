@@ -12,14 +12,15 @@ const getUserByEmail = email =>
     .where({ email })
     .first();
 const registerUser = user => db('users').insert(user, ['id', 'isVerified']);
-const updateVerifiedStatus = (id) =>
+const updateVerifiedStatus = id =>
   db('users')
     .update('isVerified', true)
     .where({ id });
 const updatePassword = (id, newPassword) =>
   db('users')
     .update('password', newPassword)
-    .where({ id });
+    .where({ id })
+    .returning(['id', 'isVerified']);
 
 module.exports = {
   getAUser,

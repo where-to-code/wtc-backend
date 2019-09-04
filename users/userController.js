@@ -156,6 +156,9 @@ const verify = async (req, res, usermessage, button, url) => {
   const { email } = req.body;
   try {
     const result = await emailExists(email);
+    if (!result) {
+      return statusHandler(res, 404, 'Email does not exist');
+    }
     const token = await jwt.sign({ id: result.id }, process.env.EMAIL_SECRET, {
       expiresIn: '1d',
     });
@@ -201,7 +204,7 @@ const confirmMail = async (req, res) => {
   try {
     const { id } = await jwt.verify(req.params.token, process.env.EMAIL_SECRET);
     await Model.updateVerifiedStatus(id);
-    return res.redirect(`${process.env.FRONT_URL}/verified`);
+    return res.redirect(`${process.env.REDIRECT_URL}/verified`);
   } catch (err) {
     return statusHandler(res, 500, err.toString());
   }
@@ -220,7 +223,7 @@ const forgotPassword = async (req, res) => {
 const verifyPasswordResetToken = async (req, res) => {
   try {
     const { id } = await jwt.verify(req.params.token, process.env.EMAIL_SECRET);
-    return res.redirect(`${process.env.FRONT_URL}/change/${id}`);
+    return res.redirect(`${process.env.REDIRECT_URL}/reset?id=${id}`);
   } catch (err) {
     return statusHandler(res, 500, err.toString());
   }
@@ -229,8 +232,8 @@ const resetPassword = async (req, res) => {
   const { id } = req.params;
   const { password } = req.body;
   try {
-    await Model.updatePassword(id, hashPassword(password));
-    return res.redirect(`${process.env.FRONT_URL}`);
+    const result = await Model.updatePassword(id, hashPassword(password));
+    return statusHandler(res, 200, result);
   } catch (err) {
     return statusHandler(res, 500, err.toString());
   }
