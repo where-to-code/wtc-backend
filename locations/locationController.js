@@ -9,7 +9,6 @@ const getAllLocationsCloseToUser = async (req, res) => {
 
   try {
     const data = await Model.getLocations(lat, long, range);
-
     if (data.length === 0) {
       return statusHandler(
         res,

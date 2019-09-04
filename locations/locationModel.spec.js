@@ -5,7 +5,7 @@ describe('location /GET location by query parameters testing', () => {
   it('should return an array of objects ', async () => {
     const lat = -34.58;
     const long = -58.44;
-    const locations = await Location.getLocations(lat, long);
+    const locations = await Location.getLocations(lat, long , 0.14);
     expect(locations).toBeInstanceOf(Array);
     expect(locations).not.toBeUndefined();
     expect(locations).not.toBeNull();
@@ -15,26 +15,26 @@ describe('location /GET location by query parameters testing', () => {
   it('array should not be empty when location exists', async () => {
     const lat = -34.58;
     const long = -58.44;
-    const locations = await Location.getLocations(lat, long);
+    const locations = await Location.getLocations(lat, long, 0.14);
     expect(locations.length).toBeGreaterThanOrEqual(1);
   });
   it('array should be less than or equal to 30', async () => {
     const lat = -34.58;
     const long = -58.44;
-    const locations = await Location.getLocations(lat, long);
+    const locations = await Location.getLocations(lat, long, 0.14);
     expect(locations.length).toBeLessThanOrEqual(30);
   });
   it('should return empty array if no location exists', async () => {
     const lat = '6.35552';
     const long = -58.44;
-    const locations = await Location.getLocations(lat, long);
+    const locations = await Location.getLocations(lat, long, 0.135);
     expect(locations).toBeInstanceOf(Array);
     expect(locations.length).toEqual(0);
   });
   it('all latitudes in array must be within 15km range of location', async () => {
     const lat = -34.58;
     const long = -58.44;
-    const locations = await Location.getLocations(lat, long);
+    const locations = await Location.getLocations(lat, long, 0.135);
     const latitudes = locations.map(location => location.latitude);
     latitudes.forEach(latitude => {
       expect(Number(latitude)).toBeGreaterThan(Number(lat) - 0.135);
