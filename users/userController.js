@@ -232,8 +232,8 @@ const resetPassword = async (req, res) => {
   const { id } = req.params;
   const { password } = req.body;
   try {
-    await Model.updatePassword(id, hashPassword(password));
-    return res.redirect(`${process.env.REDIRECT_URL}`);
+    const result = await Model.updatePassword(id, hashPassword(password));
+    return statusHandler(res, 200, result);
   } catch (err) {
     return statusHandler(res, 500, err.toString());
   }
