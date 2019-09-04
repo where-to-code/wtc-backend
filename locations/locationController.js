@@ -5,7 +5,7 @@ const getReview = require('../helpers/generateReviewsAndAverageRating');
 // eslint-disable-next-line consistent-return
 const getAllLocationsCloseToUser = async (req, res) => {
   const { lat, long } = req.query;
-  const { range } = req.body || 0.135;
+  const range = Number(req.body.range) || 0.135;
 
   try {
     const data = await Model.getLocations(lat, long, range);

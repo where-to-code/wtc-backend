@@ -295,8 +295,6 @@ describe('/auth/change/:id [POST]', () => {
     const res = await request(server)
       .put('/api/auth/change/2')
       .send({ password: '123abcd' });
-    expect(res.header.location).toEqual(
-      'https://wheretocode-frontend.herokuapp.com',
-    );
+    expect(res.status).toEqual(200);
   });
 });
