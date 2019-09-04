@@ -6,6 +6,7 @@ const statusHandler = require('../helpers/statusHandler');
 const { hashPassword, comparePassword } = require('../helpers/bcryptHelper');
 const emailExists = require('../helpers/emailChecker');
 const generateToken = require('../helpers/generateToken');
+const mailer = require('../helpers/mailer');
 
 const clientID = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
@@ -31,7 +32,6 @@ const register = async (req, res) => {
 
     const newUser = await Model.registerUser(user);
     const { id, isVerified } = newUser[0];
-
     if (newUser.length === 1) {
       await generateToken(res, newUser.id, firstname);
       return statusHandler(res, 201, {
@@ -152,36 +152,15 @@ const gitHubAuth = async (req, res) => {
   }
 };
 
-const confirmMail = async (req, res) => {
-  try {
-    const { id } = await jwt.verify(req.params.token, process.env.EMAIL_SECRET);
-    if (!id) {
-      return statusHandler(res, 403, 'Invalid Token');
-    }
-    const result = await Model.updateVerifiedStatus(id, true);
-    res.redirect(`${process.env.FRONT_URL}/verified`);
-    return statusHandler(res, 200, result);
-  } catch (err) {
-    return statusHandler(res, 500, err.toString());
-  }
-};
-const verifyMail = async (req, res) => {
+const verify = async (req, res, usermessage, button, url) => {
   const { email } = req.body;
   try {
     const result = await emailExists(email);
-    if (result.isVerified) {
-      res.redirect(`${process.env.FRONT_URL}`);
-      return statusHandler(res, 201, 'This account is already verified');
-    }
-    const token = await jwt.sign(
-      { id: req.user.id },
-      process.env.EMAIL_SECRET,
-      {
-        expiresIn: '1d',
-      },
-    );
+    const token = await jwt.sign({ id: result.id }, process.env.EMAIL_SECRET, {
+      expiresIn: '1d',
+    });
     const name =
-      req.user.firstname.charAt(0).toUpperCase() + req.user.firstname.slice(1);
+      result.firstname.charAt(0).toUpperCase() + result.firstname.slice(1);
     const message = {
       from: process.env.EMAIL,
       to: email,
@@ -189,7 +168,9 @@ const verifyMail = async (req, res) => {
       template: 'index',
       context: {
         name,
-        url: `${process.env.URL}/api/auth/confirm/${token}`,
+        url: `${url}/${token}`,
+        message: usermessage,
+        urlMessage: button,
       },
     };
     mailer(message, res);
@@ -197,11 +178,71 @@ const verifyMail = async (req, res) => {
     return statusHandler(res, 500, err.toString());
   }
 };
+const message1 =
+  'Thanks for getting started on WhereToCode! We need a little more information to provide you better support,including the confirmation of your email address.';
+const message2 =
+  'We got a request to reset your password on WhereToCode. If you ignore this message your password wont be changed.';
+
+const verifyMail = async (req, res) => {
+  const { email } = req.body;
+  const result = await emailExists(email);
+  if (!result) {
+    return statusHandler(res, 404, 'Email does not exist');
+  }
+  await verify(
+    req,
+    res,
+    message1,
+    'Confirm Email',
+    `${process.env.URL}/api/auth/confirm`,
+  );
+};
+const confirmMail = async (req, res) => {
+  try {
+    const { id } = await jwt.verify(req.params.token, process.env.EMAIL_SECRET);
+    await Model.updateVerifiedStatus(id);
+    return res.redirect(`${process.env.FRONT_URL}/verified`);
+  } catch (err) {
+    return statusHandler(res, 500, err.toString());
+  }
+};
+
+const forgotPassword = async (req, res) => {
+  await verify(
+    req,
+    res,
+    message2,
+    'Reset Password',
+    `${process.env.URL}/api/auth/reset`,
+  );
+};
+
+const verifyPasswordResetToken = async (req, res) => {
+  try {
+    const { id } = await jwt.verify(req.params.token, process.env.EMAIL_SECRET);
+    return res.redirect(`${process.env.FRONT_URL}/change/${id}`);
+  } catch (err) {
+    return statusHandler(res, 500, err.toString());
+  }
+};
+const resetPassword = async (req, res) => {
+  const { id } = req.params;
+  const { password } = req.body;
+  try {
+    await Model.updatePassword(id, hashPassword(password));
+    return res.redirect(`${process.env.FRONT_URL}`);
+  } catch (err) {
+    return statusHandler(res, 500, err.toString());
+  }
+};
+
 module.exports = {
   register,
   login,
   verifyMail,
+  verifyPasswordResetToken,
   confirmMail,
-  gitHubAuth ,
+  resetPassword,
+  forgotPassword,
+  gitHubAuth,
 };
-

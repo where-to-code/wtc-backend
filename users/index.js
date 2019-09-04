@@ -16,6 +16,9 @@ router.post(
   user.verifyMail,
 );
 router.get('/auth/confirm/:token', user.confirmMail);
+router.post('/auth/forgot', validate.validateEmail, user.forgotPassword);
+router.get('/auth/reset/:token', user.verifyPasswordResetToken);
+router.post('/auth/change/:id', validate.validateId,validate.validatePassword, user.resetPassword);
 router.get('/auth/gitAuth', user.gitHubAuth);
 
 module.exports = router;

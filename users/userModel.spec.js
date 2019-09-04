@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 const User = require('./userModel');
+
 describe('Model for user', () => {
   const user = {
     firstname: 'Ken',
@@ -32,5 +33,16 @@ describe('Model for user', () => {
     await User.registerUser(user);
     const newValue = await User.getUsers;
     expect(newValue).toBeDefined();
+  });
+  it('should update a user password', async () => {
+    await User.updatePassword(1, '123abcd');
+    const newValue = await User.getAUser(1);
+    expect(newValue.password).toEqual('123abcd');
+  });
+  it('should update isVerified status', async () => {
+    const oldValue = await User.getAUser(1);
+    expect(oldValue.isVerified).toEqual(false);
+    const newValue = await User.updateVerifiedStatus(1);
+    expect(newValue.isVerified);
   });
 });
