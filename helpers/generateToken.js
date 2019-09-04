@@ -8,6 +8,6 @@ module.exports = (res, id, firstname) => {
   return res.cookie('token', token, {
     expires: new Date(Date.now() + expiration),
     secure: false,
-    httpOnly: true,
+    httpOnly: false,
   });
 };
