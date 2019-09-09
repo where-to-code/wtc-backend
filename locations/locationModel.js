@@ -16,7 +16,11 @@ const getSingleLocation = id =>
     .where({ id })
     .first();
 
+
+const insert = location => db('locations').insert(location);
+
 module.exports = {
   getLocations,
   getSingleLocation,
+  insert,
 };
