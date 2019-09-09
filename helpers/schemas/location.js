@@ -46,6 +46,70 @@ const long = joi
     });
     return errors;
   });
+const name = joi.string().invalid('').required().error(errors => {
+  errors.forEach(err => {
+    switch (err.type) {
+      case 'any.required':
+        err.message = 'name field is required';
+      case 'any.empty':
+        err.message = 'name cannot be empty';
+      case 'string.base':
+        err.message = 'name must be a string';
+      default:
+        break;
+    }
+  });
+  return errors;
+});
+
+const description = joi.string().invalid('').required().error(errors => {
+  errors.forEach(err => {
+    switch (err.type) {
+      case 'any.required':
+        err.message = 'description field is required';
+      case 'any.empty':
+        err.message = 'description cannot be empty';
+      case 'string.base':
+        err.message = 'description must be a string';
+      default:
+        break;
+    }
+  });
+  return errors;
+});
+
+// eslint-disable-next-line camelcase
+const image_url = joi.string().invalid('').required().error(errors => {
+  errors.forEach(err => {
+    switch (err.type) {
+      case 'any.required':
+        err.message = 'image_url field is required';
+      case 'any.empty':
+        err.message = 'image_url cannot be empty';
+      case 'string.base':
+        err.message = 'image_url must be a string';
+      default:
+        break;
+    }
+  });
+  return errors;
+});
+
+const address = joi.string().invalid('').required().error(errors => {
+  errors.forEach(err => {
+    switch (err.type) {
+      case 'any.required':
+        err.message = 'address field is required';
+      case 'any.empty':
+        err.message = 'address cannot be empty';
+      case 'string.base':
+        err.message = 'address must be a string';
+      default:
+        break;
+    }
+  });
+  return errors;
+});
 
 const queryId = joi
   .number()
@@ -55,8 +119,17 @@ const querySchema = joi.object().keys({
   lat,
   long,
 });
+const addLocationSchema = joi.object().keys({
+  latitude: lat,
+  longitude: long,
+  name,
+  description,
+  image_url,
+  address,
+});
 
 module.exports = {
   querySchema,
   queryId,
+  addLocationSchema,
 };

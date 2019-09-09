@@ -40,6 +40,9 @@ const validateEmail = (req, res, next) => {
 const validatePassword = (req, res, next) => {
   return validate(req.body.password, userSchema.password, res, next);
 };
+const validateLocationInput = (req, res, next) => {
+  return validate(req.body, locationSchema.addLocationSchema, res, next);
+};
 module.exports = {
   validateQuery,
   validateId,
@@ -47,4 +50,5 @@ module.exports = {
   validateRegister,
   validateEmail,
   validatePassword,
+  validateLocationInput,
 };

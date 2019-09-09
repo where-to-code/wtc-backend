@@ -10,5 +10,7 @@ router.get(
   locations.getAllLocationsCloseToUser,
 );
 router.get('/locations/:id', validate.validateId, locations.getSingleLocation);
+router.post('/locations', validate.validateLocationInput, locations.addLocation);
+
 
 module.exports = router;

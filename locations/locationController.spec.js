@@ -89,3 +89,126 @@ describe('/locations/:id [GET]', () => {
     expect(res.status).toEqual(400);
   });
 });
+
+// add locations
+describe('POST/ add locations', () => {
+  const location = {
+    name: 'Somewhere on Earth',
+    description: '127.0.0.1 localhost',
+    image_url: 'www.badass?.com',
+    address: 'Epic Tower on Mars',
+    longitude: '24.1',
+    latitude: '34.6',
+  };
+  it('should fail o name', async () => {
+    const res = await request(server)
+      .post('/api/locations')
+      .send({ name: '' });
+    expect(res.status).toEqual(400);
+    expect(res.body).toEqual({
+      status: 400,
+      message: [
+        'Lat field is required',
+        'Long field is required',
+        'name must be a string',
+        'description must be a string',
+        'image_url must be a string',
+        'address must be a string',
+      ],
+    });
+  });
+  it('should fail if description format is wrong', async () => {
+    const res = await request(server)
+      .post('/api/locations')
+      .send({ description: '' });
+    expect(res.status).toEqual(400);
+    expect(res.body).toEqual({
+      status: 400,
+      message: [
+        'Lat field is required',
+        'Long field is required',
+        'name must be a string',
+        'description must be a string',
+        'image_url must be a string',
+        'address must be a string',
+      ],
+    });
+  });
+  it('should fail if image_url does not exist', async () => {
+    const res = await request(server)
+      .post('/api/locations')
+      .send({ image_url: '' });
+    expect(res.status).toEqual(400);
+    expect(res.body).toEqual({
+      status: 400,
+      message: [
+        'Lat field is required',
+        'Long field is required',
+        'name must be a string',
+        'description must be a string',
+        'image_url must be a string',
+        'address must be a string',
+      ],
+    });
+  });
+  it('should fail if address is no empty', async () => {
+    const res = await request(server)
+      .post('/api/locations')
+      .send({ address: '' });
+    expect(res.status).toEqual(400);
+    expect(res.body).toEqual({
+      status: 400,
+      message: [
+        'Lat field is required',
+        'Long field is required',
+        'name must be a string',
+        'description must be a string',
+        'image_url must be a string',
+        'address must be a string',
+      ],
+    });
+  });
+  it('should fail if longitude is no empty', async () => {
+    const res = await request(server)
+      .post('/api/locations')
+      .send({ longitude: '' });
+    expect(res.status).toEqual(400);
+    expect(res.body).toEqual({
+      status: 400,
+      message: [
+        'Lat field is required',
+        'Longitude cannot be empty',
+        'Longitude must be a number',
+        'name must be a string',
+        'description must be a string',
+        'image_url must be a string',
+        'address must be a string',
+      ],
+    });
+  });
+  it('should fail if latitude is no empty', async () => {
+    const res = await request(server)
+      .post('/api/locations')
+      .send({ latitude: '' });
+    expect(res.status).toEqual(400);
+    expect(res.body).toEqual({
+      status: 400,
+      message: [
+        'Latitude cannot be empty',
+        'Latitude must be a number',
+        'Long field is required',
+        'name must be a string',
+        'description must be a string',
+        'image_url must be a string',
+        'address must be a string',
+      ],
+    });
+  });
+  it('should return an object with valid inputs', async () => {
+    const res = await request(server)
+      .post('/api/locations')
+      .send(location)
+      .expect('Content-Type', /json/);
+    expect(res.status).toEqual(201);
+  });
+});
