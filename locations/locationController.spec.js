@@ -147,7 +147,7 @@ describe('test suite for POST/ locations', () => {
       ],
     });
   });
-  it('should fail if address is no empty', async () => {
+  it('should fail if longitude is no empty', async () => {
     const res = await request(server)
       .post('/api/locations')
       .send({ longitude: '' });
@@ -159,7 +159,7 @@ describe('test suite for POST/ locations', () => {
       ],
     });
   });
-  it('should fail if address is no empty', async () => {
+  it('should fail if latitude is no empty', async () => {
     const res = await request(server)
       .post('/api/locations')
       .send({ latitude: '' });
