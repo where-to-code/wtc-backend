@@ -1,7 +1,7 @@
 exports.up = knex =>
   knex.schema.createTable('locations', table => {
     table.increments();
-    table.string('name', 100).notNullable();
+    table.string('a', 100).notNullable();
     table.text('description').notNullable();
     table.string('image_url', 250).notNullable();
     table.string('address', 250).notNullable();

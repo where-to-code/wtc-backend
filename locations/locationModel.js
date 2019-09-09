@@ -17,7 +17,11 @@ const getSingleLocation = id =>
     .first();
 
 
-const insert = location => db('locations').insert(location);
+const insert = location => {
+  return db('locations')
+    .returning('*')
+    .insert(location);
+};
 
 module.exports = {
   getLocations,

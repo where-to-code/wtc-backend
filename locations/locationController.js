@@ -46,18 +46,20 @@ const getSingleLocation = async (req, res) => {
   }
 };
 
+
 const addLocation = async (req, res) => {
-  const { name, description, imgUrl, address, longitude, latitude } = req.body;
+  // eslint-disable-next-line camelcase
+  const { name, description, image_url, address, latitude, longitude } = req.body;
 
   try {
     const location = {
-      name, description, imgUrl, address, longitude, latitude };
+      name, description, image_url, address, latitude, longitude };
 
     const newLocation = await Model.insert(location);
     if (newLocation.length === 1) {
-      return statusHandler(res, 201, {
-        name, description, imgUrl, address, longitude, latitude,
-      });
+      return statusHandler(res, 201,
+        newLocation,
+      );
     }
   } catch (err) {
     return statusHandler(res, 500, err.toString());
