@@ -47,6 +47,7 @@ const getSingleLocation = async (req, res) => {
 };
 
 
+// eslint-disable-next-line consistent-return
 const addLocation = async (req, res) => {
   // eslint-disable-next-line camelcase
   const { name, description, image_url, address, latitude, longitude } = req.body;

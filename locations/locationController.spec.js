@@ -89,3 +89,12 @@ describe('/locations/:id [GET]', () => {
     expect(res.status).toEqual(400);
   });
 });
+
+describe('test suite for POST/ locations', () => {
+  it('should return an object with valid inputs', async () => {
+    const res = await request(server)
+      .post('/api/locations')
+      .expect('Content-Type', /json/);
+    expect(res.status).toEqual(201);
+  });
+});
