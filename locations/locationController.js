@@ -46,4 +46,22 @@ const getSingleLocation = async (req, res) => {
   }
 };
 
-module.exports = { getAllLocationsCloseToUser, getSingleLocation };
+const addLocation = async (req, res) => {
+  const { name, description, imgUrl, address, longitude, latitude } = req.body;
+
+  try {
+    const location = {
+      name, description, imgUrl, address, longitude, latitude };
+
+    const newLocation = await Model.insert(location);
+    if (newLocation.length === 1) {
+      return statusHandler(res, 201, {
+        name, description, imgUrl, address, longitude, latitude,
+      });
+    }
+  } catch (err) {
+    return statusHandler(res, 500, err.toString());
+  }
+};
+
+module.exports = { getAllLocationsCloseToUser, getSingleLocation, addLocation };
