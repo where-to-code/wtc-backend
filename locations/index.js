@@ -12,7 +12,7 @@ router.get(
   locations.getAllLocationsCloseToUser,
 );
 router.get('/locations/:id', validate.validateId, locations.getSingleLocation);
-router.post('/locations', verifyToken, validate.validateLocationInput, locations.addLocation);
+router.post('/locations', validate.validateLocationInput, locations.addLocation);
 
 
 module.exports = router;
