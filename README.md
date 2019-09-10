@@ -79,7 +79,7 @@ The API endpoints for the server is on Heroku and can be found [here.](https://w
 
 ![Where To Code Database Illustration](database/DBIllustration.png)
 
-#### 2️⃣ USERS
+#### USERS
 
 ---
 
@@ -140,7 +140,7 @@ The API endpoints for the server is on Heroku and can be found [here.](https://w
 }
 ```
 
-## 2️⃣ Actions
+## Actions
 
 ### Get locations close to a user [GET]
 
@@ -297,7 +297,7 @@ Returns
 }
 ```
 
-## 3️⃣ Environment Variables
+## Environment Variables
 
 In order for the app to function correctly, the user must set up their own environment variables.
 
