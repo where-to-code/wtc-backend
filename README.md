@@ -4,9 +4,9 @@
 Finding out details about public places to work can be tedious. WhereToCode enables you to get the information you need, and only that information, to work and code on the go.
 
 ### Features
-**Clear information on each location for people to determine if it will work**
-**New spaces are easy to make**
-**Locations with most use/activity/rating show up first**
+ - Clear information on each location for people to determine if it will work
+ - New spaces are easy to make
+ - Locations with most use/activity/rating show up first
 
 ## WhereToCode Backend 
 
