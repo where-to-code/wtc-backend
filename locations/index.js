@@ -1,7 +1,6 @@
 const express = require('express');
 const locations = require('./locationController');
 const validate = require('../middleware/validations');
-const verifyToken = require('../middleware/authentication');
 
 
 const router = express.Router();
