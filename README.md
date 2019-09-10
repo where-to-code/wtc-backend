@@ -1,4 +1,4 @@
-# WhereToCode [![Build Status](https://travis-ci.org/where-to-code/wtc-backend.svg?branch=master)](https://travis-ci.org/where-to-code/wtc-backend) [![Coverage Status](https://coveralls.io/repos/github/where-to-code/wtc-backend/badge.svg?branch=master)](https://coveralls.io/github/where-to-code/wtc-backend?branch=master)
+# WhereToCode API [![Build Status](https://travis-ci.org/where-to-code/wtc-backend.svg?branch=master)](https://travis-ci.org/where-to-code/wtc-backend) [![Coverage Status](https://coveralls.io/repos/github/where-to-code/wtc-backend/badge.svg?branch=master)](https://coveralls.io/github/where-to-code/wtc-backend?branch=master)
 
 ### About
 Finding out details about public places to work can be tedious. WhereToCode enables you to get the information you need, and only that information, to work and code on the go.
@@ -8,9 +8,8 @@ Finding out details about public places to work can be tedious. WhereToCode enab
  - New spaces are easy to make
  - Locations with most use/activity/rating show up first
 
-## WhereToCode Backend 
-
 ## Application links
+### [Product Vision Document](https://www.notion.so/Where-to-Code-06c1427d731a42c7a2475a3ef2cb5f95)
 ### [API Link](https://where2code.herokuapp.com/api/) 
 ### [Trello board](https://trello.com/b/m8ODKAUQ/where-to-code)
 
