@@ -1,6 +1,9 @@
 const Model = require('./locationModel');
 const statusHandler = require('../helpers/statusHandler');
-const getReview = require('../helpers/generateReviewsAndAverageRating');
+const {
+  getReview,
+  addAverageRatings,
+} = require('../helpers/generateReviewsAndAverageRating');
 
 // eslint-disable-next-line consistent-return
 const getAllLocationsCloseToUser = async (req, res) => {
@@ -17,7 +20,7 @@ const getAllLocationsCloseToUser = async (req, res) => {
       );
     }
 
-    return statusHandler(res, 200, data);
+    return statusHandler(res, 200, addAverageRatings(data));
   } catch (error) {
     return statusHandler(res, 500, error.toString());
   }
@@ -46,21 +49,31 @@ const getSingleLocation = async (req, res) => {
   }
 };
 
-
 // eslint-disable-next-line consistent-return
 const addLocation = async (req, res) => {
   // eslint-disable-next-line camelcase
-  const { name, description, image_url, address, latitude, longitude } = req.body;
+  const {
+    name,
+    description,
+    image_url,
+    address,
+    latitude,
+    longitude,
+  } = req.body;
 
   try {
     const location = {
-      name, description, image_url, address, latitude, longitude };
+      name,
+      description,
+      image_url,
+      address,
+      latitude,
+      longitude,
+    };
 
     const newLocation = await Model.insert(location);
     if (newLocation.length === 1) {
-      return statusHandler(res, 201,
-        newLocation,
-      );
+      return statusHandler(res, 201, newLocation);
     }
   } catch (err) {
     return statusHandler(res, 500, err.toString());
