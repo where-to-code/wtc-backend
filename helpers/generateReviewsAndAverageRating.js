@@ -1,4 +1,7 @@
-module.exports = () => {
+const generateRating = (max = 5, min = 1) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
+
+const getReview = () => {
   const reviews = [];
 
   const descriptions = [
@@ -13,9 +16,6 @@ module.exports = () => {
     'We as a professional thesis writer always need that kind of environment to work and spend some quality time with the other fellows, So thank you for providing us a great place to sit on and the way they facilitate it is one of the best place for freelancers who need space for their work.',
     "We've had the opportunity to work in several locations owned by the Yard, and we've been very happy with both. The team is great -- they're been very accommodating to our particular space needs, they're always offering members the opportunity to engage and interact, and frankly, they're just very nice people! The Yard had provided value and flexibility at each stage of our company's growth.",
   ];
-
-  const generateRating = (max = 5, min = 1) =>
-    Math.floor(Math.random() * (max - min + 1) + min);
 
   let id = 1;
 
@@ -37,4 +37,19 @@ module.exports = () => {
   }
 
   return [reviews, generateRating()];
+};
+
+const addAverageRatings = data =>
+  data.map(location => {
+    location.avg_quietness = generateRating();
+    location.avg_wifi_speed = generateRating();
+    location.avg_accessibility = generateRating();
+    location.avg_community = generateRating();
+
+    return location;
+  });
+
+module.exports = {
+  getReview,
+  addAverageRatings,
 };
