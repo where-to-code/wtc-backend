@@ -62,7 +62,7 @@ The API endpoints for the server is on Heroku and can be found [here.](https://w
 | ------ | ------------------------ | -------------- | ----------------------------------- |
 | GET    | `/locations`             | all users      | Returns the locations around a user |
 | GET    | `/locations/:locationId` | all users      | Returns a single location           |
-| POST   | `/locations/`           | authed user    | Returns the recent posted location           |
+| POST   | `/locations/`            | all user       | Returns the recent posted location           |
 
 
 #### User Routes
