@@ -143,8 +143,8 @@ const place_id = joi
           break;
       }
     });
-    return errors;
-  });
+    return errors;})
+
 
 const queryId = joi.number().error(() => 'Id must be a number');
 
