@@ -1,7 +1,8 @@
 const request = require('supertest');
-const server = require('../api/server');
 const url = require('url');
+const server = require('../api/server');
 const user = require('./userController');
+
 let urlAddress;
 describe('/auth/register [POST]', () => {
   it('should fail if required fields are not given', async () => {
@@ -107,6 +108,7 @@ describe('/auth/register [POST]', () => {
     });
   });
   it('should pass', async () => {
+    jest.spyOn(user, 'verifyMail').mockResolvedValue({ success: true });
     const res = await request(server)
       .post('/api/auth/register')
       .send({
