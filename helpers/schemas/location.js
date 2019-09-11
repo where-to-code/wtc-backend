@@ -112,7 +112,7 @@ const address = joi.string().invalid('').required().error(errors => {
   return errors;
 });
 
-const place_id = joi.string().error(errors => {
+const place_id = joi.string().allow('').optional().error(errors => {
   errors.forEach(err => {
     switch (err.type) {
       case 'string.base':
