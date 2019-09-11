@@ -20,7 +20,7 @@ const validate = (value, scheme, res, next) => {
         return statusHandler(res, 400, errMsg);
       }
       next();
-    },
+    }
   );
 };
 
