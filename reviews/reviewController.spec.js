@@ -33,4 +33,44 @@ describe('/locations/:id/review [POST]', () => {
       .expect('Content-Type', /json/);
     expect(res.status).toEqual(201);
   });
+
+  it('should return an error if location id is not available', async () => {
+    const res = await request(server)
+      .post('/api/locations/30000/review')
+      .send(review)
+      .expect('Content-Type', /json/);
+    expect(res.body).toEqual({
+      status: 404,
+      message: 'This location does not exist'
+    });
+  });
+
+  it('should return an error if user tries to review the same location twice', async () => {
+    const res = await request(server)
+      .post('/api/locations/300/review')
+      .send(review)
+      .expect('Content-Type', /json/);
+    expect(res.body).toEqual({
+      status: 500,
+      error: 'You have already reviewed this location.'
+    });
+  });
+
+  it('should fail if network error', async () => {
+    const reviewErr = {
+      quietness: 2,
+      wifi_speed: 3,
+      community: 4,
+      accessibility: 5,
+      description: 'Place was great',
+      user_id: 50000
+    };
+    try {
+      await request(server)
+        .post('/api/locations/1/review')
+        .send(reviewErr);
+    } catch (error) {
+      expect(error.status).toEqual(500);
+    }
+  });
 });
