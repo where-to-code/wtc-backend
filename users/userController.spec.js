@@ -116,7 +116,7 @@ describe('/auth/register [POST]', () => {
         lastname: 'jbd',
         email: 'jnb@j.com',
         password: '123abc',
-      });
+      }, 10000);
     expect(res.status).toEqual(201);
     expect(res.body.data).toHaveProperty('firstname', 'jjj');
     expect(res.body.data).toHaveProperty('lastname', 'jbd');
