@@ -128,27 +128,13 @@ const address = joi
     return errors;
   });
 
-const place_id = joi
-  .string()
-  .allow('')
-  .required()
-  .error(errors => {
-    errors.forEach(err => {
-      switch (err.type) {
-        case 'string.base':
-          err.message = 'place_id must be a string';
-        case 'any.required':
-          err.message = 'place_id is required';
-        default:
-          break;
-      }
-    });
-    return errors;})
-const place_id = joi.string().allow('').error(errors => {
+const place_id = joi.string().allow('').required().error(errors => {
   errors.forEach(err => {
     switch (err.type) {
       case 'string.base':
         err.message = 'place_id must be a string';
+      case 'any.required':
+        err.message = 'place_id key is required, but value can be empty';
       default:
         break;
     }
