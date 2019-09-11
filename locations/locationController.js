@@ -1,11 +1,6 @@
 /* eslint-disable camelcase */
 const Model = require('./locationModel');
 const statusHandler = require('../helpers/statusHandler');
-const {
-  getReviews,
-  findCummulativeAverageRating,
-  attachAverageRatingsToLocationObject,
-} = require('./locationHelper');
 
 // eslint-disable-next-line consistent-return
 const getAllLocationsCloseToUser = async (req, res) => {
@@ -23,11 +18,7 @@ const getAllLocationsCloseToUser = async (req, res) => {
       );
     }
 
-    const ratedLocations = await attachAverageRatingsToLocationObject(data);
-
-    return Promise.all(ratedLocations).then(places =>
-      statusHandler(res, 200, places),
-    );
+    return statusHandler(res, 200, data);
   } catch (error) {
     return statusHandler(res, 500, error.toString());
   }
@@ -42,13 +33,6 @@ const getSingleLocation = async (req, res) => {
     if (!location) {
       return statusHandler(res, 404, 'No location matches the id provided');
     }
-
-    const reviews = await getReviews(id);
-    const averageRating = await findCummulativeAverageRating(id);
-
-    location.reviews = reviews;
-    location.averageRating = averageRating;
-
     return statusHandler(res, 200, location);
   } catch (error) {
     return statusHandler(res, 500, error.toString());
