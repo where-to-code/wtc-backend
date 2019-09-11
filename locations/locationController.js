@@ -37,13 +37,6 @@ const getSingleLocation = async (req, res) => {
       return statusHandler(res, 404, 'No location matches the id provided');
     }
 
-    // this averageRating and reviews properties and keys are placeholders
-    const reviewDetail = getReview();
-    // eslint-disable-next-line
-    location.averageRating = reviewDetail[1];
-    // eslint-disable-next-line
-    location.reviews = reviewDetail[0];
-
     return statusHandler(res, 200, location);
   } catch (error) {
     return statusHandler(res, 500, error.toString());
