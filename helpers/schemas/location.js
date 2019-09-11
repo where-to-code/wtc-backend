@@ -144,6 +144,17 @@ const place_id = joi
       }
     });
     return errors;})
+const place_id = joi.string().allow('').error(errors => {
+  errors.forEach(err => {
+    switch (err.type) {
+      case 'string.base':
+        err.message = 'place_id must be a string';
+      default:
+        break;
+    }
+  });
+  return errors;
+});
 
 
 const queryId = joi.number().error(() => 'Id must be a number');
