@@ -3,7 +3,6 @@ exports.up = knex =>
     table.increments();
     table.integer('quietness').notNullable();
     table.integer('wifi_speed').notNullable();
-    table.integer('close_late').notNullable();
     table.integer('community').notNullable();
     table.integer('accessibility').notNullable();
     table.text('description').notNullable();
