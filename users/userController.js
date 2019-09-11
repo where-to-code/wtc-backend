@@ -11,6 +11,40 @@ const mailer = require('../helpers/mailer');
 const clientID = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
 
+const verify = async (req, res, usermessage, button, url) => {
+  const { email } = req.body;
+  try {
+    const result = await emailExists(email);
+    if (!result) {
+      return statusHandler(res, 404, 'Email does not exist');
+    }
+    const token = await jwt.sign({ id: result.id }, process.env.EMAIL_SECRET, {
+      expiresIn: '1d',
+    });
+    const name =
+      result.firstname.charAt(0).toUpperCase() + result.firstname.slice(1);
+    const message = {
+      from: process.env.EMAIL,
+      to: email,
+      subject: 'Where-To-Code',
+      template: 'index',
+      context: {
+        name,
+        url: `${url}/${token}`,
+        message: usermessage,
+        urlMessage: button,
+      },
+    };
+    mailer(message, res);
+  } catch (err) {
+    return statusHandler(res, 500, err.toString());
+  }
+};
+
+const message1 =
+  'Thanks for getting started on WhereToCode! We need a little more information to provide you better support,including the confirmation of your email address.';
+const message2 =
+  'We got a request to reset your password on WhereToCode. If you ignore this message your password wont be changed.';
 const register = async (req, res) => {
   const { firstname, lastname, email, password } = req.body;
 
@@ -31,6 +65,13 @@ const register = async (req, res) => {
     };
 
     const newUser = await Model.registerUser(user);
+    await verify(
+      req,
+      res,
+      message1,
+      'Confirm Email',
+      `${process.env.URL}/api/auth/confirm`,
+    );
     const { id, isVerified } = newUser[0];
     if (newUser.length === 1) {
       await generateToken(res, newUser.id, firstname);
@@ -151,40 +192,6 @@ const gitHubAuth = async (req, res) => {
     return statusHandler(res, 500, err.toString());
   }
 };
-
-const verify = async (req, res, usermessage, button, url) => {
-  const { email } = req.body;
-  try {
-    const result = await emailExists(email);
-    if (!result) {
-      return statusHandler(res, 404, 'Email does not exist');
-    }
-    const token = await jwt.sign({ id: result.id }, process.env.EMAIL_SECRET, {
-      expiresIn: '1d',
-    });
-    const name =
-      result.firstname.charAt(0).toUpperCase() + result.firstname.slice(1);
-    const message = {
-      from: process.env.EMAIL,
-      to: email,
-      subject: 'Where-To-Code',
-      template: 'index',
-      context: {
-        name,
-        url: `${url}/${token}`,
-        message: usermessage,
-        urlMessage: button,
-      },
-    };
-    mailer(message, res);
-  } catch (err) {
-    return statusHandler(res, 500, err.toString());
-  }
-};
-const message1 =
-  'Thanks for getting started on WhereToCode! We need a little more information to provide you better support,including the confirmation of your email address.';
-const message2 =
-  'We got a request to reset your password on WhereToCode. If you ignore this message your password wont be changed.';
 
 const verifyMail = async (req, res) => {
   const { email } = req.body;
