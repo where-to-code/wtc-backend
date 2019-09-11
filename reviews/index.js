@@ -9,7 +9,6 @@ router.post(
   validate.validateId,
   validate.validateReviewInput,
   reviews.addReview,
-  reviews.addReview
 );
 
 module.exports = router;
