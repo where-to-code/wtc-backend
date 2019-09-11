@@ -108,6 +108,7 @@ describe('/auth/register [POST]', () => {
     });
   });
   it('should pass', async () => {
+    jest.spyOn(user, 'verifyMail').mockResolvedValue({ success: true });
     const res = await request(server)
       .post('/api/auth/register')
       .send({
