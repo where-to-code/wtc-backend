@@ -6,16 +6,11 @@
   "scripts": {
     "start": "node cluster.js",
     "server": "nodemon index.js",
-    "test": "cross-env DB_ENV=testing jest  --verbose --forceExit --coverage --detectOpenHandles ",
+    "test": "cross-env DB_ENV=testing jest  --verbose --forceExit --coverage --detectOpenHandles",
     "watch": "cross-env DB_ENV=testing jest --verbose --watch",
     "migrate": "knex migrate:latest",
     "seed": "knex seed:run",
-    "rollback": "knex migrate:rollback --all",
-    "reset-db": "npm-run-all rollback migrate seed",
-    "migrate-test": "knex migrate:latest --env=testing",
-    "seed-test": "knex seed:run --env=testing",
-    "rollback-test": "knex migrate:rollback --all --env=testing",
-    "reset-db-test": "npm-run-all rollback-test migrate-test seed-test"
+    "rollback": "knex migrate:rollback --all"
   },
   "repository": {
     "type": "git",
