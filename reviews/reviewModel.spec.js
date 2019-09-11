@@ -1,6 +1,4 @@
 const Review = require('./reviewModel');
-<<<<<<< HEAD
-=======
 const db = require('../database/dbConfig');
 
 describe('Reset DB', () => {
@@ -12,7 +10,6 @@ describe('Reset DB', () => {
 
   afterEach(() => db.migrate.rollback());
 });
->>>>>>> Write tests for review model and controller
 
 describe('Model for review', () => {
   const review = {
@@ -22,7 +19,7 @@ describe('Model for review', () => {
     accessibility: 5,
     description: 'Place was great',
     user_id: 5,
-    location_id: 95
+    location_id: 95,
   };
   it('should return a review object if location exists', async () => {
     const locationReview = await Review.addReview(review);
