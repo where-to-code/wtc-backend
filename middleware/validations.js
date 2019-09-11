@@ -3,6 +3,7 @@
 const joi = require('joi');
 const locationSchema = require('../helpers/schemas/location');
 const userSchema = require('../helpers/schemas/user');
+const reviewSchema = require('../helpers/schemas/reviews');
 const statusHandler = require('../helpers/statusHandler');
 
 const validate = (value, scheme, res, next) => {
@@ -19,7 +20,7 @@ const validate = (value, scheme, res, next) => {
         return statusHandler(res, 400, errMsg);
       }
       next();
-    },
+    }
   );
 };
 const validateQuery = (req, res, next) => {
@@ -43,6 +44,9 @@ const validatePassword = (req, res, next) => {
 const validateLocationInput = (req, res, next) => {
   return validate(req.body, locationSchema.addLocationSchema, res, next);
 };
+const validateReviewInput = (req, res, next) => {
+  return validate(req.body, reviewSchema.addReviewSchema, res, next);
+};
 module.exports = {
   validateQuery,
   validateId,
@@ -51,4 +55,5 @@ module.exports = {
   validateEmail,
   validatePassword,
   validateLocationInput,
+  validateReviewInput
 };
