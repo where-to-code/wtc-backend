@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const Model = require('./locationModel');
 const statusHandler = require('../helpers/statusHandler');
 const {
@@ -59,6 +60,7 @@ const addLocation = async (req, res) => {
     address,
     latitude,
     longitude,
+    place_id,
   } = req.body;
 
   try {
@@ -69,6 +71,7 @@ const addLocation = async (req, res) => {
       address,
       latitude,
       longitude,
+      place_id,
     };
 
     const newLocation = await Model.insert(location);

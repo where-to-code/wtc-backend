@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-fallthrough */
 /* eslint-disable no-param-reassign */
 const joi = require('joi');
@@ -111,6 +112,18 @@ const address = joi.string().invalid('').required().error(errors => {
   return errors;
 });
 
+const place_id = joi.string().error(errors => {
+  errors.forEach(err => {
+    switch (err.type) {
+      case 'string.base':
+        err.message = 'place_id must be a string';
+      default:
+        break;
+    }
+  });
+  return errors;
+});
+
 const queryId = joi
   .number()
   .error(() => 'Id must be a number');
@@ -126,6 +139,7 @@ const addLocationSchema = joi.object().keys({
   description,
   image_url,
   address,
+  place_id,
 });
 
 module.exports = {
