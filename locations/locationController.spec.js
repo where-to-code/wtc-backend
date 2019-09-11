@@ -115,7 +115,7 @@ describe('POST/ add locations', () => {
         'description must be a string',
         'image_url must be a string',
         'address must be a string',
-        'place_id key is required, but value can be empty',
+        'place_id is required',
       ],
     });
   });
@@ -133,7 +133,7 @@ describe('POST/ add locations', () => {
         'description must be a string',
         'image_url must be a string',
         'address must be a string',
-        'place_id key is required, but value can be empty',
+        'place_id is required',
       ],
     });
   });
@@ -151,7 +151,7 @@ describe('POST/ add locations', () => {
         'description must be a string',
         'image_url must be a string',
         'address must be a string',
-        'place_id key is required, but value can be empty',
+        'place_id is required',
       ],
     });
   });
@@ -169,7 +169,7 @@ describe('POST/ add locations', () => {
         'description must be a string',
         'image_url must be a string',
         'address must be a string',
-        'place_id key is required, but value can be empty',
+        'place_id is required',
       ],
     });
   });
@@ -188,7 +188,7 @@ describe('POST/ add locations', () => {
         'description must be a string',
         'image_url must be a string',
         'address must be a string',
-        'place_id key is required, but value can be empty',
+        'place_id is required',
       ],
     });
   });
@@ -207,7 +207,7 @@ describe('POST/ add locations', () => {
         'description must be a string',
         'image_url must be a string',
         'address must be a string',
-        'place_id key is required, but value can be empty',
+        'place_id is required',
       ],
     });
   });
