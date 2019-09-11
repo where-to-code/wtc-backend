@@ -11,7 +11,11 @@
     "migrate": "knex migrate:latest",
     "seed": "knex seed:run",
     "rollback": "knex migrate:rollback --all",
-    "reset-db": "npm-run-all rollback migrate seed"
+    "reset-db": "npm-run-all rollback migrate seed",
+    "migrate-test": "knex migrate:latest --env=testing",
+    "seed-test": "knex seed:run --env=testing",
+    "rollback-test": "knex migrate:rollback --all --env=testing",
+    "reset-db-test": "npm-run-all rollback-test migrate-test seed-test"
   },
   "repository": {
     "type": "git",

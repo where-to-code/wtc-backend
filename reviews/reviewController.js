@@ -17,7 +17,7 @@ const addReview = async (req, res) => {
   try {
     const location = await Location.getSingleLocation(id);
     if (location) {
-      const newReview = await Review.addReview({
+      const [newReview] = await Review.addReview({
         location_id: id,
         quietness,
         wifi_speed,

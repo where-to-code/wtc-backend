@@ -1,4 +1,18 @@
 const Review = require('./reviewModel');
+<<<<<<< HEAD
+=======
+const db = require('../database/dbConfig');
+
+describe('Reset DB', () => {
+  beforeEach(async () => {
+    await db.migrate.rollback();
+    await db.migrate.latest();
+    await db.seed.run();
+  });
+
+  afterEach(() => db.migrate.rollback());
+});
+>>>>>>> Write tests for review model and controller
 
 describe('Model for review', () => {
   const review = {
