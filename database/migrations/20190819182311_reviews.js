@@ -6,6 +6,7 @@ exports.up = knex =>
     table.integer('community').notNullable();
     table.integer('accessibility').notNullable();
     table.text('description').notNullable();
+    table.unique(['user_id', 'location_id']);
     table
       .integer('user_id')
       .notNullable()
