@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 
 const locationRouter = require('../locations/index');
 const userRouter = require('../users/index');
+const reviewRouter = require('../reviews/index');
 
 const server = express();
 server.use(express.json());
@@ -39,6 +40,7 @@ server.get('/', (req, res) =>
 
 server.use('/api', locationRouter);
 server.use('/api', userRouter);
+server.use('/api', reviewRouter);
 
 server.use('*', (req, res) =>
   res.status(404).json({
