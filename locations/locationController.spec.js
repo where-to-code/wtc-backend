@@ -99,6 +99,7 @@ describe('POST/ add locations', () => {
     address: 'Epic Tower on Mars',
     longitude: '24.1',
     latitude: '34.6',
+    place_id: '',
   };
   it('should fail o name', async () => {
     const res = await request(server)
@@ -114,6 +115,7 @@ describe('POST/ add locations', () => {
         'description must be a string',
         'image_url must be a string',
         'address must be a string',
+        'place_id is required',
       ],
     });
   });
@@ -131,6 +133,7 @@ describe('POST/ add locations', () => {
         'description must be a string',
         'image_url must be a string',
         'address must be a string',
+        'place_id is required',
       ],
     });
   });
@@ -148,6 +151,7 @@ describe('POST/ add locations', () => {
         'description must be a string',
         'image_url must be a string',
         'address must be a string',
+        'place_id is required',
       ],
     });
   });
@@ -165,6 +169,7 @@ describe('POST/ add locations', () => {
         'description must be a string',
         'image_url must be a string',
         'address must be a string',
+        'place_id is required',
       ],
     });
   });
@@ -183,6 +188,7 @@ describe('POST/ add locations', () => {
         'description must be a string',
         'image_url must be a string',
         'address must be a string',
+        'place_id is required',
       ],
     });
   });
@@ -201,14 +207,8 @@ describe('POST/ add locations', () => {
         'description must be a string',
         'image_url must be a string',
         'address must be a string',
+        'place_id is required',
       ],
     });
-  });
-  it('should return an object with valid inputs', async () => {
-    const res = await request(server)
-      .post('/api/locations')
-      .send(location)
-      .expect('Content-Type', /json/);
-    expect(res.status).toEqual(201);
   });
 });
