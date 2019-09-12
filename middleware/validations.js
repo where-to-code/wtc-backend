@@ -56,6 +56,9 @@ const validateReviewInput = (req, res, next) => {
   return validate(req.body, reviewSchema.addReviewSchema, res, next);
 };
 
+const validateLocationDescription = (req, res, next) =>
+  validate(req.body, locationSchema.descriptionSchema, res, next);
+
 module.exports = {
   validateQuery,
   validateId,
@@ -65,4 +68,5 @@ module.exports = {
   validatePassword,
   validateLocationInput,
   validateReviewInput,
+  validateLocationDescription,
 };
