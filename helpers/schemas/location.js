@@ -128,21 +128,28 @@ const address = joi
     return errors;
   });
 
-const place_id = joi.string().allow('').required().error(errors => {
-  errors.forEach(err => {
-    switch (err.type) {
-      case 'string.base':
-        err.message = 'place_id must be a string';
-      case 'any.required':
-        err.message = 'place_id is required';
-      default:
-        break;
-    }
+const place_id = joi
+  .string()
+  .allow('')
+  .required()
+  .error(errors => {
+    errors.forEach(err => {
+      switch (err.type) {
+        case 'string.base':
+          err.message = 'place_id must be a string';
+        case 'any.required':
+          err.message = 'place_id is required';
+        default:
+          break;
+      }
+    });
+    return errors;
   });
-  return errors;
-});
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> Validated the endpoint
 const queryId = joi.number().error(() => 'Id must be a number');
 
 const querySchema = joi.object().keys({
