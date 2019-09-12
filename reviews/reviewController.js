@@ -46,12 +46,12 @@ const addReview = async (req, res) => {
 };
 
 const updateReview = async (req, res) => {
-  const { id } = req.params;
+  const { id, reviewId } = req.params;
 
   const { description } = req.body;
 
   try {
-    const newLocation = await Review.updateReview(id, description);
+    const newLocation = await Review.updateReview(reviewId, description);
 
     return statusHandler(res, 200, newLocation);
   } catch (error) {
