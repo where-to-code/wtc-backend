@@ -45,29 +45,4 @@ const addReview = async (req, res) => {
   }
 };
 
-const updateReview = async (req, res) => {
-  const { id, reviewId } = req.params;
-  const { description } = req.body;
-
-  try {
-    const location = await Location.getSingleLocation(id);
-
-    if (location) {
-      const review = await Review.getSingleReview(reviewId);
-
-      if (review) {
-        const newLocation = await Review.updateReview(reviewId, description);
-
-        return statusHandler(res, 200, newLocation);
-      }
-
-      return statusHandler(res, 404, 'This review does not exist');
-    }
-
-    return statusHandler(res, 404, 'This location does not exist');
-  } catch (error) {
-    return statusHandler(res, 500, error.toString());
-  }
-};
-
-module.exports = { addReview, updateReview };
+module.exports = { addReview };
