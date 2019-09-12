@@ -53,9 +53,15 @@ const updateReview = async (req, res) => {
     const location = await Location.getSingleLocation(id);
 
     if (location) {
-      const newLocation = await Review.updateReview(reviewId, description);
+      const review = await Review.getSingleReview(reviewId);
 
-      return statusHandler(res, 200, newLocation);
+      if (review) {
+        const newLocation = await Review.updateReview(reviewId, description);
+
+        return statusHandler(res, 200, newLocation);
+      }
+
+      return statusHandler(res, 404, 'This review does not exist');
     }
 
     return statusHandler(res, 404, 'This location does not exist');
