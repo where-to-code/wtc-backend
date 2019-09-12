@@ -1,6 +1,7 @@
 const express = require('express');
 const locations = require('./locationController');
 const validate = require('../middleware/validations');
+const authenticate = require('../middleware/authentication');
 
 const router = express.Router();
 
@@ -17,6 +18,7 @@ router.post(
 );
 router.put(
   '/locations/:id',
+  authenticate,
   validate.validateId,
   validate.validateLocationDescription,
   locations.updateLocation,
