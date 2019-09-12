@@ -6,4 +6,10 @@ const addReview = reviews => {
     .insert(reviews);
 };
 
-module.exports = { addReview };
+const updateReview = (id, description) =>
+  db('reviews')
+    .returning('*')
+    .update({ description })
+    .where({ id });
+
+module.exports = { addReview, updateReview };
