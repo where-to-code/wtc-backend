@@ -232,15 +232,37 @@ describe('POST/ add locations', () => {
   });
 });
 
-describe('/locations/:id [PUT] update a locations decription', () => {
+describe('/locations/:id [PUT] update a locations decription', async () => {
   const description = {
     description: 'This is an awesome place to code. Believe me',
   };
+  let cookie;
+
+  beforeAll(async () => {
+    await request(server)
+      .post('/api/auth/register')
+      .send({
+        firstname: 'john',
+        lastname: 'jane',
+        email: 'jhs@johns.com',
+        password: '123456abc',
+      });
+
+    const response = await request(server)
+      .post('/api/auth/login')
+      .send({
+        email: 'jhs@johns.com',
+        password: '123456abc',
+      });
+
+    cookie = response.headers['set-cookie'];
+  });
 
   it('should change the description of a location', async () => {
     const res = await request(server)
       .put('/api/locations/1')
-      .send(description);
+      .send(description)
+      .set('Cookie', cookie);
 
     expect(res.status).toEqual(200);
     expect(res.body.data[0].description).toEqual(
@@ -251,7 +273,8 @@ describe('/locations/:id [PUT] update a locations decription', () => {
   it('Return a 404 if location does not exist', async () => {
     const res = await request(server)
       .put('/api/locations/-1')
-      .send(description);
+      .send(description)
+      .set('Cookie', cookie);
 
     expect(res.status).toEqual(404);
     expect(res.body.message).toEqual('This location does not exist');
@@ -260,7 +283,8 @@ describe('/locations/:id [PUT] update a locations decription', () => {
   it('Validates req body for description field', async () => {
     const res = await request(server)
       .put('/api/locations/1')
-      .send({});
+      .send({})
+      .set('Cookie', cookie);
 
     expect(res.status).toEqual(400);
   });
