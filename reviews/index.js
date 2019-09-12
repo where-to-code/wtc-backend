@@ -8,7 +8,8 @@ router.post(
   '/locations/:id/review',
   validate.validateId,
   validate.validateReviewInput,
-  reviews.addReview
+  reviews.addReview,
 );
+router.put('/locations/:id/review', reviews.updateReview);
 
 module.exports = router;

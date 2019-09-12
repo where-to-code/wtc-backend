@@ -45,4 +45,18 @@ const addReview = async (req, res) => {
   }
 };
 
-module.exports = { addReview };
+const updateReview = async (req, res) => {
+  const { id } = req.params;
+
+  const { description } = req.body;
+
+  try {
+    const newLocation = await Review.updateReview(id, description);
+
+    return statusHandler(res, 200, newLocation);
+  } catch (error) {
+    return statusHandler(res, 500, error.toString());
+  }
+};
+
+module.exports = { addReview, updateReview };
