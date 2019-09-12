@@ -212,3 +212,37 @@ describe('POST/ add locations', () => {
     });
   });
 });
+
+describe('/locations/:id [PUT] update a locations decription', () => {
+  const description = {
+    description: 'This is an awesome place to code. Believe me',
+  };
+
+  it('should change the description of a location', async () => {
+    const res = await request(server)
+      .put('/api/locations/1')
+      .send(description);
+
+    expect(res.status).toEqual(200);
+    expect(res.body.data[0].description).toEqual(
+      'This is an awesome place to code. Believe me',
+    );
+  });
+
+  it('Return a 404 if location does not exist', async () => {
+    const res = await request(server)
+      .put('/api/locations/-1')
+      .send(description);
+
+    expect(res.status).toEqual(404);
+    expect(res.body.message).toEqual('This location does not exist');
+  });
+
+  it('Validates req body for description field', async () => {
+    const res = await request(server)
+      .put('/api/locations/1')
+      .send({});
+
+    expect(res.status).toEqual(400);
+  });
+});
