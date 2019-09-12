@@ -16,6 +16,7 @@ const addReview = async (req, res) => {
 
   try {
     const location = await Location.getSingleLocation(id);
+
     if (location) {
       const [newReview] = await Review.addReview({
         location_id: id,
@@ -26,13 +27,20 @@ const addReview = async (req, res) => {
         description,
         user_id,
       });
+
       return statusHandler(res, 201, newReview);
     }
+
     return statusHandler(res, 404, 'This location does not exist');
   } catch (error) {
     if (error.routine === '_bt_check_unique') {
-      return statusHandler(res, 500, 'You have already reviewed this location.');
+      return statusHandler(
+        res,
+        500,
+        'You have already reviewed this location.',
+      );
     }
+
     return statusHandler(res, 500, error.toString());
   }
 };
