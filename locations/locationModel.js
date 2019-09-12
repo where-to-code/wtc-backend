@@ -16,15 +16,21 @@ const getSingleLocation = id =>
     .where({ id })
     .first();
 
-
 const insert = location => {
   return db('locations')
     .returning('*')
     .insert(location);
 };
 
+const updateLocation = (id, description) =>
+  db('locations')
+    .returning('*')
+    .update({ description })
+    .where({ id });
+
 module.exports = {
   getLocations,
   getSingleLocation,
   insert,
+  updateLocation,
 };
