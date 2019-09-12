@@ -13,6 +13,7 @@ router.get(
 router.get('/locations/:id', validate.validateId, locations.getSingleLocation);
 router.post(
   '/locations',
+  authenticate,
   validate.validateLocationInput,
   locations.addLocation,
 );

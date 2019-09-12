@@ -91,7 +91,9 @@ describe('/locations/:id [GET]', () => {
 });
 
 // add locations
+
 describe('POST/ add locations', () => {
+  let cookie;
   const location = {
     name: 'Somewhere on Earth',
     description: '127.0.0.1 localhost',
@@ -101,10 +103,22 @@ describe('POST/ add locations', () => {
     latitude: '34.6',
     place_id: '',
   };
-  it('should fail o name', async () => {
+  beforeAll(async () => {
+    const res = await request(server)
+      .post('/api/auth/login')
+      .send({
+        firstname: 'john',
+        lastname: 'jane',
+        email: 'aabjane@g.com',
+        password: '123456abc',
+      });
+    cookie = res.headers['set-cookie'];
+  });
+  it('should fail if name is empty', async () => {
     const res = await request(server)
       .post('/api/locations')
-      .send({ name: '' });
+      .send({ name: '' })
+      .set('Cookie', cookie);
     expect(res.status).toEqual(400);
     expect(res.body).toEqual({
       status: 400,
@@ -122,7 +136,8 @@ describe('POST/ add locations', () => {
   it('should fail if description format is wrong', async () => {
     const res = await request(server)
       .post('/api/locations')
-      .send({ description: '' });
+      .send({ description: '' })
+      .set('Cookie', cookie);
     expect(res.status).toEqual(400);
     expect(res.body).toEqual({
       status: 400,
@@ -140,7 +155,8 @@ describe('POST/ add locations', () => {
   it('should fail if image_url does not exist', async () => {
     const res = await request(server)
       .post('/api/locations')
-      .send({ image_url: '' });
+      .send({ image_url: '' })
+      .set('Cookie', cookie);
     expect(res.status).toEqual(400);
     expect(res.body).toEqual({
       status: 400,
@@ -158,7 +174,8 @@ describe('POST/ add locations', () => {
   it('should fail if address is no empty', async () => {
     const res = await request(server)
       .post('/api/locations')
-      .send({ address: '' });
+      .send({ address: '' })
+      .set('Cookie', cookie);
     expect(res.status).toEqual(400);
     expect(res.body).toEqual({
       status: 400,
@@ -176,7 +193,8 @@ describe('POST/ add locations', () => {
   it('should fail if longitude is no empty', async () => {
     const res = await request(server)
       .post('/api/locations')
-      .send({ longitude: '' });
+      .send({ longitude: '' })
+      .set('Cookie', cookie);
     expect(res.status).toEqual(400);
     expect(res.body).toEqual({
       status: 400,
@@ -195,7 +213,8 @@ describe('POST/ add locations', () => {
   it('should fail if latitude is no empty', async () => {
     const res = await request(server)
       .post('/api/locations')
-      .send({ latitude: '' });
+      .send({ latitude: '' })
+      .set('Cookie', cookie);
     expect(res.status).toEqual(400);
     expect(res.body).toEqual({
       status: 400,

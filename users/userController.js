@@ -34,6 +34,8 @@ const register = async (req, res) => {
     const { id, isVerified } = newUser[0];
     if (newUser.length === 1) {
       await generateToken(res, newUser.id, firstname);
+      console.log('regsiter res', res);
+      console.log('reg cookies', res.cookies);
       return statusHandler(res, 201, {
         id,
         firstname,
