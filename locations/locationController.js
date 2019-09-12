@@ -68,8 +68,39 @@ const addLocation = async (req, res) => {
       return statusHandler(res, 201, newLocation);
     }
   } catch (err) {
-    return statusHandler(res, 500, err.toString());
+    const error = Object.values(err);
+    if (error.includes('locations_place_id_unique')) {
+      return res.status(409).json({
+        status: 409,
+        error: 'location already exists',
+      });
+    }
+    return statusHandler(res, 500, error.toString());
   }
 };
 
-module.exports = { getAllLocationsCloseToUser, getSingleLocation, addLocation };
+const updateLocation = async (req, res) => {
+  const { id } = req.params;
+  const { description } = req.body;
+
+  try {
+    const location = await Model.getSingleLocation(id);
+
+    if (location) {
+      const newLocation = await Model.updateLocation(id, description);
+
+      return statusHandler(res, 200, newLocation);
+    }
+
+    return statusHandler(res, 404, 'This location does not exist');
+  } catch (error) {
+    return statusHandler(res, 500, error.toString());
+  }
+};
+
+module.exports = {
+  getAllLocationsCloseToUser,
+  getSingleLocation,
+  addLocation,
+  updateLocation,
+};

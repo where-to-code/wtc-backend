@@ -7,7 +7,7 @@ exports.up = knex =>
     table.text('address', 250).notNullable();
     table.string('longitude').notNullable();
     table.string('latitude').notNullable();
-    table.string('place_id');
+    table.string('place_id').unique();
     table.datetime('created_at', { precision: 6 }).defaultTo(knex.fn.now(6));
   });
 
