@@ -13,3 +13,10 @@ const getReviewById = location_id =>
     .where({ location_id });
 
 module.exports = { addReview, getReviewById };
+const updateReview = (id, description) =>
+  db('reviews')
+    .returning('*')
+    .update({ description })
+    .where({ id });
+
+module.exports = { addReview, updateReview };
