@@ -10,5 +10,6 @@ router.post(
   validate.validateReviewInput,
   reviews.addReview,
 );
+router.put('/locations/:id/review', reviews.updateReview);
 
 module.exports = router;
