@@ -47,88 +47,106 @@ const long = joi
     });
     return errors;
   });
-const name = joi.string().invalid('').required().error(errors => {
-  errors.forEach(err => {
-    switch (err.type) {
-      case 'any.required':
-        err.message = 'name field is required';
-      case 'any.empty':
-        err.message = 'name cannot be empty';
-      case 'string.base':
-        err.message = 'name must be a string';
-      default:
-        break;
-    }
+const name = joi
+  .string()
+  .invalid('')
+  .required()
+  .error(errors => {
+    errors.forEach(err => {
+      switch (err.type) {
+        case 'any.required':
+          err.message = 'name field is required';
+        case 'any.empty':
+          err.message = 'name cannot be empty';
+        case 'string.base':
+          err.message = 'name must be a string';
+        default:
+          break;
+      }
+    });
+    return errors;
   });
-  return errors;
-});
 
-const description = joi.string().invalid('').required().error(errors => {
-  errors.forEach(err => {
-    switch (err.type) {
-      case 'any.required':
-        err.message = 'description field is required';
-      case 'any.empty':
-        err.message = 'description cannot be empty';
-      case 'string.base':
-        err.message = 'description must be a string';
-      default:
-        break;
-    }
+const description = joi
+  .string()
+  .invalid('')
+  .required()
+  .error(errors => {
+    errors.forEach(err => {
+      switch (err.type) {
+        case 'any.required':
+          err.message = 'description field is required';
+        case 'any.empty':
+          err.message = 'description cannot be empty';
+        case 'string.base':
+          err.message = 'description must be a string';
+        default:
+          break;
+      }
+    });
+    return errors;
   });
-  return errors;
-});
 
 // eslint-disable-next-line camelcase
-const image_url = joi.string().invalid('').required().error(errors => {
-  errors.forEach(err => {
-    switch (err.type) {
-      case 'any.required':
-        err.message = 'image_url field is required';
-      case 'any.empty':
-        err.message = 'image_url cannot be empty';
-      case 'string.base':
-        err.message = 'image_url must be a string';
-      default:
-        break;
-    }
+const image_url = joi
+  .string()
+  .invalid('')
+  .required()
+  .error(errors => {
+    errors.forEach(err => {
+      switch (err.type) {
+        case 'any.required':
+          err.message = 'image_url field is required';
+        case 'any.empty':
+          err.message = 'image_url cannot be empty';
+        case 'string.base':
+          err.message = 'image_url must be a string';
+        default:
+          break;
+      }
+    });
+    return errors;
   });
-  return errors;
-});
 
-const address = joi.string().invalid('').required().error(errors => {
-  errors.forEach(err => {
-    switch (err.type) {
-      case 'any.required':
-        err.message = 'address field is required';
-      case 'any.empty':
-        err.message = 'address cannot be empty';
-      case 'string.base':
-        err.message = 'address must be a string';
-      default:
-        break;
-    }
+const address = joi
+  .string()
+  .invalid('')
+  .required()
+  .error(errors => {
+    errors.forEach(err => {
+      switch (err.type) {
+        case 'any.required':
+          err.message = 'address field is required';
+        case 'any.empty':
+          err.message = 'address cannot be empty';
+        case 'string.base':
+          err.message = 'address must be a string';
+        default:
+          break;
+      }
+    });
+    return errors;
   });
-  return errors;
-});
 
-const place_id = joi.string().allow('').required().error(errors => {
-  errors.forEach(err => {
-    switch (err.type) {
-      case 'string.base':
-        err.message = 'place_id must be a string';
-      case 'any.required':
-        err.message = 'place_id is required';
-      default:
-        break;
-    }
+const place_id = joi
+  .string()
+  .allow('')
+  .required()
+  .error(errors => {
+    errors.forEach(err => {
+      switch (err.type) {
+        case 'string.base':
+          err.message = 'place_id must be a string';
+        case 'any.required':
+          err.message = 'place_id is required';
+        default:
+          break;
+      }
+    });
+    return errors;
   });
-  return errors;
-});
 
-const queryId = joi
-  .number()
-  .error(() => 'Id must be a number');
+const queryId = joi.number().error(() => 'Id must be a number');
 
 const querySchema = joi.object().keys({
   lat,
@@ -144,8 +162,13 @@ const addLocationSchema = joi.object().keys({
   place_id,
 });
 
+const descriptionSchema = joi.object().keys({
+  description,
+});
+
 module.exports = {
   querySchema,
   queryId,
   addLocationSchema,
+  descriptionSchema,
 };

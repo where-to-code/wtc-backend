@@ -15,6 +15,11 @@ router.post(
   validate.validateLocationInput,
   locations.addLocation,
 );
-router.put('/locations/:id', locations.updateLocation);
+router.put(
+  '/locations/:id',
+  validate.validateId,
+  validate.validateLocationDescription,
+  locations.updateLocation,
+);
 
 module.exports = router;
