@@ -4,6 +4,9 @@ node_js:
 install: npm install
 services:
   - postgresql
+addons:
+  postgresql: "9.6"
+
 cache:
   directories:
     - "node_modules"
@@ -12,6 +15,8 @@ env:
     - DB_ENV=testing
 before_script:
   - psql -c 'create database backend_test;' -U postgres
+  - sudo sed -i 's/max_connections = 255/max_connections = 1000/g' /etc/postgresql/9.6/main/postgresql.conf
+  - sudo service postgresql restart
   - psql -c "CREATE USER root WITH PASSWORD 'password';" -U postgres
   - npx knex migrate:down --env=testing
   - npx knex migrate:rollback --env=testing
@@ -29,3 +34,4 @@ after_script:
   - jest --forceExit --coverage  --coverageReporters=text-lcov | coveralls 
 notifications:
   email: false
+
