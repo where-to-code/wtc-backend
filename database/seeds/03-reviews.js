@@ -3,7 +3,6 @@ exports.seed = knex =>
     {
       quietness: 2,
       wifi_speed: 1,
-      close_late: 4,
       community: 5,
       accessibility: 5,
       description: 'Service was awesome',
@@ -13,7 +12,6 @@ exports.seed = knex =>
     {
       quietness: 3,
       wifi_speed: 4,
-      close_late: 2,
       community: 1,
       accessibility: 1,
       description: 'Service was meh',
@@ -23,7 +21,6 @@ exports.seed = knex =>
     {
       quietness: 5,
       wifi_speed: 5,
-      close_late: 1,
       community: 3,
       accessibility: 2,
       description: 'was kinda over there',
@@ -33,7 +30,6 @@ exports.seed = knex =>
     {
       quietness: 1,
       wifi_speed: 1,
-      close_late: 2,
       community: 1,
       accessibility: 3,
       description: 'It definitely could have been better',
@@ -43,7 +39,6 @@ exports.seed = knex =>
     {
       quietness: 3,
       wifi_speed: 4,
-      close_late: 4,
       community: 5,
       accessibility: 5,
       description: 'Great, great place to code!',
