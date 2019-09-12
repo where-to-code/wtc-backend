@@ -19,4 +19,9 @@ const updateReview = (id, description) =>
     .update({ description })
     .where({ id });
 
-module.exports = { addReview, updateReview };
+const getSingleReview = id =>
+  db('reviews')
+    .where({ id })
+    .first();
+
+module.exports = { addReview, updateReview, getSingleReview };
