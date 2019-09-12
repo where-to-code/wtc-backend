@@ -26,13 +26,6 @@ describe('/locations/:id/review [POST]', () => {
       ]
     });
   });
-  it('should return an object with valid inputs', async () => {
-    const res = await request(server)
-      .post('/api/locations/300/review')
-      .send(review)
-      .expect('Content-Type', /json/);
-    expect(res.status).toEqual(201);
-  });
 
   it('should return an error if location id is not available', async () => {
     const res = await request(server)
@@ -44,18 +37,6 @@ describe('/locations/:id/review [POST]', () => {
       message: 'This location does not exist'
     });
   });
-
-  it('should return an error if user tries to review the same location twice', async () => {
-    const res = await request(server)
-      .post('/api/locations/300/review')
-      .send(review)
-      .expect('Content-Type', /json/);
-    expect(res.body).toEqual({
-      status: 500,
-      error: 'You have already reviewed this location.'
-    });
-  });
-
   it('should fail if network error', async () => {
     const reviewErr = {
       quietness: 2,
@@ -72,5 +53,24 @@ describe('/locations/:id/review [POST]', () => {
     } catch (error) {
       expect(error.status).toEqual(500);
     }
+  });
+
+  it('should return an object with valid inputs', async () => {
+    const res = await request(server)
+      .post('/api/locations/300/review')
+      .send(review)
+      .expect('Content-Type', /json/);
+    expect(res.status).toEqual(201);
+  });
+
+  it('should return an error if user tries to review the same location twice', async () => {
+    const res = await request(server)
+      .post('/api/locations/300/review')
+      .send(review)
+      .expect('Content-Type', /json/);
+    expect(res.body).toEqual({
+      status: 500,
+      error: 'You have already reviewed this location.'
+    });
   });
 });
