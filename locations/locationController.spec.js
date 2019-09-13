@@ -232,7 +232,7 @@ describe('POST/ add locations', () => {
   });
 });
 
-describe('/locations/:id [PUT] update a locations decription', async () => {
+describe('/locations/:id [PUT] update a locations decription', () => {
   const description = {
     description: 'This is an awesome place to code. Believe me',
   };

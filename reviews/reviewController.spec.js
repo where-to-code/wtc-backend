@@ -2,6 +2,16 @@ const request = require('supertest');
 const server = require('../api/server');
 
 describe('/locations/:id/review [POST]', () => {
+  let cookie;
+  beforeAll(async () => {
+    const res = await request(server)
+      .post('/api/auth/login')
+      .send({
+        email: 'aabjane@g.com',
+        password: '123456abc',
+      });
+    cookie = res.headers['set-cookie'];
+  });
   const review = {
     quietness: 2,
     wifi_speed: 3,
@@ -13,7 +23,8 @@ describe('/locations/:id/review [POST]', () => {
   it('should fail if required fields are not given', async () => {
     const res = await request(server)
       .post('/api/locations/5/review')
-      .send({});
+      .send({})
+      .set('Cookie',cookie)
     expect(res.body).toEqual({
       status: 400,
       message: [
@@ -31,6 +42,7 @@ describe('/locations/:id/review [POST]', () => {
     const res = await request(server)
       .post('/api/locations/30000/review')
       .send(review)
+      .set('Cookie',cookie)
       .expect('Content-Type', /json/);
     expect(res.body).toEqual({
       status: 404,
@@ -49,6 +61,7 @@ describe('/locations/:id/review [POST]', () => {
     try {
       await request(server)
         .post('/api/locations/1/review')
+        .set('Cookie',cookie)
         .send(reviewErr);
     } catch (error) {
       expect(error.status).toEqual(500);
@@ -59,6 +72,7 @@ describe('/locations/:id/review [POST]', () => {
     const res = await request(server)
       .post('/api/locations/300/review')
       .send(review)
+      .set('Cookie',cookie)
       .expect('Content-Type', /json/);
     expect(res.status).toEqual(201);
   });
@@ -67,6 +81,7 @@ describe('/locations/:id/review [POST]', () => {
     const res = await request(server)
       .post('/api/locations/300/review')
       .send(review)
+      .set('Cookie',cookie)
       .expect('Content-Type', /json/);
     expect(res.body).toEqual({
       status: 500,
