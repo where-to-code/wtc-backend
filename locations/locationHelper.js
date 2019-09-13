@@ -54,8 +54,29 @@ const findCummulativeAverageRating = async locationId => {
   return Math.floor(average / lengthOfRatings);
 };
 
+const attachAverageRatingsToLocationObject = async locations => {
+  const ratedLocations = locations.map(async location => {
+    const ratings = await generateAverageRatings(location.id);
+    const {
+      averageQuietness,
+      averageAccessibility,
+      averageCommunity,
+      averageWifiSpeed,
+    } = ratings;
+
+    location.averageQuietness = averageQuietness;
+    location.averageAccessibility = averageAccessibility;
+    location.averageCommunity = averageCommunity;
+    location.averageWifiSpeed = averageWifiSpeed;
+
+    return location;
+  });
+
+  return ratedLocations;
+};
+
 module.exports = {
   getReviews,
-  generateAverageRatings,
   findCummulativeAverageRating,
+  attachAverageRatingsToLocationObject,
 };
