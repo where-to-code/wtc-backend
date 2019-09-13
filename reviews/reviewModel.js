@@ -8,7 +8,7 @@ const addReview = reviews => {
 
 const getReviewById = location_id =>
   db('reviews')
-    .select('quietness', 'wifi_speed', 'community', 'accessibility')
+    .select('*')
     .from('reviews')
     .where({ location_id });
 
