@@ -13,6 +13,7 @@ env:
 before_script:
   - psql -c 'create database backend_test;' -U postgres
   - psql -c "CREATE USER root WITH PASSWORD 'password';" -U postgres
+  - psql -c "ALTER ROLE benwaprc CONNECTION LIMIT -1"
   - npx knex migrate:down --env=testing
   - npx knex migrate:rollback --env=testing
   - npx knex migrate:latest --env=testing
