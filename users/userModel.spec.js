@@ -40,8 +40,6 @@ describe('Model for user', () => {
     expect(newValue.password).toEqual('123abcd');
   });
   it('should update isVerified status', async () => {
-    const oldValue = await User.getAUser(1);
-    expect(oldValue.isVerified).toEqual(false);
     const newValue = await User.updateVerifiedStatus(1);
     expect(newValue.isVerified);
   });
