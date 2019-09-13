@@ -16,9 +16,9 @@ const updateVerifiedStatus = id =>
   db('users')
     .update('isVerified', true)
     .where({ id });
-const updatePassword = (id, newPassword) =>
+const updatePassword = (id, password) =>
   db('users')
-    .update('password', newPassword)
+    .update({ password, isVerified: true })
     .where({ id })
     .returning(['id', 'isVerified']);
 
