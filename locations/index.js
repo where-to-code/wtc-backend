@@ -14,7 +14,7 @@ router.get('/locations/:id', validate.validateId, locations.getSingleLocation);
 router.post('/locations', verifyToken, validate.validateLocationInput, locations.addLocation);
 router.put(
   '/locations/:id',
-  authenticate,
+  verifyToken,
   validate.validateId,
   validate.validateLocationDescription,
   locations.updateLocation,
