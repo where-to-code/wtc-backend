@@ -64,10 +64,10 @@ const attachAverageRatingsToLocationObject = async locations => {
       averageWifiSpeed,
     } = ratings;
 
-    location.averageQuietness = averageQuietness;
-    location.averageAccessibility = averageAccessibility;
-    location.averageCommunity = averageCommunity;
-    location.averageWifiSpeed = averageWifiSpeed;
+    location.avg_quietness = averageQuietness;
+    location.avg_accessibility = averageAccessibility;
+    location.avg_community = averageCommunity;
+    location.avg_wifi_speed = averageWifiSpeed;
 
     return location;
   });
