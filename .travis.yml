@@ -19,7 +19,6 @@ before_script:
   - sudo service postgresql restart
   - psql -c "CREATE USER root WITH PASSWORD 'password';" -U postgres
   - psql -c "ALTER ROLE root CONNECTION LIMIT -1"
-  - psql -c "ALTER ROLE benwaprc CONNECTION LIMIT -1"
   - npx knex migrate:down --env=testing
   - npx knex migrate:rollback --env=testing
   - npx knex migrate:latest --env=testing
