@@ -19,7 +19,7 @@ router.post(
 );
 router.put(
   '/locations/:id',
-  authenticate,
+  verifyToken,
   validate.validateId,
   validate.validateLocationDescription,
   locations.updateLocation,
