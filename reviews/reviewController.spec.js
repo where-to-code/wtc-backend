@@ -44,7 +44,6 @@ describe('/locations/:id/review [POST]', () => {
       .send(review)
       .set('Cookie', cookie)
       .expect('Content-Type', /json/);
-      console.log(cookie)
     expect(res.body).toEqual({
       status: 404,
       message: 'This location does not exist'

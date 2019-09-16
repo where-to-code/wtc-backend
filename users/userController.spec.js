@@ -265,7 +265,7 @@ describe('/auth/forgot [POST]', () => {
       .send({ email: 'jn@john.com' });
     expect(res.status).toEqual(200);
     urlAddress = res.body.data.Message.context.url;
-  }, 10000);
+  }, 20000);
 });
 
 describe('/auth/reset/:token [GET]', () => {
