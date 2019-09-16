@@ -35,7 +35,7 @@ const verify = async (req, res, usermessage, button, url) => {
         urlMessage: button,
       },
     };
-    mailer(message, res);
+    return await mailer(message, res);
   } catch (err) {
     return statusHandler(res, 500, err.toString());
   }
@@ -65,14 +65,14 @@ const register = async (req, res) => {
     };
 
     const newUser = await Model.registerUser(user);
-    await verify(
+    const { id, isVerified } = newUser[0];
+    const info = await verify(
       req,
       res,
       message1,
       'Confirm Email',
       `${process.env.URL}/api/auth/confirm`,
     );
-    const { id, isVerified } = newUser[0];
     if (newUser.length === 1) {
       await generateToken(res, newUser.id, firstname);
       return statusHandler(res, 201, {
@@ -81,6 +81,7 @@ const register = async (req, res) => {
         lastname,
         email,
         isVerified,
+        info,
       });
     }
   } catch (err) {

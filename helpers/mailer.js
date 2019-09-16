@@ -27,12 +27,12 @@ transporter.use(
     extName: '.hbs',
   }),
 );
-const mailer = (Message, res) => {
-  transporter.sendMail(Message, (err, info) => {
-    if (err) {
-      return statusHandler(res, 400, err.toString());
-    }
-    return statusHandler(res, 200, { message: 'Mail  Sent Succesfully', info , Message });
-  });
+const mailer = async (Message, res) => {
+  try {
+    const info = await transporter.sendMail(Message);
+    return { message: 'Mail sent', info };
+  } catch (err) {
+    return statusHandler(res, 400, err.toString());
+  }
 };
 module.exports = mailer;
