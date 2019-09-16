@@ -4,7 +4,6 @@
 module.exports = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
-
   // Stop running tests after `n` failures
   // bail: 0,
 
@@ -16,6 +15,7 @@ module.exports = {
 
   // Automatically clear mock calls and instances between every test
   clearMocks: true,
+  setupTestFrameworkScriptFile: './jest.setup.js',
 
   // Indicates whether the coverage information should be collected while executing the test
   // collectCoverage: false,
