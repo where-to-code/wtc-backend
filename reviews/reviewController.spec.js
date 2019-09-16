@@ -109,6 +109,7 @@ describe('/locations/:id/review [POST]', () => {
     const res = await request(server)
       .post('/api/locations/300/review')
       .send(review)
+      .set('Cookie',cookie)
       .expect('Content-Type', /json/);
     expect(res.status).toEqual(201);
   });

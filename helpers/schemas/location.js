@@ -146,10 +146,6 @@ const place_id = joi
     return errors;
   });
 
-<<<<<<< HEAD
-
-=======
->>>>>>> Validated the endpoint
 const queryId = joi.number().error(() => 'Id must be a number');
 
 const querySchema = joi.object().keys({
