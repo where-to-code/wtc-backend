@@ -7,6 +7,7 @@ module.exports = (res, status, data) => {
     404: 'message',
     403: 'message',
     500: 'error',
+    409: 'error',
   };
 
   res.status(status).json({
