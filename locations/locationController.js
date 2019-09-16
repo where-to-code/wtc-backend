@@ -25,9 +25,9 @@ const getAllLocationsCloseToUser = async (req, res) => {
 
     const ratedLocations = await attachAverageRatingsToLocationObject(data);
 
-    return Promise.all(ratedLocations).then(places =>
-      statusHandler(res, 200, places),
-    );
+    return Promise.all(ratedLocations)
+      .then(places => statusHandler(res, 200, places))
+      .catch(error => statusHandler(res, 500, error.toString()));
   } catch (error) {
     return statusHandler(res, 500, error.toString());
   }
