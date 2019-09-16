@@ -30,7 +30,7 @@ transporter.use(
 const mailer = async (Message, res) => {
   try {
     const info = await transporter.sendMail(Message);
-    return { message: 'Mail sent', info };
+    return { message: 'Mail sent', info, Message };
   } catch (err) {
     return statusHandler(res, 400, err.toString());
   }

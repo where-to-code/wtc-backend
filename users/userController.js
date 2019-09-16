@@ -200,13 +200,14 @@ const verifyMail = async (req, res) => {
   if (!result) {
     return statusHandler(res, 404, 'Email does not exist');
   }
-  await verify(
+  const data = await verify(
     req,
     res,
     message1,
     'Confirm Email',
     `${process.env.URL}/api/auth/confirm`,
   );
+  return statusHandler(res, 200, data);
 };
 const confirmMail = async (req, res) => {
   try {
@@ -219,13 +220,14 @@ const confirmMail = async (req, res) => {
 };
 
 const forgotPassword = async (req, res) => {
-  await verify(
+  const data = await verify(
     req,
     res,
     message2,
     'Reset Password',
     `${process.env.URL}/api/auth/reset`,
   );
+  return statusHandler(res, 200 , data)
 };
 
 const verifyPasswordResetToken = async (req, res) => {
