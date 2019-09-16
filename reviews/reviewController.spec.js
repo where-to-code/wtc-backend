@@ -99,6 +99,7 @@ describe('/locations/:id/review [POST]', () => {
     try {
       await request(server)
         .post('/api/locations/1/review')
+        .set('Cookie',cookie)
         .send(reviewErr);
     } catch (error) {
       expect(error.status).toEqual(500);

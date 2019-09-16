@@ -15,7 +15,11 @@ module.exports = {
 
   // Automatically clear mock calls and instances between every test
   clearMocks: true,
+<<<<<<< HEAD
   setupFilesAfterEnv: './jest.setup.js',
+=======
+  setupTestFrameworkScriptFile: './jest.setup.js',
+>>>>>>> 0cd3719a406fb827b58473f9620c39088c7bbaac
 
   // Indicates whether the coverage information should be collected while executing the test
   // collectCoverage: false,
