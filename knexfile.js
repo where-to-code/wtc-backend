@@ -36,10 +36,10 @@ module.exports = {
     client: 'pg',
     connection: process.env.DATABASE_URL,
     useNullAsDefault: true,
-    // pool: {
-    //   min: 2,
-    //   max: 40,
-    // },
+    pool: {
+      min: 1,
+      max: 2,
+    },
     migrations: {
       directory: './database/migrations',
     },
