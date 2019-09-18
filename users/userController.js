@@ -242,7 +242,8 @@ const resetPassword = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-  return res.clearCookie('token')
+  res.clearCookie('token')
+  return statusHandler(res, 200 , "Logout Successful")
 }
 module.exports = {
   register,
