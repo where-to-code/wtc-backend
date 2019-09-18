@@ -34,8 +34,6 @@ const register = async (req, res) => {
     const { id, isVerified } = newUser[0];
     if (newUser.length === 1) {
       await generateToken(res, newUser.id, firstname);
-      console.log('regsiter res', res);
-      console.log('reg cookies', res.cookies);
       return statusHandler(res, 201, {
         id,
         firstname,
@@ -243,6 +241,7 @@ const resetPassword = async (req, res) => {
 
 const logout = async (req, res) => {
   res.clearCookie('token')
+  res.cookie('token','',)
   return statusHandler(res, 200 , "Logout Successful")
 }
 module.exports = {
