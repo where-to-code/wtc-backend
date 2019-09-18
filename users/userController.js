@@ -241,6 +241,9 @@ const resetPassword = async (req, res) => {
   }
 };
 
+const logout = async (req, res) => {
+  return res.clearCookie('token')
+}
 module.exports = {
   register,
   login,
@@ -250,4 +253,5 @@ module.exports = {
   resetPassword,
   forgotPassword,
   gitHubAuth,
+  logout
 };

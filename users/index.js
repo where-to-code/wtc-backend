@@ -20,5 +20,5 @@ router.post('/auth/forgot', validate.validateEmail, user.forgotPassword);
 router.get('/auth/reset/:token', user.verifyPasswordResetToken);
 router.post('/auth/change/:id', validate.validateId, validate.validatePassword, user.resetPassword);
 router.get('/auth/gitAuth', user.gitHubAuth);
-
+router.get('auth/logout', verifyToken , user.logout)
 module.exports = router;
