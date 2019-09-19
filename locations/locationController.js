@@ -17,8 +17,11 @@ const getAllLocationsCloseToUser = async (req, res) => {
         'There is currently no locations around you',
       );
     }
+    const ratedLocations = await attachAverageRatingsToLocationObject(data);
 
-    return statusHandler(res, 200, data);
+    return Promise.all(ratedLocations)
+      .then(places => statusHandler(res, 200, places))
+      .catch(error => statusHandler(res, 500, error.toString()));
   } catch (error) {
     return statusHandler(res, 500, error.toString());
   }
