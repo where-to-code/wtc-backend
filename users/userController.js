@@ -251,7 +251,6 @@ const resetPassword = async (req, res) => {
 
 const logout = async (req, res) => {
   res.clearCookie('token');
-  res.cookie('token', '');
   return statusHandler(res, 200, 'Logout Successful');
 };
 module.exports = {
