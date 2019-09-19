@@ -227,7 +227,7 @@ const forgotPassword = async (req, res) => {
     'Reset Password',
     `${process.env.URL}/api/auth/reset`,
   );
-  return statusHandler(res, 200 , data)
+  return statusHandler(res, 200, data);
 };
 
 const verifyPasswordResetToken = async (req, res) => {
@@ -249,6 +249,11 @@ const resetPassword = async (req, res) => {
   }
 };
 
+const logout = async (req, res) => {
+  res.clearCookie('token');
+  res.cookie('token', '');
+  return statusHandler(res, 200, 'Logout Successful');
+};
 module.exports = {
   register,
   login,
@@ -258,4 +263,5 @@ module.exports = {
   resetPassword,
   forgotPassword,
   gitHubAuth,
+  logout,
 };

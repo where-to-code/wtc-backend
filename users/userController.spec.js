@@ -300,3 +300,22 @@ describe('/auth/change/:id [POST]', () => {
     expect(res.status).toEqual(200);
   });
 });
+
+describe('/auth/logout [GET]', () => {
+  let cookie;
+  beforeAll(async () => {
+    const res = await request(server)
+      .post('/api/auth/login')
+      .send({
+        email: 'jn@john.com',
+        password: '12345abc',
+      });
+    cookie = res.headers['set-cookie'];
+  });
+  it('should clear cookie', async () => {
+    const res = await request(server)
+      .get('/api/auth/logout')
+      .set('Cookie', cookie);
+    expect(res.headers['set-cookie']).toEqual('');
+  });
+});

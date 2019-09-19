@@ -12,7 +12,6 @@ const getReviewById = location_id =>
     .from('reviews')
     .where({ location_id });
 
-module.exports = { addReview, getReviewById };
 const updateReview = (id, description) =>
   db('reviews')
     .returning('*')
@@ -24,4 +23,4 @@ const getSingleReview = id =>
     .where({ id })
     .first();
 
-module.exports = { addReview, updateReview, getSingleReview };
+module.exports = { addReview, updateReview, getSingleReview, getReviewById };
