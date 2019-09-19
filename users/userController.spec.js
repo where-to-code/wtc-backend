@@ -108,6 +108,7 @@ describe('/auth/register [POST]', () => {
     });
   });
   it('should pass', async () => {
+    jest.spyOn(user, 'verifyMail').mockResolvedValue({ success: true });
     const res = await request(server)
       .post('/api/auth/register')
       .send({
@@ -115,7 +116,7 @@ describe('/auth/register [POST]', () => {
         lastname: 'jbd',
         email: 'jnb@j.com',
         password: '123abc',
-      });
+      }, 10000);
     expect(res.status).toEqual(201);
     expect(res.body.data).toHaveProperty('firstname', 'jjj');
     expect(res.body.data).toHaveProperty('lastname', 'jbd');
@@ -226,7 +227,7 @@ describe('/auth/verify [POST]', () => {
       .set('Cookie', cookie);
     expect(res.status).toEqual(200);
     urlAddress = res.body.data.Message.context.url;
-  }, 10000);
+  }, 15000);
   it('should fail is token is expired', async () => {
     const res = await request(server)
       .post('/api/auth/verify')
@@ -264,7 +265,7 @@ describe('/auth/forgot [POST]', () => {
       .send({ email: 'jn@john.com' });
     expect(res.status).toEqual(200);
     urlAddress = res.body.data.Message.context.url;
-  }, 10000);
+  }, 20000);
 });
 
 describe('/auth/reset/:token [GET]', () => {

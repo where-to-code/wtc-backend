@@ -1,7 +1,7 @@
 const express = require('express');
 const locations = require('./locationController');
 const validate = require('../middleware/validations');
-const authenticate = require('../middleware/authentication');
+const verifyToken = require('../middleware/authentication');
 
 const router = express.Router();
 
@@ -11,15 +11,10 @@ router.get(
   locations.getAllLocationsCloseToUser,
 );
 router.get('/locations/:id', validate.validateId, locations.getSingleLocation);
-router.post(
-  '/locations',
-  authenticate,
-  validate.validateLocationInput,
-  locations.addLocation,
-);
+router.post('/locations', verifyToken, validate.validateLocationInput, locations.addLocation);
 router.put(
   '/locations/:id',
-  authenticate,
+  verifyToken,
   validate.validateId,
   validate.validateLocationDescription,
   locations.updateLocation,

@@ -15,10 +15,7 @@ env:
     - DB_ENV=testing
 before_script:
   - psql -c 'create database backend_test;' -U postgres
-  - sudo sed -i 's/max_connections = 255/max_connections = 1000/g' /etc/postgresql/9.6/main/postgresql.conf
-  - sudo service postgresql restart
-  - psql -c "CREATE USER root WITH PASSWORD 'password';" -U postgres
-  - npx knex migrate:down --env=testing
+  - psql -c "ALTER ROLE postgres CONNECTION LIMIT -1"
   - npx knex migrate:rollback --env=testing
   - npx knex migrate:latest --env=testing
   - npx knex seed:run --env=testing

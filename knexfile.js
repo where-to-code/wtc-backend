@@ -7,8 +7,8 @@ module.exports = {
     connection: process.env.DB_URL,
     useNullAsDefault: true,
     pool: {
-      min: 2,
-      max: 10,
+      min: 1,
+      max: 2,
     },
     migrations: {
       directory: './database/migrations',
@@ -22,8 +22,8 @@ module.exports = {
     connection: process.env.DB_TEST_URL,
     useNullAsDefault: true,
     pool: {
-      min: 2,
-      max: 10,
+      min: 1,
+      max: 2,
     },
     migrations: {
       directory: './database/migrations',

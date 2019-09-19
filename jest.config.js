@@ -4,7 +4,6 @@
 module.exports = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
-
   // Stop running tests after `n` failures
   // bail: 0,
 
@@ -16,6 +15,7 @@ module.exports = {
 
   // Automatically clear mock calls and instances between every test
   clearMocks: true,
+  setupFilesAfterEnv: ['./jest.setup.js'],
 
   // Indicates whether the coverage information should be collected while executing the test
   // collectCoverage: false,
@@ -24,7 +24,7 @@ module.exports = {
   // collectCoverageFrom: null,
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: "coverage",
+  coverageDirectory: 'coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [
@@ -132,7 +132,7 @@ module.exports = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: "node",
+  testEnvironment: 'node',
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
