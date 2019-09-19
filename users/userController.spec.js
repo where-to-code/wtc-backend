@@ -112,12 +112,15 @@ describe('/auth/register [POST]', () => {
     jest.spyOn(user, 'verifyMail').mockResolvedValue({ success: true });
     const res = await request(server)
       .post('/api/auth/register')
-      .send({
-        firstname: 'jjj',
-        lastname: 'jbd',
-        email: 'jnb@j.com',
-        password: '123abc',
-      }, 10000);
+      .send(
+        {
+          firstname: 'jjj',
+          lastname: 'jbd',
+          email: 'jnb@j.com',
+          password: '123abc',
+        },
+        10000,
+      );
     expect(res.status).toEqual(201);
     expect(res.body.data).toHaveProperty('firstname', 'jjj');
     expect(res.body.data).toHaveProperty('lastname', 'jbd');
@@ -306,6 +309,15 @@ describe('/auth/logout [GET]', () => {
     const res = await request(server)
       .get('/api/auth/logout')
       .set('Cookie', cookie);
-    expect(res.headers['set-cookie']).toEqual('token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT');
+    expect(res.headers['set-cookie']).toEqual(
+      ['token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT'],
+    );
+    cookie = res.headers['set-cookie'];
+  });
+  it('should fail to logout if user is not logged in', async () => {
+    const res = await request(server)
+      .get('/api/auth/logout')
+      .set('Cookie', cookie);
+    expect(res.status).toEqual(401);
   });
 });
