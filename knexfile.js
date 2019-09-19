@@ -22,8 +22,8 @@ module.exports = {
     connection: process.env.DB_TEST_URL,
     useNullAsDefault: true,
     pool: {
-      min: 1,
-      max: 2,
+      min: 2,
+      max: 5,
     },
     migrations: {
       directory: './database/migrations',
