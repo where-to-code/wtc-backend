@@ -19,6 +19,7 @@ server.use(
       'https://wheretocode-frontend.herokuapp.com',
       'https://where-to-code.herokuapp.com',
       'https://wheretocode.com',
+      'https://wtc-haja.netlify.com,
       '*'
     ],
     credentials: true
