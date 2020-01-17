@@ -18,7 +18,7 @@ describe('/locations/:id/review [POST]', () => {
     community: 4,
     accessibility: 5,
     description: 'Place was great',
-    user_id: 5
+    user_id: 5,
   };
   it('should fail if required fields are not given', async () => {
     const res = await request(server)
@@ -56,7 +56,7 @@ describe('/locations/:id/review [POST]', () => {
       community: 4,
       accessibility: 5,
       description: 'Place was great',
-      user_id: 50000
+      user_id: 50000,
     };
     try {
       await request(server)

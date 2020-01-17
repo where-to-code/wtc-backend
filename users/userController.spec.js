@@ -4,6 +4,7 @@ const server = require('../api/server');
 const user = require('./userController');
 
 let urlAddress;
+let cookie;
 describe('/auth/register [POST]', () => {
   it('should fail if required fields are not given', async () => {
     const res = await request(server)
@@ -111,12 +112,15 @@ describe('/auth/register [POST]', () => {
     jest.spyOn(user, 'verifyMail').mockResolvedValue({ success: true });
     const res = await request(server)
       .post('/api/auth/register')
-      .send({
-        firstname: 'jjj',
-        lastname: 'jbd',
-        email: 'jnb@j.com',
-        password: '123abc',
-      }, 10000);
+      .send(
+        {
+          firstname: 'jjj',
+          lastname: 'jbd',
+          email: 'jnb@j.com',
+          password: '123abc',
+        },
+        10000,
+      );
     expect(res.status).toEqual(201);
     expect(res.body.data).toHaveProperty('firstname', 'jjj');
     expect(res.body.data).toHaveProperty('lastname', 'jbd');
@@ -173,7 +177,6 @@ describe('/auth/login [POST]', () => {
   });
 });
 describe('/auth/verify [POST]', () => {
-  let cookie;
   beforeAll(async () => {
     const res = await request(server)
       .post('/api/auth/login')
@@ -302,20 +305,19 @@ describe('/auth/change/:id [POST]', () => {
 });
 
 describe('/auth/logout [GET]', () => {
-  let cookie;
-  beforeAll(async () => {
-    const res = await request(server)
-      .post('/api/auth/login')
-      .send({
-        email: 'jn@john.com',
-        password: '12345abc',
-      });
-    cookie = res.headers['set-cookie'];
-  });
   it('should clear cookie', async () => {
     const res = await request(server)
       .get('/api/auth/logout')
       .set('Cookie', cookie);
-    expect(res.headers['set-cookie']).toEqual('');
+    expect(res.headers['set-cookie']).toEqual(
+      ['token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT'],
+    );
+    cookie = res.headers['set-cookie'];
+  });
+  it('should fail to logout if user is not logged in', async () => {
+    const res = await request(server)
+      .get('/api/auth/logout')
+      .set('Cookie', cookie);
+    expect(res.status).toEqual(401);
   });
 });
